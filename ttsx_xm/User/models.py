@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class UserInfo(models.Model):
     userName = models.CharField(max_length=20)
@@ -10,7 +11,8 @@ class UserInfo(models.Model):
 
 
 class UserAddressInfo(models.Model):
-    uname = models.CharField(max_length=20)
-    uaddress = models.CharField(max_length=100)
-    uphone = models.CharField(max_length=11)
+    uName = models.CharField(max_length=20)
+    uAddress = models.CharField(max_length=100)
+    uPhone = models.CharField(max_length=11)
     user = models.ForeignKey('UserInfo')
+    
