@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="/static/js/register.js"></script>
 </head>
 <body>
-=======
+
 {% extends 'base.html' %}
 
 {% block head %}
@@ -18,7 +18,7 @@
 {% endblock head %}
 
 {% block body %}
->>>>>>> qiu
+
 	<div class="register_con">
 		<div class="l_con fl">
 			<a class="reg_logo"><img src="/static/images/logo02.png"></a>
@@ -32,7 +32,8 @@
 				<a href="#">登录</a>
 			</div>
 			<div class="reg_form clearfix">
-				<form>
+
+				<form method="post" action="/regist/">
 				<ul>
 					<li>
 						<label>用户名:</label>
@@ -64,6 +65,7 @@
 					</li>
 				</ul>				
 				</form>
+
 			</div>
 
 		</div>

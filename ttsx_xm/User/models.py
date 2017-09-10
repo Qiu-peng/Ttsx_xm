@@ -29,9 +29,13 @@ class UserInfo(models.Model):
     isValid = models.BooleanField(default=True)
     isActive = models.BooleanField(default=False)
 
+    users = UserInfoManager()
+
 
 class UserAddressInfo(models.Model):
     uName = models.CharField(max_length=20)
     uAddress = models.CharField(max_length=100)
     uPhone = models.CharField(max_length=11)
     user = models.ForeignKey('UserInfo')
+
+    address = AddressInfoManager()
