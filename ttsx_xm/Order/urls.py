@@ -3,5 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$',)
+
+    url(r'^$',views.order),
+
 ]
