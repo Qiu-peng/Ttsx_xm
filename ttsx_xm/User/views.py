@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import *
 # Create your views here.
 
-<<<<<<< HEAD
 
 def login(request):
     return render(request, 'User/login.html')
@@ -11,7 +10,6 @@ def register(request):
     return render(request, 'User/register.html')
 
 
-=======
 # 显示登录页面
 def login(request):
     return render(request, 'User/login.html')
@@ -30,4 +28,3 @@ def regist(request):
     add = UserInfo.users.create(uname, upsw, uemail)
     add.save()
     return redirect('/login/')
->>>>>>> dev
