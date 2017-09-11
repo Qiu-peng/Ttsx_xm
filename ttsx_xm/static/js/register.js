@@ -40,6 +40,7 @@ $(function(){
 
 	function check_user_name(){
 		var len = $('#user_name').val().length;
+		var value = $('#user_name').val
 		if(len<5||len>20)
 		{
 			$('#user_name').next().html('请输入5-20个字符的用户名')
@@ -48,8 +49,16 @@ $(function(){
 		}
 		else
 		{
-			$('#user_name').next().hide();
-			error_name = false;
+			$.get('/User/ishere/', function (data) {
+                if (data.it) {
+                    alert('用户名已存在')
+                    error_name = true
+                }
+                else {
+                    $('#user_name').next().hide();
+                    error_name = false;
+                }
+            })
 		}
 	}
 
