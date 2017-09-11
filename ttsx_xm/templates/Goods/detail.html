@@ -2,7 +2,7 @@
     {% block title %}
     <title>天天生鲜-商品详情</title>
     {% endblock title %}
-{% block body %}
+    {% block body %}
 
 	<div class="header_con">
 		<div class="header">
@@ -12,30 +12,30 @@
 					欢迎您：<em>张 山</em>
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="/User/login/">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="/User/register/">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="/User/user_center_info/">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="/Cart/cart.html">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="/User/user_center_order/">我的订单</a>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
 		</div>
 		<div class="guest_cart fr">
-			<a href="cart.html" class="cart_name fl">我的购物车</a>
+			<a href="/Cart/cart/" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl" id="show_count">1</div>
 		</div>
 	</div>
@@ -43,8 +43,8 @@
 	<div class="navbar_con">
 		<div class="navbar clearfix">
 			<div class="subnav_con fl">
-				<h1>全部商品分类</h1>	
-				<span></span>			
+				<h1>全部商品分类</h1>
+				<span></span>
 				<ul class="subnav">
 					<li><a href="#" class="fruit">新鲜水果</a></li>
 					<li><a href="#" class="seafood">海鲜水产</a></li>
@@ -73,7 +73,7 @@
 	</div>
 
 	<div class="goods_detail_con clearfix">
-		<div class="goods_detail_pic fl"><img src="images/goods_detail.jpg"></div>
+		<div class="goods_detail_pic fl"><img src="/static/images/goods_detail.jpg"></div>
 
 		<div class="goods_detail_list fr">
 			<h3>大兴大棚草莓</h3>
@@ -86,14 +86,14 @@
 				<div class="num_name fl">数 量：</div>
 				<div class="num_add fl">
 					<input type="text" class="num_show fl" value="1">
-					<a href="javascript:;" class="add fr">+</a>
-					<a href="javascript:;" class="minus fr">-</a>	
-				</div> 
+					<a href="javascript:" class="add fr">+</a>
+					<a href="javascript:" class="minus fr">-</a>
+				</div>
 			</div>
 			<div class="total">总价：<em>16.80元</em></div>
 			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
+				<a href="javascript:" class="buy_btn">立即购买</a>
+				<a href="javascript:" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
 	</div>
@@ -104,12 +104,12 @@
 				<h3>新品推荐</h3>
 				<ul>
 					<li>
-						<a href="#"><img src="images/goods/goods001.jpg"></a>
+						<a href="#"><img src="/static/images/goods/goods001.jpg"></a>
 						<h4><a href="#">进口柠檬</a></h4>
 						<div class="prize">￥3.90</div>
 					</li>
 					<li>
-						<a href="#"><img src="images/goods/goods002.jpg"></a>
+						<a href="#"><img src="/static/images/goods/goods002.jpg"></a>
 						<h4><a href="#">玫瑰香葡萄</a></h4>
 						<div class="prize">￥16.80</div>
 					</li>
@@ -132,9 +132,23 @@
 
 		</div>
 	</div>
-{% endblock body %}
+    {% endblock body %}
 
 {% block bottom %}
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>
+		</div>
+		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
 
 	<div class="add_jump"></div>
 
