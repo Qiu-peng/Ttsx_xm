@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
+"""
 class OrderInfo(models.Model):
     # 订单编号
     oid=models.CharField(max_length=20, primary_key=True)
@@ -25,4 +25,4 @@ class OrderDetailInfo(models.Model):
     price=models.DecimalField(max_digits=5,decimal_places=2)
     # 数量
     count=models.IntegerField()
-
+"""

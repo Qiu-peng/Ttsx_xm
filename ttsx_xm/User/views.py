@@ -3,13 +3,6 @@ from .models import *
 # Create your views here.
 
 
-def login(request):
-    return render(request, 'User/login.html')
-
-def register(request):
-    return render(request, 'User/register.html')
-
-
 # 显示登录页面
 def login(request):
     return render(request, 'User/login.html')
