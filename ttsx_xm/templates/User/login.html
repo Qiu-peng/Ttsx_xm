@@ -5,7 +5,6 @@
     {% endblock title %}
 
     {% block head %}
-    <script type="text/javascript" src="/static/js/jquery.form.min.js"></script>
     <script type="text/javascript" src="/static/js/login.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -14,8 +13,8 @@
                     var upwd =$('.pass_input').val();
                     if(data.pwd ==upwd){
                         // alert('ok');
-                         window.location.href ='/';
-                        // $.get('/User/toindex/',{'name':$('.name_input').val()})
+{#                         window.location.href ='/';#}
+                        $.get('/User/toindex/',{'name':$('.name_input').val()})
                     }else {
                         $('.pass_input').val('');
                         $('.btn_error').show();
