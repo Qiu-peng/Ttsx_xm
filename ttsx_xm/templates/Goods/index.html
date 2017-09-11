@@ -89,8 +89,9 @@
 			<h3 class="fl" id="model01">新鲜水果</h3>
 			<div class="subtitle fl">
 				<span>|</span>
+{#                从数据库过滤获取新添加商品#}
                 {% for goods in fruit %}
-                <a href="">{{ goods.gtitle }}</a>
+                <a href="">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
 			<a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
@@ -98,10 +99,11 @@
 
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="/static/images/banner01.jpg"></div>
-			<ul class="goods_list fl">
+{#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
+            <ul class="goods_list fl">
                 {% for fpic in fruit2 %}
                 <li>
-                    <h4><a href="">{{ fpic.gtitle }}</a></h4>
+                    <h4><a href="">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href=""><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">{{ fpic.gprice }}</div>
                 </li>
@@ -116,8 +118,9 @@
 			<h3 class="fl" id="model02">海鲜水产</h3>
 			<div class="subtitle fl">
 				<span>|</span>
+{#                从数据库过滤获取新添加商品#}
                 {% for goods in fish %}
-                <a href="">{{ goods.gtitle }}</a>
+                <a href="">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 
 			</div>
@@ -127,9 +130,10 @@
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="/static/images/banner02.jpg"></div>
 			<ul class="goods_list fl">
+{#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                  {% for fpic in fish2 %}
                 <li>
-                    <h4><a href="">{{ fpic.gtitle }}</a></h4>
+                    <h4><a href="">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href=""><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">{{ fpic.gprice }}</div>
                 </li>
@@ -144,8 +148,9 @@
 			<h3 class="fl" id="model03">猪牛羊肉</h3>
 			<div class="subtitle fl">
 				<span>|</span>
+ {#                从数据库过滤获取新添加商品#}
                 {% for goods in meal %}
-                <a href="">{{ goods.gtitle }}</a>
+                <a href="">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
 			<a href="#" class="goods_more fr">查看更多 ></a>
@@ -154,9 +159,10 @@
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="/static/images/banner03.jpg"></div>
 			<ul class="goods_list fl">
+{#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                   {% for fpic in meal2 %}
                 <li>
-                    <h4><a href="">{{ fpic.gtitle }}</a></h4>
+                    <h4><a href="">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href=""><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">{{ fpic.gprice }}</div>
                 </li>
@@ -170,8 +176,9 @@
 			<h3 class="fl" id="model04">禽类蛋品</h3>
 			<div class="subtitle fl">
 				<span>|</span>
+{#                从数据库过滤获取新添加商品#}
                 {% for goods in eggs %}
-                <a href="">{{ goods.gtitle }}</a>
+                <a href="">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
 			<a href="#" class="goods_more fr">查看更多 ></a>
@@ -180,9 +187,10 @@
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="/static/images/banner04.jpg"></div>
 			<ul class="goods_list fl">
+{#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in eggs2 %}
                 <li>
-                    <h4><a href="">{{ fpic.gtitle }}</a></h4>
+                    <h4><a href="">{{ fpic.gtitle.split.0 }}</a></h4>
                     <a href=""><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">{{ fpic.gprice }}</div>
                 </li>
@@ -196,8 +204,9 @@
 			<h3 class="fl" id="model05">新鲜蔬菜</h3>
 			<div class="subtitle fl">
 				<span>|</span>
+{#                从数据库过滤获取新添加商品#}
                 {% for goods in vege %}
-                <a href="">{{ goods.gtitle }}</a>
+                <a href="">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
 			<a href="#" class="goods_more fr">查看更多 ></a>
@@ -206,9 +215,10 @@
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="/static/images/banner05.jpg"></div>
 			<ul class="goods_list fl">
+{#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in vege2 %}
                 <li>
-                    <h4><a href="">{{ fpic.gtitle }}</a></h4>
+                    <h4><a href="">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href=""><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">{{ fpic.gprice }}</div>
                 </li>
@@ -222,8 +232,9 @@
 			<h3 class="fl" id="model06">速冻食品</h3>
 			<div class="subtitle fl">
 				<span>|</span>
+{#                从数据库过滤获取新添加商品#}
                 {% for goods in fastFrozen %}
-                <a href="">{{ goods.gtitle }}</a>
+                <a href="">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
 			<a href="#" class="goods_more fr">查看更多 ></a>
@@ -232,9 +243,10 @@
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="/static/images/banner06.jpg"></div>
 			<ul class="goods_list fl">
+{#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in fastFrozen2 %}
                 <li>
-                    <h4><a href="">{{ fpic.gtitle }}</a></h4>
+                    <h4><a href="">{{ fpic.gtitle.split.0 }}</a></h4>
                     <a href=""><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">{{ fpic.gprice }}</div>
                 </li>
