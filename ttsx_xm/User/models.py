@@ -30,6 +30,9 @@ class UserInfo(models.Model):
     isActive = models.BooleanField(default=False)
 
     users = UserInfoManager()
+    # 类对象的打印信息
+    def __str__(self):
+        return self.userName
 
 
 class UserAddressInfo(models.Model):

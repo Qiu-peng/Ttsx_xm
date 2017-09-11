@@ -25,3 +25,9 @@ img{border:0;}
 /* 浮动 */
 .fl{float:left}
 .fr{float:right}
+
+/*  解决谷歌自带记住密码的样式 */
+input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0px 50px #ffffff inset;
+    -webkit-text-fill-color: #000;
+}
