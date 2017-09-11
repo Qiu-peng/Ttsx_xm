@@ -9,23 +9,17 @@ def login(request):
 
 
 def toLogin(request):
-    dict = request.POST
-    uname = dict.get('username')
-    upsd = dict.get('pwd')
-    # the_user = UserInfo.objects.get(userName=uname)
-    # verifycode = the_user.userPsw
+    uname = request.POST.get('name')
+    the_user = UserInfo.users.get(userName=uname)
+    upwd = the_user.userPsw
+    return JsonResponse({'pwd':upwd})
 
-    verifyname = 'sunhh'
-    verifycode = '123'
-    if (upsd == verifycode) and (uname == verifyname):
-        return render(request, 'Goods/index.html')
-        # return JsonResponse({'verify': True})
-    else:
-        return JsonResponse({'verify': False})
-        # return render(request, 'User/login.html', {'aaa': 111})
-
-    # list = [verifyname, verifycode]
-    # return JsonResponse({'verify': list})
+def toindex(request):
+    uname = request.GET.get('name')
+    context={'uname':uname}
+    # print(context)
+    return render(request, 'Goods/index.html', context)
+    # return redirect('Goods/index.html')
 
 # 显示注册页面
 def register(request):
