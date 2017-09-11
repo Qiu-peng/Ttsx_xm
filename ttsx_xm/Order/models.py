@@ -16,6 +16,8 @@ class OrderInfo(models.Model):
     # 订单地址
     oaddress=models.CharField(max_length=150)
 
+
+
 class OrderDetailInfo(models.Model):
     # 关联商品
     goods=models.ForeignKey(GoodsInfo)
@@ -25,4 +27,5 @@ class OrderDetailInfo(models.Model):
     price=models.DecimalField(max_digits=5,decimal_places=2)
     # 数量
     count=models.IntegerField()
+
 

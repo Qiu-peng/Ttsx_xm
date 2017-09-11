@@ -103,6 +103,7 @@
             <li class="col04">数量</li>
             <li class="col05">小计</li>
         </ul>
+        {% comment %}
         <ul class="goods_list_td clearfix">
             <li class="col01">1</li>
             <li class="col02"><img src="/static/images/goods/goods012.jpg"></li>
@@ -121,6 +122,35 @@
             <li class="col06">2</li>
             <li class="col07">16.80元</li>
         </ul>
+        {% endcomment %}
+        {% comment %}
+        {% for c in cart %}
+            <ul class="goods_list_td clearfix">
+                {#   c.goods是一个商品对象         #}
+                <li>{{ c.goods.id }}</li>
+            </ul>
+        {% endfor %}
+        {% endcomment %}
+        {% for c in cart %}
+
+            <ul class="goods_list_td clearfix">
+                {# 商品序号 #}
+                <li class="col01">{{forloop.counter}}</li>
+                {# 商品图片 #}
+                <li class="col02"><img src='/static/media/{{ c.goods.gpic }}'></li>
+                {# 商品名称 #}
+                <li class="col03">{{ c.goods.gtitle.split.0}}{{ c.goods.gtitle.split.1}}</li>
+                {# 商品单位 #}
+                <li class="col04">{{ c.goods.gunit}}</li>
+                {# 商品价格 #}
+                <li class="col05">{{ c.goods.gprice }}</li>
+                {# 商品数量 #}
+                <li class="col06">{{ c.count }}</li>
+                {# 商品金额 #}
+                <li class="col07">0</li>
+            </ul>
+        {% endfor %}
+
     </div>
 
     <h3 class="common_title">总金额结算</h3>
