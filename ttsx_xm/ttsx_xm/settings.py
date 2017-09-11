@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'Goods',
     'User',
     'Order',
+    'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,3 +117,10 @@ STATICFILES_DIRS = [
 ]
 # 配置文件保存在项目静态文件中的位置
 MEDIA_ROOT=os.path.join(BASE_DIR, 'static/media')
+
+#　富文本编辑器配置项
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}

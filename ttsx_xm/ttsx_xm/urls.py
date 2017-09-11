@@ -25,5 +25,6 @@ urlpatterns = [
     # url('^Cart/', include('Cart.urls')),
 
     url(r'^$',include('Goods.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
 
 ]
