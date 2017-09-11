@@ -1,14 +1,14 @@
+
 {% extends 'base.html' %}
     {% block title %}
-    <title>天天生鲜-首页</title>
+	<title>天天生鲜-首页</title>
     {% endblock title %}
-
     {% block head %}
-	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/slide.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/static/js/slide.js"></script>
     {% endblock head %}
 
-{% block body %}
+    {% block body %}
 
 	<div class="header_con">
 		<div class="header">
@@ -31,7 +31,7 @@
 					<a href="user_center_order.html">我的订单</a>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
 
 	<div class="search_bar clearfix">
@@ -130,7 +130,7 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				<a href="#">河虾</a>
-				<a href="#">扇贝</a>				
+				<a href="#">扇贝</a>
 			</div>
 			<a href="#" class="goods_more fr">查看更多 ></a>
 		</div>
@@ -179,7 +179,11 @@
 			<ul class="goods_list fl">
 				<li>
 					<h4><a href="#">维多利亚葡萄维多利亚葡萄维多利亚葡萄维多利亚葡萄</a></h4>
+<<<<<<< HEAD
 					<a href="#"><img src="/static/images/goods.jpg"></a>
+=======
+					<a href="#"><img src="/static/iimages/goods.jpg"></a>
+>>>>>>> dev
 					<div class="prize">¥ 38.00</div>
 				</li>
 				<li>
@@ -317,25 +321,7 @@
 			</ul>
 		</div>
 	</div>
+
 {% endblock body %}
 
-{% block bottom %}
-	<script type="text/javascript" src="/static/js/slide.js"></script>
 
-	<script type="text/javascript">
-		BCSlideshow('focuspic');
-		var oFruit = document.getElementById('fruit_more');
-		var oShownum = document.getElementById('show_count');
-
-		var hasorder = localStorage.getItem('order_finish');
-
-		if(hasorder)
-		{
-			oShownum.innerHTML = '2';
-		}
-
-		oFruit.onclick = function(){
-			window.location.href = 'list.html';
-		}
-	</script>
-{% endblock bottom %}

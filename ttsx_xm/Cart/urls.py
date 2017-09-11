@@ -6,3 +6,8 @@ urlpatterns =[
 
 ]
 
+urlpatterns=[
+    url('^cart/$',views.cart),
+]
+
+

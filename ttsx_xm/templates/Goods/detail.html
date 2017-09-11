@@ -1,3 +1,14 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>天天生鲜-商品详情</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+
+</head>
+<body>
 {% extends 'base.html' %}
     {% block title %}
     <title>天天生鲜-商品详情</title>
@@ -25,11 +36,11 @@
 					<a href="user_center_order.html">我的订单</a>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
@@ -43,8 +54,8 @@
 	<div class="navbar_con">
 		<div class="navbar clearfix">
 			<div class="subnav_con fl">
-				<h1>全部商品分类</h1>	
-				<span></span>			
+				<h1>全部商品分类</h1>
+				<span></span>
 				<ul class="subnav">
 					<li><a href="#" class="fruit">新鲜水果</a></li>
 					<li><a href="#" class="seafood">海鲜水产</a></li>
@@ -73,7 +84,7 @@
 	</div>
 
 	<div class="goods_detail_con clearfix">
-		<div class="goods_detail_pic fl"><img src="images/goods_detail.jpg"></div>
+		<div class="goods_detail_pic fl"><img src="/static/images/goods_detail.jpg"></div>
 
 		<div class="goods_detail_list fr">
 			<h3>大兴大棚草莓</h3>
@@ -86,14 +97,14 @@
 				<div class="num_name fl">数 量：</div>
 				<div class="num_add fl">
 					<input type="text" class="num_show fl" value="1">
-					<a href="javascript:;" class="add fr">+</a>
-					<a href="javascript:;" class="minus fr">-</a>	
-				</div> 
+					<a href="javascript:" class="add fr">+</a>
+					<a href="javascript:" class="minus fr">-</a>
+				</div>
 			</div>
 			<div class="total">总价：<em>16.80元</em></div>
 			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
+				<a href="javascript:" class="buy_btn">立即购买</a>
+				<a href="javascript:" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
 	</div>
@@ -104,12 +115,12 @@
 				<h3>新品推荐</h3>
 				<ul>
 					<li>
-						<a href="#"><img src="images/goods/goods001.jpg"></a>
+						<a href="#"><img src="/static/images/goods/goods001.jpg"></a>
 						<h4><a href="#">进口柠檬</a></h4>
 						<div class="prize">￥3.90</div>
 					</li>
 					<li>
-						<a href="#"><img src="images/goods/goods002.jpg"></a>
+						<a href="#"><img src="/static/images/goods/goods002.jpg"></a>
 						<h4><a href="#">玫瑰香葡萄</a></h4>
 						<div class="prize">￥16.80</div>
 					</li>
@@ -135,6 +146,23 @@
 {% endblock body %}
 
 {% block bottom %}
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>
+		</div>
+		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+	<div class="add_jump"></div>
+
+	<script type="text/javascript" src="/static/js/jquery-1.12.2.js"></script>
 
 	<div class="add_jump"></div>
 
