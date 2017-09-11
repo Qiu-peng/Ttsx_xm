@@ -11,6 +11,7 @@ urlpatterns =[
 
     url('^toLogin/$', views.toLogin),
     url('^toindex/$', views.toindex),
+    url('^session_get/$', views.session_get),
 
     url(r'^user_center_info/$', views.center)
 
