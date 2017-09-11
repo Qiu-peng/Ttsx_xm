@@ -23,4 +23,5 @@ urlpatterns = [
     url('^User/', include('User.urls')),    # 用户模块跳转
     url('^Order/', include('Order.urls')),  # 订单模块跳转
     url('^Cart/', include('Cart.urls')),  # 购物车模块跳转
+    url(r'^tinymce/',include('tinymce.urls')),  # 配置编辑器url
 ]

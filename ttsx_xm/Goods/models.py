@@ -1,5 +1,5 @@
 from django.db import models
-
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class TypeInfo(models.Model):
 
     # 对象打印显示
     def __str__(self):
-        return self.ttile.encode('utf-8')
+        return self.ttile
 
 
 class GoodsInfo(models.Model):
@@ -29,13 +29,15 @@ class GoodsInfo(models.Model):
     gunit = models.CharField(max_length=20, default='500g')
     # 点击量
     gclick = models.IntegerField()
+    # 简介
+    gjianjie = models.CharField(max_length=200)
     # 库存量
     gkucun = models.IntegerField()
     # 描述
-    gcontent = models.TextField()
+    gcontent = HTMLField()
     # 类型
     gtype = models.ForeignKey(TypeInfo)
 
     # 类对象的打印信息
     def __str__(self):
-        return self.gtitle.encode('utf-8')
+        return self.gtitle
