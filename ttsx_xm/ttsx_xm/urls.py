@@ -18,7 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$',include('Goods.urls')),  # 主页跳转
+
+    url(r'^$', include('Goods.urls')),  # 主页跳转
     url('^Goods/', include('Goods.urls')),  # 商品模块跳转
     url('^User/', include('User.urls')),    # 用户模块跳转
     url('^Order/', include('Order.urls')),  # 订单模块跳转

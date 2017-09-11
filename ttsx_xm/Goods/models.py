@@ -19,7 +19,7 @@ class GoodsInfo(models.Model):
     """商品信息"""
     # 商品名称
     gtitle = models.CharField(max_length=20)
-    # 上传图片路径为static/media/goods
+    # 图片路径
     gpic = models.ImageField(upload_to='goods')
     # 单价,总位数5位，小数位数2位
     gprice = models.DecimalField(max_digits=5, decimal_places=2)
@@ -37,6 +37,7 @@ class GoodsInfo(models.Model):
     gcontent = HTMLField()
     # 类型
     gtype = models.ForeignKey(TypeInfo)
+
 
     # 类对象的打印信息
     def __str__(self):
