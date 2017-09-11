@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
+    {% block title %}
+        <title>天天生鲜-登录</title>
+    {% endblock title %}
 
+    {% block head %}
+        <script type="text/javascript">
+            $(function () {
+                $('.input_submit').click(function () {
+
+                    $.get('/User/toLogin/', function (data) {
+                        if(data.verify == true) {
+                            $.get('/Goods/index/')
+                        }
+                        else (data.verify == false){
+                            console.log('ok')
+                            $('.user_error .pwd_error').show()
+                        }
+
+
+
+{#                        var upsd = $('.pass_input').val()#}
+{#                        var uname = $('.name_input').val()#}
+{#                        if((upsd == data[1]) && (uname == data[0])){#}
+{#                            $.post('/Goods/index.html')#}
+{#                        }#}
+{#                        else{#}
+{#                            console.log('ok')#}
+{#                            $('.user_error .pwd_error').show()#}
+{#                            return false#}
+{#                        }#}
+                    });
+                });
+            });
+
+        </script>
+    {% endblock head %}
 {% block body %}
 
-    {% block title %}
-    <title>天天生鲜-登录</title>
-    {% endblock title %}
 
 	<div class="login_top clearfix">
 		<a href="index.html" class="login_logo"><img src="/static/images/logo02.png"></a>
@@ -20,18 +52,22 @@
 					<a href="#">立即注册</a>
 				</div>
 				<div class="form_input">
-					<form>
+
+					<form method="post" action="">
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
 						<div class="user_error">输入错误</div>
-						<input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
+
+                        <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
 						<div class="pwd_error">输入错误</div>
-						<div class="more_input clearfix">
+
+                        <div class="more_input clearfix">
 							<input type="checkbox" name="">
 							<label>记住用户名</label>
 							<a href="#">忘记密码</a>
 						</div>
 						<input type="submit" name="" value="登录" class="input_submit">
 					</form>
+
 				</div>
 			</div>
 		</div>
