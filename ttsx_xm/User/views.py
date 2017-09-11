@@ -42,9 +42,12 @@ def regist(request):
     add.save()
     return redirect('/User/login/')
 
+
+# 判断注册用户的用户名是否存在,存在就不存入不注册
 def ishere(request):
-    uname = request.POST.get('user_name')
-    getit = UserInfo.objects.filter(userName=uname).exists()
+    uname = request.GET.get('name')
+    getit = UserInfo.users.filter(userName=uname).exists()
+
     return JsonResponse({'it': getit})
 
 def center(request):

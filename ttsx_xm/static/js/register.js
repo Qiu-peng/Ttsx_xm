@@ -4,7 +4,7 @@ $(function(){
 	var error_password = false;
 	var error_check_password = false;
 	var error_email = false;
-	var error_check = false;
+	var error_check = true;
 
 
 	$('#user_name').blur(function() {
@@ -40,24 +40,27 @@ $(function(){
 
 	function check_user_name(){
 		var len = $('#user_name').val().length;
-		var value = $('#user_name').val
+		// var value = //$('#user_name').val
 		if(len<5||len>20)
 		{
 			$('#user_name').next().html('请输入5-20个字符的用户名')
 			$('#user_name').next().show();
-			error_name = true;
+			error_name = false;
+
 		}
 		else
 		{
-			$.get('/User/ishere/', function (data) {
-                if (data.it) {
+			$.get('/User/ishere/',{'name': $('#user_name').val()}, function (data) {
+				if (data.it) {
                     alert('用户名已存在')
-                    error_name = true
-                }
-                else {
-                    $('#user_name').next().hide();
+                    $('#user_name').next().html('用户名已存在')
+                    $('#user_name').next().show();
                     error_name = false;
                 }
+                else{
+					$('#user_name').next().hide();
+					error_name = true;
+				}
             })
 		}
 	}
@@ -68,12 +71,12 @@ $(function(){
 		{
 			$('#pwd').next().html('密码最少8位，最长20位')
 			$('#pwd').next().show();
-			error_password = true;
+			error_password = false;
 		}
 		else
 		{
 			$('#pwd').next().hide();
-			error_password = false;
+			error_password = true;
 		}		
 	}
 
@@ -86,12 +89,12 @@ $(function(){
 		{
 			$('#cpwd').next().html('两次输入的密码不一致')
 			$('#cpwd').next().show();
-			error_check_password = true;
+			error_check_password = false;
 		}
 		else
 		{
 			$('#cpwd').next().hide();
-			error_check_password = false;
+			error_check_password = true;
 		}		
 		
 	}
@@ -102,13 +105,13 @@ $(function(){
 		if(re.test($('#email').val()))
 		{
 			$('#email').next().hide();
-			error_email = false;
+			error_email = true;
 		}
 		else
 		{
 			$('#email').next().html('你输入的邮箱格式不正确')
 			$('#email').next().show();
-			error_check_password = true;
+			error_email = false;
 		}
 
 	}
@@ -120,7 +123,7 @@ $(function(){
 		check_cpwd();
 		check_email();
 
-		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false)
+		if(error_name && error_password && error_check_password && error_email && error_check)
 		{
 			return true;
 		}
@@ -128,13 +131,7 @@ $(function(){
 		{
 			return false;
 		}
-
 	});
-
-
-
-
-
 
 
 
