@@ -18,9 +18,11 @@ def toLogin(request):
     verifyname = 'sunhh'
     verifycode = '123'
     if (upsd == verifycode) and (uname == verifyname):
-        return JsonResponse({'verify': True})
+        return render(request, 'Goods/index.html')
+        # return JsonResponse({'verify': True})
     else:
         return JsonResponse({'verify': False})
+        # return render(request, 'User/login.html', {'aaa': 111})
 
     # list = [verifyname, verifycode]
     # return JsonResponse({'verify': list})
@@ -33,13 +35,17 @@ def register(request):
 def regist(request):
     dict = request.POST
     uname = dict.get('user_name')
-
     upsw = dict.get('pwd')
     uemail = dict.get('email')
 
     add = UserInfo.users.create(uname, upsw, uemail)
     add.save()
     return redirect('/User/login/')
+
+def ishere(request):
+    uname = request.POST.get('user_name')
+    getit = UserInfo.objects.filter(userName=uname).exists()
+    return JsonResponse({'it': getit})
 
 def center(request):
     return render(request, 'User/user_center_info.html')
