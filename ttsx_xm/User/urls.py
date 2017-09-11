@@ -6,7 +6,9 @@ urlpatterns =[
     url(r'^register/$', views.register),
 
     url('^login/$', views.login),
-    url(r'^toLogin/$', views.toLogin),
+
+    url('^toLogin/$', views.toLogin),
+    url('^toindex/$', views.toindex),
 
     url(r'^user_center_info/$', views.center)
 
