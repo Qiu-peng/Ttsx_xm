@@ -9,3 +9,5 @@ class GoodsInfoAdmin(admin.ModelAdmin):
 
 admin.site.register(TypeInfo, TypeInfoAdmin)
 admin.site.register(GoodsInfo, GoodsInfoAdmin)
+
+

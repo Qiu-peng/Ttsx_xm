@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '-2j_v^b3+4c-8c@jtr*n^$l@r=qu(q$=7^mw+ukwlk^(@bj^5y'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ttsx_xm.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -91,7 +88,6 @@ DATABASES = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -104,7 +100,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -119,6 +114,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT=os.path.join(BASE_DIR, 'static/media')
 
 #　富文本编辑器配置项
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+# 添加编辑器配制项
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
     'width': 600,

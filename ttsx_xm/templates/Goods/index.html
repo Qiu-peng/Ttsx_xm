@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
     {% block title %}
 	<title>天天生鲜-首页</title>
@@ -18,17 +17,17 @@
 					欢迎您：<em>张 山</em>
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="/User/login/">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="/User/register/">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="/User/user_center_info/">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="/Cart/cart/">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="/User/user_center_order/">我的订单</a>
 				</div>
 			</div>
 		</div>
@@ -41,7 +40,7 @@
 			<input type="button" class="input_btn fr" name="" value="搜索">
 		</div>
 		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
+			<a href="/Cart/cart/" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl" id="show_count">1</div>
 		</div>
 	</div>
@@ -50,7 +49,7 @@
 		<div class="navbar">
 			<h1 class="fl">全部商品分类</h1>
 			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
+				<li><a href="/">首页</a></li>
 				<li class="interval">|</li>
 				<li><a href="">手机生鲜</a></li>
 				<li class="interval">|</li>
@@ -179,6 +178,7 @@
 			<ul class="goods_list fl">
 				<li>
 					<h4><a href="#">维多利亚葡萄维多利亚葡萄维多利亚葡萄维多利亚葡萄</a></h4>
+					<a href="#"><img src="/static/images/goods.jpg"></a>
 
 					<a href="#"><img src="/static/images/goods.jpg"></a>
 
