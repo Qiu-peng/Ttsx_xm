@@ -113,8 +113,6 @@ STATICFILES_DIRS = [
 # 配置文件保存在项目静态文件中的位置
 MEDIA_ROOT=os.path.join(BASE_DIR, 'static/media')
 
-#　富文本编辑器配置项
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 # 添加编辑器配制项
 TINYMCE_DEFAULT_CONFIG = {
