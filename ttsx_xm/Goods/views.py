@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-
+from random import randint
 
 # Create your views here.
 # 首页视图

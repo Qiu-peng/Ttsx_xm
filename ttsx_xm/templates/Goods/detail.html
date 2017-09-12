@@ -2,6 +2,34 @@
     {% block title %}
     <title>天天生鲜-商品详情</title>
     {% endblock title %}
+
+    {% block head %}
+    <script type="text/javascript">
+        $(function () {
+
+{#            获取+-号设置点击事件，改变数量值#}
+            var add = $(".add");
+            var minus = $(".minus");
+            var show = $(".num_show");
+            var total = $(".total");
+{#            +号的点击事件#}
+            add.click(function () {
+                show.val(parseInt(show.val())+1);
+                total.html("总价：<em>"+{{ goods.gprice }}*show.val()+"元</em>");
+            });
+            minus.click(function () {
+                show.val(parseInt(show.val())-1);
+{#                -号点击事件，当数量小于0时，-号不再起作用#}
+                if (show.val() < 0){
+                    show.val("0")
+                }
+                total.html("总价：<em>"+{{ goods.gprice }}*show.val()+"元</em>");
+            });
+
+        })
+    </script>
+    {% endblock head %}
+
     {% block body %}
 
 	<div class="header_con">
