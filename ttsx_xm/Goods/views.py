@@ -35,11 +35,18 @@ def index(request):
     return render(request, 'Goods/index.html', context)
 
 
-def detail(request,picid):
+def detail(request, picid):
     # 根据传过来的id获取指定图片数据
     goods=GoodsInfo.objects.get(id=picid)
     # 获取同类型的三个新品
     goodslist=GoodsInfo.objects.filter(gtype=goods.gtype).order_by("-id")[:3]
     # print(goodslist)
-    context={'goods':goods,'goodslist':goodslist}
-    return render(request,'Goods/detail.html',context)
+    context={'goods': goods, 'goodslist': goodslist}
+    return render(request, 'Goods/detail.html', context)
+
+
+# 登录页跳转过来的首页显示,并记录用户名
+def login(request, uname):
+    context = {'uname': uname}
+    return render(request, 'Goods/index.html', context)
+

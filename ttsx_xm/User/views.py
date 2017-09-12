@@ -8,30 +8,46 @@ def login(request):
     return render(request, 'User/login.html')
 
 
+# 登陆页匹配用户密码处理
 def toLogin(request):
     uname = request.POST.get('name')
     the_user = UserInfo.users.filter(userName=uname)
-    if len(the_user)==0:
-        return JsonResponse({'pwd':''})
-    else:
+
+    if the_user.exists():
         upwd = the_user[0].userPsw
-        request.session['name'] = uname
-        return JsonResponse({'pwd':upwd})
+        return JsonResponse({'pwd': upwd})
+    else:
+        return JsonResponse({'pwd': False})
+
 
 def session_get(request):
     name = request.session.get('name')
-    return JsonResponse({'name':name})
+    return JsonResponse({'name': name})
 
+    print(the_user.exists())
+    # aaa = the_user.exists()
+    if the_user.exists():
+        upwd = the_user.userPsw
+        print(upwd)
+        return JsonResponse({'pwd': upwd})
+    else:
+        print('ccc')
+        return JsonResponse({'sss': 'nonono'})
+
+
+# 返回用户名,并将用户名session存储
 def toindex(request):
-    uname = request.GET.get('name')
-    context={'uname':uname}
-    # print(context)
-    return render(request, 'Goods/index.html', context)
-    # return redirect('Goods/index.html')
+    uname = request.POST.get('name')  # 读取用户名
+    request.session['name'] = uname  # 将用户名用session存储
+
+    context = {'uname': uname}
+    return JsonResponse(context)
+
 
 # 显示注册页面
 def register(request):
     return render(request, 'User/register.html')
+
 
 # 处理用户填入的注册信息
 def regist(request):
@@ -52,5 +68,8 @@ def ishere(request):
 
     return JsonResponse({'it': getit})
 
-def center(request):
-    return render(request, 'User/user_center_info.html')
+
+# 跳转用户中心
+def center(request, uname):
+    context = {'uname': uname}
+    return render(request, 'User/user_center_info.html', context)

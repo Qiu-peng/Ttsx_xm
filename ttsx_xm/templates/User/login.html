@@ -12,8 +12,10 @@
                 $.post('/User/toLogin/',{'name':$('.name_input').val()}, function (data) {//{}
                     var upwd =$('.pass_input').val()
                     if(data.pwd ==upwd && upwd.length>0){
-                         window.location.href ='/';
-
+                        $.post('/User/toindex/',{'name':$('.name_input').val()}, function (data) {
+                            url = "http://127.0.0.1:8000/Goods/name="+data.uname;
+                            window.location.href = url;
+                        })
                     }else {
                         $('.pass_input').val('');
                         $('.btn_error').show();
@@ -34,7 +36,7 @@
                 $.get('/User/session_get/',function (data) {
                     var list=data.name;
                     var shi=$('#rename').empty();
-                    $.each(list,function (i,n) {//n-->
+                    $.each(list,function (i, n) {//n-->
                         shi.append('<option>'+list+'</option>');
                     });
                 })
