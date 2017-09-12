@@ -5,17 +5,23 @@
     {% endblock title %}
 
     {% block head %}
-    <script type="text/javascript" src="/static/js/jquery.form.min.js"></script>
     <script type="text/javascript" src="/static/js/login.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.input_submit').click(function () {
                 $.post('/User/toLogin/',{'name':$('.name_input').val()}, function (data) {//{}
+<<<<<<< HEAD
                     var upwd =$('.pass_input').val();
                     if(data.pwd ==upwd){
                         // alert('ok');
+{#                         window.location.href ='/';#}
+                        $.get('/User/toindex/',{'name':$('.name_input').val()})
+=======
+                    var upwd =$('.pass_input').val()
+                    if(data.pwd ==upwd && upwd.length>0){
                          window.location.href ='/';
-                        // $.get('/User/toindex/',{'name':$('.name_input').val()})
+
+>>>>>>> 5704a4ce988ddc557cfa0afc9c9898b74d3072ab
                     }else {
                         $('.pass_input').val('');
                         $('.btn_error').show();
@@ -26,6 +32,21 @@
             $('.pass_input').focus(function () {
                 $('.btn_error').hide(); // 提示文字隐藏
             });
+             // 监听键盘事件 (这里是监听回车的抬起)
+            $(document).keyup(function (event) {
+                if (event.keyCode ==13) {
+                    $('.input_submit').click();
+                }
+            });
+            $('.name_input').dblclick(function () {
+                $.get('/User/session_get/',function (data) {
+                    var list=data.name;
+                    var shi=$('#rename').empty();
+                    $.each(list,function (i,n) {//n-->
+                        shi.append('<option>'+list+'</option>');
+                    });
+                })
+            })
 
 
         });
@@ -52,14 +73,15 @@
 
 					<form method="post" action="">
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
-						<div class="user_error">输入错误</div>
+						<select id="rename"></select>
+                        <div class="user_error">输入错误</div>
 
                         <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
 						<div class="pwd_error">输入错误</div>
 
                         <div class="more_input clearfix">
 							<input type="checkbox" name="Remember">
-							<label>记住用户名</label>
+							<label>记住密码</label>
 							<a href="#">忘记密码</a>
 						</div>
 						<input type="button" name="" value="登录" class="input_submit">
