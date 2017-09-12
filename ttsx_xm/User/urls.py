@@ -11,6 +11,7 @@ urlpatterns =[
 
     url('^toLogin/$', views.toLogin),  # 处理密码匹配
     url('^toindex/$', views.toindex),  # 记录并返回用户名
+
     url('^session_get/$', views.session_get),
 
     url(r'^userinfo(\w{6,20})/$', views.center),  # 跳转用户中心

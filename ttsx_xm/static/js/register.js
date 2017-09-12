@@ -51,16 +51,16 @@ $(function(){
         //获取焦点 隐藏提示
         $(this).next().hide();
     });
-
+//----------------------------------勾选-------------------
 	$allow.click(function() {
 		if($(this).is(':checked'))
 		{
-			error_check = false;
+			error_check = true;
 			$(this).siblings('span').hide();
 		}
 		else
 		{
-			error_check = true;
+			error_check = false;
 			$(this).siblings('span').html('请勾选同意');
 			$(this).siblings('span').show();
 		}
@@ -78,9 +78,7 @@ $(function(){
 		{
 			$.get('/User/ishere/',{'name': $userName.val()}, function (data) {
 				if (data.it) {
-                    alert('用户名已存在')
-                    $userName.next().html('用户名已存在')
-                    $userName.next().show();
+                    $userName.next().html('用户名已存在').show();
                     error_name = false;
                 }
                 else{

@@ -10,9 +10,11 @@
         $(function () {
             $('.input_submit').click(function () {
                 $.post('/User/toLogin/',{'name':$('.name_input').val()}, function (data) {//{}
+
                     var upwd =$('.pass_input').val()
                     if(data.pwd ==upwd && upwd.length>0){
-                        $.post('/User/toindex/',{'name':$('.name_input').val()}, function (data) {
+                        $.get('/User/toindex/',{'name':$('.name_input').val()}, function (data) {
+                            var aaa = $('.name_input').val()
                             url = "http://127.0.0.1:8000/Goods/name="+data.uname;
                             window.location.href = url;
                         })
@@ -36,7 +38,9 @@
                 $.get('/User/session_get/',function (data) {
                     var list=data.name;
                     var shi=$('#rename').empty();
+
                     $.each(list,function (i, n) {//n-->
+
                         shi.append('<option>'+list+'</option>');
                     });
                 })

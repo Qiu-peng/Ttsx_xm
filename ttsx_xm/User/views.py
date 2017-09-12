@@ -12,34 +12,26 @@ def login(request):
 def toLogin(request):
     uname = request.POST.get('name')
     the_user = UserInfo.users.filter(userName=uname)
-
     if the_user.exists():
         upwd = the_user[0].userPsw
         return JsonResponse({'pwd': upwd})
     else:
         return JsonResponse({'pwd': False})
 
+def session_get(request):
+    name = request.session.get('name')
+    return JsonResponse({'name':name})
+
 
 def session_get(request):
     name = request.session.get('name')
     return JsonResponse({'name': name})
 
-    print(the_user.exists())
-    # aaa = the_user.exists()
-    if the_user.exists():
-        upwd = the_user.userPsw
-        print(upwd)
-        return JsonResponse({'pwd': upwd})
-    else:
-        print('ccc')
-        return JsonResponse({'sss': 'nonono'})
-
 
 # 返回用户名,并将用户名session存储
 def toindex(request):
-    uname = request.POST.get('name')  # 读取用户名
+    uname = request.GET.get('name')  # 读取用户名
     request.session['name'] = uname  # 将用户名用session存储
-
     context = {'uname': uname}
     return JsonResponse(context)
 
