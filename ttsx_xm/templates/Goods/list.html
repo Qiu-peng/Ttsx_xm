@@ -77,9 +77,9 @@
 				<h3>新品推荐</h3>
 				<ul>
                     {% for good in goods2 %}
-                        <li>
+                        <li style="text-align: center">
                         <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
-						<h4><a href="/Goods/{{ good.id }}">{{ good.gtitle }}</a></h4>
+						<h4><a href="/Goods/{{ good.id }}">{{ good.gtitle.split.1 }}</a></h4>
 						<div class="prize">￥{{ good.gprice }}</div>
                         </li>
                     {% endfor %}
@@ -107,9 +107,9 @@
 
 			<ul class="goods_type_list clearfix">
                 {% for good in goods %}
-                    <li>
+                    <li style="text-align: center">
                     <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
-                    <h4><a href="/Goods/{{ good.id }}">{{ good.gtitle }}</a></h4>
+                    <h4><a href="/Goods/{{ good.id }}">{{ good.gtitle.split.1 }}</a></h4>
                     <div class="prize">￥{{ good.gprice }}</div>
                     </li>
                 {% endfor %}

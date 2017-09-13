@@ -31,6 +31,7 @@ def index(request):
     # 获取新添加的三个速冻食品，和点击量最高的四个速冻食品
     fastFrozen = GoodsInfo.objects.filter(gtype=6).order_by("-id")[:3]
     fastFrozen2 = GoodsInfo.objects.filter(gtype=6).order_by('-gclick')[:4]
+
     context = {
         'fruit': fruit, 'fruit2': fruit2,
         'fish': fish, 'fish2': fish2,
@@ -47,7 +48,6 @@ def detail(request, picid):
     goods = GoodsInfo.objects.get(id=picid)
     # 获取同类型的三个新品
     goodslist = GoodsInfo.objects.filter(gtype=goods.gtype).order_by("-id")[:3]
-    # print(goodslist)
     context = {'goods': goods, 'goodslist': goodslist}
     return render(request, 'Goods/detail.html', context)
 
@@ -59,6 +59,6 @@ def list(request, lid):
     type = TypeInfo.objects.get(id=lid)
     # 获取当前商品的同类的三个新品
     goods2 = GoodsInfo.objects.filter(gtype=lid).order_by("-id")[:3]
-    context = {'goods': goods, 'type': type,'goods2':goods2}
+    context = {'goods': goods, 'type': type, 'goods2': goods2}
     print(lid)
     return render(request, 'Goods/list.html', context)

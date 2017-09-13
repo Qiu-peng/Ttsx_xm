@@ -100,9 +100,10 @@
 	</div>
 
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
+		<a href="/">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+{#        点击跳转到对应list#}
+		<a href="/Goods/list{{ goods.gtype.id }}/">{{ goods.gtype }}</a>
 		<span>></span>
 		<a href="#">商品详情</a>
 	</div>
@@ -145,9 +146,9 @@
 				<ul>
 {#                打印同类新品#}
                     {% for samegoods in goodslist %}
-                    <li>
+                    <li style="text-align: center">
                         <a href="/Goods/{{ samegoods.id }}"><img src="/static/media/{{ samegoods.gpic }}"></a>
-						<h4><a href="#">{{ samegoods.gtitle }}</a></h4>
+						<h4><a href="#">{{ samegoods.gtitle.split.1 }}</a></h4>
 						<div class="prize">￥{{ samegoods.gprice }}</div>
                     </li>
                     {% endfor %}
