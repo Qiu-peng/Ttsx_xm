@@ -11,18 +11,23 @@ def login(request):
 # 登陆页匹配用户密码处理
 def toLogin(request):
     uname = request.POST.get('name')
+    print(uname)
     f_login = open('static/txt/user_lock.txt', 'r+')
     user_list = f_login.read().split(",")
     if uname in user_list:
         return JsonResponse({'pwd': False})
-    the_user = UserInfo.users.filter(userName=uname)
-    if the_user.exists():
-        upwd = the_user[0].userPsw
-        response = JsonResponse({'pwd': upwd})
-        response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
-        return response
+
+    the_user = UserInfo.users.filter(userName=uname)  # 获取用户名对应的对象
+    if the_user.exists():  # 判断用户是否存在
+        if the_user[0].isValid:  # 判断用户是否可用
+            upwd = the_user[0].userPsw
+            response = JsonResponse({'pwd': upwd})
+            response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
+            return response
+        else:
+            return JsonResponse({'pwd': 'notValid'})
     else:
-        return JsonResponse({'pwd': False})
+        return JsonResponse({'pwd': 'notExists'})
 
 
 def cook_get(request):
@@ -51,6 +56,14 @@ def toLogin111(request):
 # 返回用户名
 def toindex(request):
     uname = request.GET.get('name')  # 读取用户名
+    # 文件存储
+    f_login = open('static/txt/user.txt', 'r+')
+    user_list = f_login.read().split(",")
+    if uname not in user_list:
+        user_save = open('static/txt/user.txt', 'a+')
+        user_save.write('%s,' % uname)
+        user_save.close()
+
     context = {'uname': uname}
     return JsonResponse(context)
 
@@ -80,23 +93,7 @@ def ishere(request):
     return JsonResponse({'it': getit})
 
 
-# 跳转用户中心
-def center(request, uname):
-    context = {'uname': uname}
-    return render(request, 'User/user_center_info.html', context)
-
-
-def saveName(request):
-    sname = request.GET.get('name')
-    f_login = open('static/txt/user.txt', 'r+')
-    user_list = f_login.read().split(",")
-    if sname in user_list:
-        return
-    else:
-        user_save = open('static/txt/user.txt', 'a+')
-        user_save.write('%s,'%sname)
-        user_save.close()
-
+# 读账号
 def readName(request):
     f_login = open('static/txt/user.txt', 'r+')
     user_list = f_login.read().split(",")
@@ -106,6 +103,8 @@ def readName(request):
             list.append(i)
     return JsonResponse({'lname': list})
 
+
+# 锁账户
 def lockPwd(request):
     f_login = open('static/txt/user_lock.txt', 'r+')
     user_list = f_login.read().split(",")
@@ -113,14 +112,23 @@ def lockPwd(request):
     return JsonResponse({'lock': list})
 
 
+# 跳转用户中心
+def center(request):
+    uname = request.COOKIES.get('uname')
+    context = {'uname': uname}
+    return render(request, 'User/user_center_info.html', context)
+
+
 # 用户中心订单页面
-def center_order(request, uname):
+def center_order(request):
+    uname = request.COOKIES.get('uname')
     context = {'uname': uname}
     return render(request, 'User/user_center_order.html', context)
 
 
 # 用户中心地址页面
-def center_site(request, uname):
+def center_site(request):
+    uname = request.COOKIES.get('uname')
     context = {'uname': uname}
     return render(request, 'User/user_center_site.html', context)
 

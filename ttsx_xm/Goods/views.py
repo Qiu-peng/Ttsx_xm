@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.http import JsonResponse
 from random import randint
 
 
@@ -64,11 +65,10 @@ def list(request, lid):
     return render(request, 'Goods/list.html', context)
 
 
-
-# 登录页跳转过来的首页显示,并记录用户名
-def login(request, uname):
+# 登录页跳转过来的首页显示,
+def getname(request):
+    uname = request.COOKIES.get('uname')
     context = {'uname': uname}
-    print(context)
-    return render(request, 'Goods/index.html', context)
+    return JsonResponse(context)
 
 

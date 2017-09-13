@@ -13,11 +13,10 @@ urlpatterns =[
     url('^toindex/$', views.toindex),  # 记录并返回用户名
 
     url('^cook_get/$', views.cook_get),
-    url('^saveName/$', views.saveName),
     url('^readName/$', views.readName),
     url('^lockPwd/$', views.lockPwd),
 
-    url(r'^user_center/(\w{6,20})/$', views.center),  # 跳转用户中心
-    url(r'user_order/(\w{6,20})/$', views.center_order),
-    url(r'user_site/(\w{6,20})/$', views.center_site),
+    url(r'^user_center/$', views.center),  # 跳转用户中心
+    url(r'^user_order/$', views.center_order),
+    url(r'^user_site/$', views.center_site),
 ]
