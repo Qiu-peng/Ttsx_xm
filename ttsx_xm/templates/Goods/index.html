@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
     {% block title %}
-	<title>天天生鲜-首页</title>
+	    <title>天天生鲜-首页</title>
     {% endblock title %}
     {% block head %}
-	<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/static/js/slide.js"></script>
+	    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+	    <script type="text/javascript" src="/static/js/slide.js"></script>
+        <script type="text/javascript">
+        $(function () {
+{#            显示 欢迎用户块   #}
+            var user = $('#user').attr('href').split('/');
+            if(user[3] != ''){
+                $(".login_info").show();
+                $(".login_btn").hide();
+                $(".user").html(user[3]);
+            }
+            if(user[3] == ''){
+                $(".login_info").hide();
+                $(".login_btn").show();
+            }
+        });
+        </script>
     {% endblock head %}
 
     {% block body %}
@@ -14,7 +29,7 @@
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
 				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
+					欢迎您：<a class="user" href="/User/userinfo{{ uname }}">用户名</a>
 				</div>
 				<div class="login_btn fl">
 					<a href="/User/login/">登录</a>
@@ -23,7 +38,7 @@
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="/User/user_center_info/">用户中心</a>
+					<a id="user" href="/User/user_center_info/{{ uname }}/">用户中心</a>
 					<span>|</span>
 					<a href="/Cart/cart/">我的购物车</a>
 					<span>|</span>

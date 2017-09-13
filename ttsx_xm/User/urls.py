@@ -3,16 +3,17 @@ from . import views
 
 urlpatterns =[
 
-    url(r'^register/$', views.register),
-    url(r'^regist/$', views.regist),
-    url(r'^ishere/$', views.ishere),
+    url(r'^register/$', views.register),  # 显示注册页
+    url(r'^regist/$', views.regist),  # 处理注册信息
+    url(r'^ishere/$', views.ishere),  # 判断用户名是否存在
 
-    url('^login/$', views.login),
+    url('^login/$', views.login),  # 显示登录页
 
-    url('^toLogin/$', views.toLogin),
-    url('^toindex/$', views.toindex),
+    url('^toLogin/$', views.toLogin),  # 处理密码匹配
+    url('^toindex/$', views.toindex),  # 记录并返回用户名
+
     url('^session_get/$', views.session_get),
 
-    url(r'^user_center_info/$', views.center)
+    url(r'^userinfo(\w{6,20})/$', views.center),  # 跳转用户中心
 
 ]

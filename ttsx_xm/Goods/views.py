@@ -47,6 +47,7 @@ def detail(request, picid):
     # 根据传过来的id获取指定图片数据
     goods = GoodsInfo.objects.get(id=picid)
     # 获取同类型的三个新品
+
     goodslist = GoodsInfo.objects.filter(gtype=goods.gtype).order_by("-id")[:3]
     context = {'goods': goods, 'goodslist': goodslist}
     return render(request, 'Goods/detail.html', context)
@@ -60,5 +61,13 @@ def list(request, lid):
     # 获取当前商品的同类的三个新品
     goods2 = GoodsInfo.objects.filter(gtype=lid).order_by("-id")[:3]
     context = {'goods': goods, 'type': type, 'goods2': goods2}
-    print(lid)
     return render(request, 'Goods/list.html', context)
+
+
+
+# 登录页跳转过来的首页显示,并记录用户名
+def login(request, uname):
+    context = {'uname': uname}
+    return render(request, 'Goods/index.html', context)
+
+
