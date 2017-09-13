@@ -70,4 +70,5 @@ def list(request, lid):
 # 登录页跳转过来的首页显示,并记录用户名
 def login(request, uname):
     context = {'uname': uname}
+    print(context)
     return render(request, 'Goods/index.html', context)
