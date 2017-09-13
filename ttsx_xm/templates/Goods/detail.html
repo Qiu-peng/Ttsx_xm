@@ -15,7 +15,8 @@
 {#            +号的点击事件#}
             add.click(function () {
                 show.val(parseInt(show.val())+1);
-                total.html("总价：<em>"+{{ goods.gprice }}*show.val()+"元</em>");
+{#                乘一万再除一万是为了去除多位小数的bug#}
+                total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
             });
             minus.click(function () {
                 show.val(parseInt(show.val())-1);
@@ -23,7 +24,7 @@
                 if (show.val() < 0){
                     show.val("0")
                 }
-                total.html("总价：<em>"+{{ goods.gprice }}*show.val()+"元</em>");
+                total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
             });
 
         })
@@ -48,7 +49,7 @@
 					<span>|</span>
 					<a href="/User/user_center_info/">用户中心</a>
 					<span>|</span>
-					<a href="/Cart/cart.html">我的购物车</a>
+					<a href="/Cart/cart">我的购物车</a>
 					<span>|</span>
 					<a href="/User/user_center_order/">我的订单</a>
 				</div>
