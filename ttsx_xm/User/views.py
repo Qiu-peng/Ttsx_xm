@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 
 
 # 显示登录页面
@@ -14,11 +14,11 @@ def toLogin(request):
     f_login = open('static/txt/user_lock.txt', 'r+')
     user_list = f_login.read().split(",")
     if uname in user_list:
-        return JsonResponse({'pwd':False})
+        return JsonResponse({'pwd': False})
     the_user = UserInfo.users.filter(userName=uname)
     if the_user.exists():
         upwd = the_user[0].userPsw
-        response = JsonResponse({'pwd':upwd})
+        response = JsonResponse({'pwd': upwd})
         response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
         return response
     else:
@@ -28,6 +28,24 @@ def toLogin(request):
 def cook_get(request):
     lname = request.COOKIES.get('uname') #[{},{}...]
     return JsonResponse({'list':lname})
+
+
+def toLogin111(request):
+    dict = request.POST
+    uname = dict.get('username')
+    upwd = dict.get('pwd')
+    the_user = UserInfo.users.get(userName=uname)
+    verify_pwd = the_user.userPsw
+    if verify_pwd == upwd:
+        print(uname)
+        response = HttpResponseRedirect('/')
+        response.set_cookie('uname', uname)
+        print('ok')
+        return response
+    else:
+        print('错误')
+        # return HttpResponseRedirect('/User/login/')
+        return render(request, 'User/login.html', {'display': 'block'})
 
 
 # 返回用户名
@@ -67,6 +85,7 @@ def center(request, uname):
     context = {'uname': uname}
     return render(request, 'User/user_center_info.html', context)
 
+
 def saveName(request):
     sname = request.GET.get('name')
     f_login = open('static/txt/user.txt', 'r+')
@@ -92,4 +111,18 @@ def lockPwd(request):
     user_list = f_login.read().split(",")
 
     return JsonResponse({'lock': list})
+
+
+# 用户中心订单页面
+def center_order(request, uname):
+    context = {'uname': uname}
+    return render(request, 'User/user_center_order.html', context)
+
+
+# 用户中心地址页面
+def center_site(request, uname):
+    context = {'uname': uname}
+    return render(request, 'User/user_center_site.html', context)
+
+
 

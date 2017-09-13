@@ -9,55 +9,56 @@
     <script type="text/javascript" src="/static/js/login.js"></script>
     <script type="text/javascript">
         $(function () {
-            $.get('/User/readName/',function (data) {// {list:[...]}
-                var list =data.lname;  // []
-                var rename=$('.rename');
-                $.each(list,function (i,n) {
-                    rename.append('<div class="op">'+n+'</div>');
+
+            $.get('/User/readName/', function (data) {// {list:[...]}
+                var list = data.lname;  // []
+                var rename = $('.rename');
+                $.each(list, function (i, n) {
+                    rename.append('<div class="op">' + n + '</div>');
                 });
 
-            })
-
+            });
+            //判断密码匹配,跳转
             $('.input_submit').click(function () {
-                $.post('/User/toLogin/',{'name':$('.name_input').val()}, function (data) {//{}
-
-                    var upwd =$('.pass_input').val()
-                    var i =1;
-                    if(data.pwd ==upwd && upwd.length>0){
-                        $.get('/User/toindex/',{'name':$('.name_input').val()}, function (data) {
-                            url = "http://127.0.0.1:8000/Goods/name="+data.uname;
+                $.post('/User/toLogin/', {'name': $('.name_input').val()}, function (data) {//{}
+                    var upwd = $('.pass_input').val()
+                    var i = 1;
+                    if (data.pwd == upwd && upwd.length > 0) {
+                        $.get('/User/toindex/', {'name': $('.name_input').val()}, function (data) {
+                            url = "http://127.0.0.1:8000/Goods/name=" + data.uname;
                             window.location.href = url;
                         });
-                        $.get('/User/saveName/', {'name':$('.name_input').val()})
-                    }else {
+                        $.get('/User/saveName/', {'name': $('.name_input').val()})
+                    }
+                    else {
                         $('.pass_input').val('');
                         $('.btn_error').show();
-                        i +=1;
-                        if(i>=3){
+                        i += 1;
+                        if (i >= 3) {
                             $.get('/User/lockPwd/')
                         }
                     }
-                });
-
+                    });
             });
+            //焦点,隐藏
             $('.pass_input').focus(function () {
-                $('.btn_error').hide(); // 提示文字隐藏
+                    $('.btn_error').hide(); // 提示文字隐藏
             });
-             // 监听键盘事件 (这里是监听回车的抬起)
+            // 监听键盘事件 (这里是监听回车的抬起)
             $(document).keyup(function (event) {
-                if (event.keyCode ==13) {
-                    $('.input_submit').click();
-                }
+                    if (event.keyCode == 13) {
+                        $('.input_submit').click();
+                    }
             });
             // 双击
             $('.name_input').dblclick(function () {
-                $.get('/User/session_get/',function (data) {
-                    var list=data.name;
-                    var shi=$('#rename').empty();
+                $.get('/User/session_get/', function (data) {
+                    var list = data.name;
+                    var shi = $('#rename').empty();
 
-                    $.each(list,function (i, n) {//n-->
+                    $.each(list, function (i, n) {//n-->
 
-                        shi.append('<option>'+list+'</option>');
+                        shi.append('<option>' + list + '</option>');
                     });
                 })
                 $('.rename').show();
@@ -65,32 +66,31 @@
             });
             // 监听键盘事件 (这里是监听Tab的切换)
             $(document).keyup(function (event) {
-                if (event.keyCode ==9) {
+                if (event.keyCode == 9) {
                     $('.rename').hide();
                 }
             });
             // 移开输入框
-            $('.name_input').mouseout(function (){
-                $('.form_input').delegate(".op","mouseenter",function () {
+            $('.name_input').mouseout(function () {
+                $('.form_input').delegate(".op", "mouseenter", function () {
                     $('.rename').show();
                     $('.op').show();
                 });
                 //　移开
-                $('.form_input').delegate(".op","mouseout",function () {
+                $('.form_input').delegate(".op", "mouseout", function () {
                     $('.rename').hide();
                 });
                 $('.rename').hide();
             });
             //　点击
             $('.rename').delegate(".op", "click", function () {
-                var name=$(this).html();
+                var name = $(this).html();
                 $('.name_input').val(name);
                 $('.rename').hide();
-            })
+            });
 
 
         });
-
     </script>
     {% endblock head %}
 {% block body %}
@@ -111,7 +111,9 @@
 				</div>
 				<div class="form_input">
 
-					<form>
+
+					<form method="post" >
+{#                        action="/User/toLogin/">#}
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
 						<div class="rename">
                         </div>
@@ -126,7 +128,7 @@
 							<a href="#">忘记密码</a>
 						</div>
 						<input type="button" name="" value="登录" class="input_submit">
-                        <div class="btn_error">用户名或密码错误,请重试!</div>
+                        <div class="btn_error" style="display: {{ display }}">用户名或密码错误,请重试!</div>
 
                     </form>
 
