@@ -12,20 +12,27 @@
             var minus = $(".minus");
             var show = $(".num_show");
             var total = $(".total");
+{#            获取立即购买按钮对象#}
+            var buy_btn=$(".buy_btn");
 {#            +号的点击事件#}
             add.click(function () {
                 show.val(parseInt(show.val())+1);
-                total.html("总价：<em>"+{{ goods.gprice }}*show.val()+"元</em>");
+{#                乘一万再除一万是为了去除多位小数的bug#}
+                total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
+                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val());
             });
+
             minus.click(function () {
                 show.val(parseInt(show.val())-1);
 {#                -号点击事件，当数量小于0时，-号不再起作用#}
                 if (show.val() < 0){
                     show.val("0")
                 }
-                total.html("总价：<em>"+{{ goods.gprice }}*show.val()+"元</em>");
+                total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
+                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
             });
-
+{#            修改立即购买的跳转页面#}
+            buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
         })
     </script>
     {% endblock head %}
@@ -48,7 +55,7 @@
 					<span>|</span>
 					<a href="/User/user_center_info/">用户中心</a>
 					<span>|</span>
-					<a href="/Cart/cart.html">我的购物车</a>
+					<a href="/Cart/cart">我的购物车</a>
 					<span>|</span>
 					<a href="/User/user_center_order/">我的订单</a>
 				</div>
@@ -57,7 +64,7 @@
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
@@ -74,16 +81,16 @@
 				<h1>全部商品分类</h1>
 				<span></span>
 				<ul class="subnav">
-					<li><a href="#" class="fruit">新鲜水果</a></li>
-					<li><a href="#" class="seafood">海鲜水产</a></li>
-					<li><a href="#" class="meet">猪牛羊肉</a></li>
-					<li><a href="#" class="egg">禽类蛋品</a></li>
-					<li><a href="#" class="vegetables">新鲜蔬菜</a></li>
-					<li><a href="#" class="ice">速冻食品</a></li>
+					<li><a href="/Goods/list1" class="fruit">新鲜水果</a></li>
+					<li><a href="/Goods/list2/" class="seafood">海鲜水产</a></li>
+					<li><a href="/Goods/list3/" class="meet">猪牛羊肉</a></li>
+					<li><a href="/Goods/list4/" class="egg">禽类蛋品</a></li>
+					<li><a href="/Goods/list5/" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/Goods/list6/" class="ice">速冻食品</a></li>
 				</ul>
 			</div>
 			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
+				<li><a href="/">首页</a></li>
 				<li class="interval">|</li>
 				<li><a href="">手机生鲜</a></li>
 				<li class="interval">|</li>
@@ -93,9 +100,10 @@
 	</div>
 
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
+		<a href="/">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+{#        点击跳转到对应list#}
+		<a href="/Goods/list{{ goods.gtype.id }}/">{{ goods.gtype }}</a>
 		<span>></span>
 		<a href="#">商品详情</a>
 	</div>
@@ -138,9 +146,9 @@
 				<ul>
 {#                打印同类新品#}
                     {% for samegoods in goodslist %}
-                    <li>
+                    <li style="text-align: center">
                         <a href="/Goods/{{ samegoods.id }}"><img src="/static/media/{{ samegoods.gpic }}"></a>
-						<h4><a href="#">{{ samegoods.gtitle }}</a></h4>
+						<h4><a href="#">{{ samegoods.gtitle.split.1 }}</a></h4>
 						<div class="prize">￥{{ samegoods.gprice }}</div>
                     </li>
                     {% endfor %}
