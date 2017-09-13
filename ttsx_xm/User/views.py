@@ -11,27 +11,28 @@ def login(request):
 # 登陆页匹配用户密码处理
 def toLogin(request):
     uname = request.POST.get('name')
+    f_login = open('static/txt/user_lock.txt', 'r+')
+    user_list = f_login.read().split(",")
+    if uname in user_list:
+        return JsonResponse({'pwd':False})
     the_user = UserInfo.users.filter(userName=uname)
     if the_user.exists():
         upwd = the_user[0].userPsw
-        return JsonResponse({'pwd': upwd})
+        response = JsonResponse({'pwd':upwd})
+        response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
+        return response
     else:
         return JsonResponse({'pwd': False})
 
-def session_get(request):
-    name = request.session.get('name')
-    return JsonResponse({'name':name})
+
+def cook_get(request):
+    lname = request.COOKIES.get('uname') #[{},{}...]
+    return JsonResponse({'list':lname})
 
 
-def session_get(request):
-    name = request.session.get('name')
-    return JsonResponse({'name': name})
-
-
-# 返回用户名,并将用户名session存储
+# 返回用户名
 def toindex(request):
     uname = request.GET.get('name')  # 读取用户名
-    request.session['name'] = uname  # 将用户名用session存储
     context = {'uname': uname}
     return JsonResponse(context)
 
@@ -65,3 +66,30 @@ def ishere(request):
 def center(request, uname):
     context = {'uname': uname}
     return render(request, 'User/user_center_info.html', context)
+
+def saveName(request):
+    sname = request.GET.get('name')
+    f_login = open('static/txt/user.txt', 'r+')
+    user_list = f_login.read().split(",")
+    if sname in user_list:
+        return
+    else:
+        user_save = open('static/txt/user.txt', 'a+')
+        user_save.write('%s,'%sname)
+        user_save.close()
+
+def readName(request):
+    f_login = open('static/txt/user.txt', 'r+')
+    user_list = f_login.read().split(",")
+    list =[]
+    for i in user_list:
+        if i != '':
+            list.append(i)
+    return JsonResponse({'lname': list})
+
+def lockPwd(request):
+    f_login = open('static/txt/user_lock.txt', 'r+')
+    user_list = f_login.read().split(",")
+
+    return JsonResponse({'lock': list})
+
