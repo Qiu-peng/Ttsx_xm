@@ -11,7 +11,10 @@ urlpatterns =[
 
     url('^toLogin/$', views.toLogin),
     url('^toindex/$', views.toindex),
-    url('^session_get/$', views.session_get),
+    url('^cook_get/$', views.cook_get),
+    url('^saveName/$', views.saveName),
+    url('^readName/$', views.readName),
+    url('^lockPwd/$', views.lockPwd),
 
     url(r'^user_center_info/$', views.center)
 

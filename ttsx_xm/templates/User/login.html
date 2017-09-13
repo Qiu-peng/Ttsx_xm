@@ -5,19 +5,34 @@
     {% endblock title %}
 
     {% block head %}
-    <script type="text/javascript" src="/static/js/jquery.form.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/static/js/login.js"></script>
+    <
     <script type="text/javascript">
         $(function () {
+            $.get('/User/readName/',function (data) {// {list:[...]}
+                var list =data.lname;  // []
+                var rename=$('.rename');
+                $.each(list,function (i,n) {
+                    rename.append('<div class="op">'+n+'</div>');
+                });
+
+            })
+
             $('.input_submit').click(function () {
                 $.post('/User/toLogin/',{'name':$('.name_input').val()}, function (data) {//{}
                     var upwd =$('.pass_input').val()
+                    var i =1;
                     if(data.pwd ==upwd && upwd.length>0){
-                         window.location.href ='/';
-
+                        window.location.href ='/';
+                        $.get('/User/saveName/', {'name':$('.name_input').val()})
                     }else {
                         $('.pass_input').val('');
                         $('.btn_error').show();
+                        i +=1;
+                        if(i>=3){
+                            $.get('/User/lockPwd/')
+                        }
                     }
                 });
 
@@ -31,14 +46,34 @@
                     $('.input_submit').click();
                 }
             });
+            // 双击
             $('.name_input').dblclick(function () {
-                $.get('/User/session_get/',function (data) {
-                    var list=data.name;
-                    var shi=$('#rename').empty();
-                    $.each(list,function (i,n) {//n-->
-                        shi.append('<option>'+list+'</option>');
-                    });
-                })
+                $('.rename').show();
+                $('.op').show();
+            });
+            // 监听键盘事件 (这里是监听Tab的切换)
+            $(document).keyup(function (event) {
+                if (event.keyCode ==9) {
+                    $('.rename').hide();
+                }
+            });
+            // 移开输入框
+            $('.name_input').mouseout(function (){
+                $('.form_input').delegate(".op","mouseenter",function () {
+                    $('.rename').show();
+                    $('.op').show();
+                });
+                //　移开
+                $('.form_input').delegate(".op","mouseout",function () {
+                    $('.rename').hide();
+                });
+                $('.rename').hide();
+            });
+            //　点击
+            $('.rename').delegate(".op", "click", function () {
+                var name=$(this).html();
+                $('.name_input').val(name);
+                $('.rename').hide();
             })
 
 
@@ -64,9 +99,10 @@
 				</div>
 				<div class="form_input">
 
-					<form method="post" action="">
+					<form>
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
-						<select id="rename"></select>
+						<div class="rename">
+                        </div>
                         <div class="user_error">输入错误</div>
 
                         <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
