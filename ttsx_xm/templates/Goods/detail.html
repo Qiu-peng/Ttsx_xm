@@ -12,12 +12,16 @@
             var minus = $(".minus");
             var show = $(".num_show");
             var total = $(".total");
+{#            获取立即购买按钮对象#}
+            var buy_btn=$(".buy_btn");
 {#            +号的点击事件#}
             add.click(function () {
                 show.val(parseInt(show.val())+1);
 {#                乘一万再除一万是为了去除多位小数的bug#}
                 total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
+                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val());
             });
+
             minus.click(function () {
                 show.val(parseInt(show.val())-1);
 {#                -号点击事件，当数量小于0时，-号不再起作用#}
@@ -25,8 +29,10 @@
                     show.val("0")
                 }
                 total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
+                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
             });
-
+{#            修改立即购买的跳转页面#}
+            buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
         })
     </script>
     {% endblock head %}
