@@ -11,13 +11,10 @@ urlpatterns =[
 
     url('^toLogin/$', views.toLogin),  # 处理密码匹配
     url('^toindex/$', views.toindex),  # 记录并返回用户名
-
-    url('^toLogin/$', views.toLogin),
-    url('^toindex/$', views.toindex),
     url('^cook_get/$', views.cook_get),
-    url('^saveName/$', views.saveName),
     url('^readName/$', views.readName),
-    url('^lockPwd/$', views.lockPwd),
+    url('^remember/$', views.remember),
+    url('^clearSession/$', views.clearSession),
 
 
     url(r'^userinfo(\w{6,20})/$', views.center),  # 跳转用户中心

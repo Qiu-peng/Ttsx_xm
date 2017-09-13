@@ -11,16 +11,12 @@ def login(request):
 # 登陆页匹配用户密码处理
 def toLogin(request):
     uname = request.POST.get('name')
-    f_login = open('static/txt/user_lock.txt', 'r+')
-    user_list = f_login.read().split(",")
-    if uname in user_list:
-        return JsonResponse({'pwd':False})
     the_user = UserInfo.users.filter(userName=uname)
     if the_user.exists():
         upwd = the_user[0].userPsw
         response = JsonResponse({'pwd':upwd})
         response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
-        return response
+        return JsonResponse({'pwd':upwd})
     else:
         return JsonResponse({'pwd': False})
 
@@ -33,6 +29,20 @@ def cook_get(request):
 # 返回用户名
 def toindex(request):
     uname = request.GET.get('name')  # 读取用户名
+    # 保存到txt中
+    f_login = open('static/txt/user.txt', 'r+')
+    user_list = f_login.read().split(",")
+    if uname not in user_list:
+        user_save = open('static/txt/user.txt', 'a+')
+        user_save.write('%s,' % uname)
+        user_save.close()
+    # 记住密码选项
+    ischeck = request.GET.get('ischeck')
+    the_user = UserInfo.users.filter(userName=uname)
+    list =[the_user[0].userName,the_user[0].userPsw]
+    if ischeck:
+        request.session['repwd'] = list # 存对象
+
     context = {'uname': uname}
     return JsonResponse(context)
 
@@ -67,17 +77,6 @@ def center(request, uname):
     context = {'uname': uname}
     return render(request, 'User/user_center_info.html', context)
 
-def saveName(request):
-    sname = request.GET.get('name')
-    f_login = open('static/txt/user.txt', 'r+')
-    user_list = f_login.read().split(",")
-    if sname in user_list:
-        return
-    else:
-        user_save = open('static/txt/user.txt', 'a+')
-        user_save.write('%s,'%sname)
-        user_save.close()
-
 def readName(request):
     f_login = open('static/txt/user.txt', 'r+')
     user_list = f_login.read().split(",")
@@ -87,9 +86,25 @@ def readName(request):
             list.append(i)
     return JsonResponse({'lname': list})
 
-def lockPwd(request):
-    f_login = open('static/txt/user_lock.txt', 'r+')
-    user_list = f_login.read().split(",")
 
-    return JsonResponse({'lock': list})
+def remember(request):
+    name =request.POST.get('name')
+    the_user = UserInfo.users.filter(userName=name)
+    pwd =the_user[0].userPsw
+    list = request.session.get('repwd')
+    uname =list[0]
+    if uname == name:
+        return JsonResponse({'repwd':pwd})
+    else:
+        return JsonResponse({'repwd':False})
 
+
+# 清空session
+def clearSession(request):
+    llen = request.session.get('repwd')
+    if llen!= None:
+        request.session.flush()
+        flag = 0
+    else:
+        flag = 1
+    return JsonResponse({'type': flag})
