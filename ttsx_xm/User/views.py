@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 
 
 # 显示登录页面
@@ -17,11 +17,22 @@ def toLogin(request):
         return JsonResponse({'pwd': upwd})
     else:
         return JsonResponse({'pwd': False})
-
-def session_get(request):
-    name = request.session.get('name')
-    return JsonResponse({'name':name})
-
+def toLogin111(request):
+    dict = request.POST
+    uname = dict.get('username')
+    upwd = dict.get('pwd')
+    the_user = UserInfo.users.get(userName=uname)
+    verify_pwd = the_user.userPsw
+    if verify_pwd == upwd:
+        print(uname)
+        response = HttpResponseRedirect('/')
+        response.set_cookie('uname', uname)
+        print('ok')
+        return response
+    else:
+        print('错误')
+        # return HttpResponseRedirect('/User/login/')
+        return render(request, 'User/login.html', {'display': 'block'})
 
 def session_get(request):
     name = request.session.get('name')
@@ -65,3 +76,17 @@ def ishere(request):
 def center(request, uname):
     context = {'uname': uname}
     return render(request, 'User/user_center_info.html', context)
+
+
+# 用户中心订单页面
+def center_order(request, uname):
+    context = {'uname': uname}
+    return render(request, 'User/user_center_order.html', context)
+
+
+# 用户中心地址页面
+def center_site(request, uname):
+    context = {'uname': uname}
+    return render(request, 'User/user_center_site.html', context)
+
+

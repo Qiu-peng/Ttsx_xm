@@ -13,7 +13,9 @@ urlpatterns =[
     url('^toindex/$', views.toindex),  # 记录并返回用户名
 
     url('^session_get/$', views.session_get),
+    # url(r'^user_center/$', views.center),
+    url(r'^user_center/(\w{6,20})/$', views.center),  # 跳转用户中心
 
-    url(r'^userinfo(\w{6,20})/$', views.center),  # 跳转用户中心
-
+    url(r'user_order/(\w{6,20})/$', views.center_order),
+    url(r'user_site/(\w{6,20})/$', views.center_site),
 ]
