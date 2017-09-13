@@ -107,11 +107,11 @@
 
 			<ul class="goods_type_list clearfix">
                 {% for good in goods %}
-                        <li>
-                        <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
-						<h4><a href="/Goods/{{ good.id }}">{{ good.gtitle }}</a></h4>
-						<div class="prize">￥{{ good.gprice }}</div>
-                        </li>
+                    <li>
+                    <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
+                    <h4><a href="/Goods/{{ good.id }}">{{ good.gtitle }}</a></h4>
+                    <div class="prize">￥{{ good.gprice }}</div>
+                    </li>
                 {% endfor %}
 {#				<li>#}
 {#					<a href="detail.html"><img src="/static/images/goods/goods003.jpg"></a>#}
