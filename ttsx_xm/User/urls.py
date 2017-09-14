@@ -19,4 +19,8 @@ urlpatterns =[
     url(r'^user_center/$', views.center),  # 跳转用户中心
     url(r'^user_order/$', views.center_order),
     url(r'^user_site/$', views.center_site),
+
+    url(r'^send(\d+)/$', views.send),  # 发送邮件
+    url(r'^active(\d+)/$', views.active),  # 激活用户
 ]
+
