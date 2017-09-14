@@ -7,7 +7,8 @@ from random import randint
 # 首页视图
 def index(request):
     """按新添加推荐商品3个，按点击量过滤展示商品图片4张"""
-
+    global goodsl
+    goodsl=[]
     # 获取新添加的三个水果，和点击量最高的四个水果
     fruit = GoodsInfo.objects.filter(gtype=1).order_by("-id")[:3]
     fruit2 = GoodsInfo.objects.filter(gtype=1).order_by('-gclick')[:4]
@@ -42,7 +43,7 @@ def index(request):
     }
     return render(request, 'Goods/index.html', context)
 
-
+goodsl=[]
 def detail(request, picid):
     # 根据传过来的id获取指定图片数据
     goods = GoodsInfo.objects.get(id=picid)
@@ -52,7 +53,9 @@ def detail(request, picid):
     print(goods.gclick)
     context = {'goods': goods, 'goodslist': goodslist}
     response = render(request, 'Goods/detail.html', context)
-    response.set_cookie('id', goods.id)
+    global goodsl
+    goodsl.append(goods.id)
+    response.set_cookie('good',goodsl)
     return response
 
 

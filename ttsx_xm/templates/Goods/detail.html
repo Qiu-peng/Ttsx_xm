@@ -19,7 +19,7 @@
                 show.val(parseInt(show.val())+1);
 {#                乘一万再除一万是为了去除多位小数的bug#}
                 total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
-                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val());
+                buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val());
             });
 
             minus.click(function () {
@@ -29,10 +29,10 @@
                     show.val("0")
                 }
                 total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
-                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
+                buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
             });
 {#            修改立即购买的跳转页面#}
-            buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
+            buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
         })
     </script>
     {% endblock head %}
