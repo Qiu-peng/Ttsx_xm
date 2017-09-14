@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from PIL import Image, ImageDraw, ImageFont
 
+
 # 显示登录页面
 def login(request):
     return render(request, 'User/login.html')
@@ -71,6 +72,7 @@ def ishere(request):
 
     return JsonResponse({'it': getit})
 
+
 # 读账号
 def readName(request):
     f_login = open('static/txt/user.txt', 'r+')
@@ -80,7 +82,6 @@ def readName(request):
         if i != '':
             list.append(i)
     return JsonResponse({'lname': list})
-
 
 
 def remember(request):
@@ -104,6 +105,7 @@ def clearSession(request):
     else:
         flag = 1
     return JsonResponse({'type': flag})
+
 
 # 跳转用户中心
 def center(request):

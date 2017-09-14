@@ -7,7 +7,7 @@
 	    <script type="text/javascript" src="/static/js/slide.js"></script>
         <script type="text/javascript">
         $(function () {
-{#            显示 欢迎用户块   #}
+            //显示 欢迎用户块
             $.get('/Goods/getname/', function (data) {
                 if(data.uname != null){
                     $(".login_info").show();
@@ -15,11 +15,12 @@
                     $(".user").html(data.uname);
                 }
                 else{
-                    $('#user').attr('href', '/User/login/')
+                    $('#user').attr('href', '/User/login/');
                     $(".login_info").hide();
                     $(".login_btn").show();
                 }
             });
+
         });
         </script>
     {% endblock head %}
@@ -32,6 +33,7 @@
 			<div class="fr">
 				<div class="login_info fl">
 					欢迎您：<a class="user" href="/User/user_center/">用户名</a>
+                    <a class="quit" href="/Goods/delete/">&nbsp;&nbsp;退出</a>
 				</div>
 				<div class="login_btn fl">
 					<a href="/User/login/">登录</a>
@@ -44,7 +46,7 @@
 					<span>|</span>
 					<a href="/Cart/cart/">我的购物车</a>
 					<span>|</span>
-					<a href="/User/user_center_order/">我的订单</a>
+					<a href="/User/user_order/">我的订单</a>
 				</div>
 			</div>
 		</div>
@@ -77,12 +79,12 @@
 
 	<div class="center_con clearfix">
 		<ul class="subnav fl">
-			<li><a href="/Goods/list1" class="fruit">新鲜水果</a></li>
-			<li><a href="/Goods/list2" class="seafood">海鲜水产</a></li>
-			<li><a href="/Goods/list3" class="meet">猪牛羊肉</a></li>
-			<li><a href="/Goods/list4" class="egg">禽类蛋品</a></li>
-			<li><a href="/Goods/list5" class="vegetables">新鲜蔬菜</a></li>
-			<li><a href="/Goods/list6" class="ice">速冻食品</a></li>
+			<li><a href="/Goods/list1_0" class="fruit">新鲜水果</a></li>
+			<li><a href="/Goods/list2_0" class="seafood">海鲜水产</a></li>
+			<li><a href="/Goods/list3_0" class="meet">猪牛羊肉</a></li>
+			<li><a href="/Goods/list4_0" class="egg">禽类蛋品</a></li>
+			<li><a href="/Goods/list5_0" class="vegetables">新鲜蔬菜</a></li>
+			<li><a href="/Goods/list6_0" class="ice">速冻食品</a></li>
 		</ul>
 		<div class="slide fl">
 			<ul class="slide_pics">

@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'User',
     'Order',
     'tinymce',
+    'haystack',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -111,8 +112,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 # 配置文件保存在项目静态文件中的位置
-MEDIA_ROOT=os.path.join(BASE_DIR, 'static/media')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 # 添加编辑器配制项
 TINYMCE_DEFAULT_CONFIG = {
@@ -121,13 +121,4 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 400,
 }
 
-# 邮件
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.qq.com'
-EMAIL_PORT = 465
-#发送邮件的邮箱
-EMAIL_HOST_USER = '1161158359@qq.com'
-#在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'bdlidglrmkwfjedi'
-#收件人看到的发件人
-EMAIL_FROM = 'python<1161158359@qq.com>'
+

@@ -16,23 +16,44 @@
             var buy_btn=$(".buy_btn");
 {#            +号的点击事件#}
             add.click(function () {
-                show.val(parseInt(show.val())+1);
-{#                乘一万再除一万是为了去除多位小数的bug#}
-                total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
-                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val());
-            });
-
-            minus.click(function () {
-                show.val(parseInt(show.val())-1);
-{#                -号点击事件，当数量小于0时，-号不再起作用#}
-                if (show.val() < 0){
+{#                如果点击数值为空#}
+                if(show.val()===""){
                     show.val("0")
                 }
-                total.html("总价：<em>"+{{ goods.gprice }}*10000*show.val()/10000+"元</em>");
-                buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
+                show.val(parseInt(show.val())+1);
+{#                数量上限设置为199,+号不起作用#}
+                if(show.val() > 199){
+                    show.val("199")
+                }
+{#                乘一万再除一万是为了去除多位小数的bug#}
+                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
+                buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val());
             });
-{#            修改立即购买的跳转页面#}
-            buy_btn.prop('href','/Order/{{ goods.id }}_'+show.val())
+            minus.click(function () {
+{#                如果点击前数值为空#}
+                 if(show.val()===""){
+                    show.val("2")
+                }
+                show.val(parseInt(show.val())-1);
+{#                -号点击事件，当数量小于0时，-号不再起作用#}
+                if (show.val() < 1){
+                    show.val("1")
+                }
+                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
+                buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
+            });
+{#            监听键盘抬起f#}
+            $(document).keyup(function () {
+                if(isNaN(show.val())){
+                    show.val("1")
+                }else if (show.val() > 199){
+                    show.val("199")
+                }
+                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
+                buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
+            });
+{#            修改立即购买a标签的href路径#}
+            buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
         })
     </script>
     {% endblock head %}
@@ -81,12 +102,12 @@
 				<h1>全部商品分类</h1>
 				<span></span>
 				<ul class="subnav">
-					<li><a href="/Goods/list1" class="fruit">新鲜水果</a></li>
-					<li><a href="/Goods/list2/" class="seafood">海鲜水产</a></li>
-					<li><a href="/Goods/list3/" class="meet">猪牛羊肉</a></li>
-					<li><a href="/Goods/list4/" class="egg">禽类蛋品</a></li>
-					<li><a href="/Goods/list5/" class="vegetables">新鲜蔬菜</a></li>
-					<li><a href="/Goods/list6/" class="ice">速冻食品</a></li>
+					<li><a href="/Goods/list1_0" class="fruit">新鲜水果</a></li>
+					<li><a href="/Goods/list2_0" class="seafood">海鲜水产</a></li>
+					<li><a href="/Goods/list3_0" class="meet">猪牛羊肉</a></li>
+					<li><a href="/Goods/list4_0" class="egg">禽类蛋品</a></li>
+					<li><a href="/Goods/list5_0" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/Goods/list6_0" class="ice">速冻食品</a></li>
 				</ul>
 			</div>
 			<ul class="navlist fl">

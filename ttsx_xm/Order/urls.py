@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
 
     url(r'^$', views.order),
+    url(r'^delete/$', views.delete),  # 退出登录,删除cookie
 ]
 

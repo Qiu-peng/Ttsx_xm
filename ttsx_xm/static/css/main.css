@@ -21,13 +21,13 @@ html,body{height:100%}
 	display:none;
 }
 
-.login_info em{color:#ff8800}
+.login_info a{color:#ff8800}
 
-.login_btn a,.user_link a{
+.login_btn a,.user_link a, .login_info .quit{
 	color:#666;
 }
 
-.login_btn a:hover,.user_link a:hover{
+.login_btn a:hover,.user_link a:hover, .login_info .quit:hover{
 	color:#ff8800;
 }
 
