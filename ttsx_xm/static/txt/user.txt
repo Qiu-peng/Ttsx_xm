@@ -1,9 +1,1 @@
-<<<<<<< HEAD
-python,
-=======
-python,ayay129,
-qiu,qiupeng,qwe,
-python,zhouhh,zhoukh,
 
-123456,
->>>>>>> a0bc7380e90f730be32dabb624f179b30febfd5c
