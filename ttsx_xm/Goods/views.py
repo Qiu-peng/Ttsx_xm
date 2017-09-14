@@ -58,7 +58,7 @@ def detail(request, picid):
     # 传递上下文
     context = {'goods': goods, 'goodslist': goodslist}
     response = render(request, 'Goods/detail.html', context)
-    # 引用全局定义的列表
+    # 引用全局定义的列表,将最近浏览的商品的id存入列表再将列表存入cookie
     global goodsl
     # 判断id是否重复，将图片id加入列表
     if goodsl.count(goods.id) >= 1:
@@ -74,14 +74,24 @@ def detail(request, picid):
     return response
 
 
-def list(request, lid):
+def list(request, lid, sort):
     # 根据传过来的id获取这个商品同类的所有商品
-    goods = GoodsInfo.objects.filter(gtype=lid)
+    if int(sort) == 0:   # 默认排序
+        goods = GoodsInfo.objects.filter(gtype=lid)
+        # print("sort=0")
+    elif int(sort) == 1:  # 价格从低到高排序
+        goods = GoodsInfo.objects.filter(gtype=lid).order_by("gprice")
+        # print("sort=1")
+    elif int(sort) == 2:  # 按点击量从高到底排序
+        goods = GoodsInfo.objects.filter(gtype=lid).order_by("-gclick")
+        # print("sort=2")
     # 获取当前商品大类对象
     type = TypeInfo.objects.get(id=lid)
     # 获取当前商品的同类的三个新品
     goods2 = GoodsInfo.objects.filter(gtype=lid).order_by("-id")[:3]
-    context = {'goods': goods, 'type': type, 'goods2': goods2}
+
+    context = {'goods': goods, 'type': type, 'goods2': goods2,'sort':sort}
+
     return render(request, 'Goods/list.html', context)
 
 
