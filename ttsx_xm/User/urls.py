@@ -11,7 +11,6 @@ urlpatterns =[
 
     url('^toLogin/$', views.toLogin),  # 处理密码匹配
     url('^toindex/$', views.toindex),  # 记录并返回用户名
-    url('^cook_get/$', views.cook_get),
     url('^readName/$', views.readName),
     url('^remember/$', views.remember),
     url('^clearSession/$', views.clearSession),
@@ -19,4 +18,11 @@ urlpatterns =[
     url(r'^user_center/$', views.center),  # 跳转用户中心
     url(r'^user_order/$', views.center_order),
     url(r'^user_site/$', views.center_site),
+    # 邮件配置
+    url(r'^send/$', views.send),
+    url(r'^active/$', views.active),
+    # 验证码
+    url(r'^verify_code/$', views.verify_code),
+    url(r'^yzm/$', views.yzm),
+
 ]

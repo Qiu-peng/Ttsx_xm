@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import *
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-
+from django.conf import settings
+from django.core.mail import send_mail
+from PIL import Image, ImageDraw, ImageFont
 
 # 显示登录页面
 def login(request):
@@ -23,10 +25,6 @@ def toLogin(request):
     else:
         return JsonResponse({'pwd': 'notExists'})
 
-
-def cook_get(request):
-    lname = request.COOKIES.get('uname') #[{},{}...]
-    return JsonResponse({'list':lname})
 
 
 # 返回用户名
@@ -72,11 +70,6 @@ def ishere(request):
     getit = UserInfo.users.filter(userName=uname).exists()
 
     return JsonResponse({'it': getit})
-
-# 跳转用户中心
-def center(request, uname):
-    context = {'uname': uname}
-    return render(request, 'User/user_center_info.html', context)
 
 # 读账号
 def readName(request):
@@ -132,3 +125,72 @@ def center_site(request):
     context = {'uname': uname}
     return render(request, 'User/user_center_site.html', context)
 
+# 发送邮件
+def send(request):
+    msg='<a href="http://127.0.0.1:8000/" target="_blank">点击激活</a>'
+    send_mail('注册激活','',settings.EMAIL_FROM,
+              ['itcast88@163.com'],
+              html_message=msg)
+    return HttpResponse('ok')
+def active(request):
+    return HttpResponse('激活')
+
+# 验证码
+def verify_code(request):
+    #引入随机函数模块
+    import random
+    #定义变量，用于画面的背景色、宽、高
+    bgcolor = (random.randrange(20, 100), random.randrange(
+        20, 100), 100)
+    width = 100
+    height = 34
+    #创建画面对象
+    im = Image.new('RGB', (width, height), bgcolor)
+    #创建画笔对象
+    draw = ImageDraw.Draw(im)
+    #调用画笔的point()函数绘制噪点
+    for i in range(0, 100):
+        xy = (random.randrange(0, width), random.randrange(0, height))
+        fill = (random.randrange(0, 255), 255, random.randrange(0, 255))
+        draw.point(xy, fill=fill)
+    #定义验证码的备选值
+    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
+    #随机选取4个值作为验证码
+    rand_str = ''
+    for i in range(0, 4):
+        rand_str += str1[random.randrange(0, len(str1))]
+    #构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
+    font = ImageFont.truetype('FreeMono.ttf', 32)
+    #构造字体颜色
+    fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
+    #绘制4个字
+    draw.text((5, 2), rand_str[0], font=font, fill=fontcolor)
+    draw.text((25, 2), rand_str[1], font=font, fill=fontcolor)
+    draw.text((50, 2), rand_str[2], font=font, fill=fontcolor)
+    draw.text((75, 2), rand_str[3], font=font, fill=fontcolor)
+    #释放画笔
+    del draw
+    #存入session，用于做进一步验证
+    request.session['verifycode'] = rand_str
+
+    # 内存文件操作(python3)
+    from io import BytesIO
+    buf = BytesIO()
+
+    #将图片保存在内存中，文件类型为png
+    im.save(buf, 'png')
+    #将内存中的图片数据返回给客户端，MIME类型为图片png
+    return HttpResponse(buf.getvalue(), 'image/png')
+
+# 提交验证码
+def yzm(request):
+    """验证码的验证"""
+    # 1.获取post请求当中的输入验证码的内容
+    verify = request.POST.get('yzm')
+    # 2.获取浏览器请求当中的session中的值
+    verifycode = request.session.get('verifycode')
+    # 3.判断两个验证码是否相同
+    if verify == verifycode:
+        return JsonResponse({'ret': True})
+    else:
+        return JsonResponse({'ret': False})
