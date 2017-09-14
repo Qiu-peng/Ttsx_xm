@@ -7,7 +7,7 @@
 	    <script type="text/javascript" src="/static/js/slide.js"></script>
         <script type="text/javascript">
         $(function () {
-{#            显示 欢迎用户块   #}
+            //显示 欢迎用户块
             $.get('/Goods/getname/', function (data) {
                 if(data.uname != null){
                     $(".login_info").show();
@@ -15,11 +15,12 @@
                     $(".user").html(data.uname);
                 }
                 else{
-                    $('#user').attr('href', '/User/login/')
+                    $('#user').attr('href', '/User/login/');
                     $(".login_info").hide();
                     $(".login_btn").show();
                 }
             });
+
         });
         </script>
     {% endblock head %}
@@ -32,6 +33,7 @@
 			<div class="fr">
 				<div class="login_info fl">
 					欢迎您：<a class="user" href="/User/user_center/">用户名</a>
+                    <a class="quit" href="/Goods/delete/">&nbsp;&nbsp;退出</a>
 				</div>
 				<div class="login_btn fl">
 					<a href="/User/login/">登录</a>
@@ -44,7 +46,7 @@
 					<span>|</span>
 					<a href="/Cart/cart/">我的购物车</a>
 					<span>|</span>
-					<a href="/User/user_center_order/">我的订单</a>
+					<a href="/User/user_order/">我的订单</a>
 				</div>
 			</div>
 		</div>

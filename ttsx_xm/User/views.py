@@ -11,11 +11,6 @@ def login(request):
 # 登陆页匹配用户密码处理
 def toLogin(request):
     uname = request.POST.get('name')
-    print(uname)
-    f_login = open('static/txt/user_lock.txt', 'r+')
-    user_list = f_login.read().split(",")
-    if uname in user_list:
-        return JsonResponse({'pwd': False})
 
     the_user = UserInfo.users.filter(userName=uname)  # 获取用户名对应的对象
     if the_user.exists():  # 判断用户是否存在
@@ -28,29 +23,6 @@ def toLogin(request):
             return JsonResponse({'pwd': 'notValid'})
     else:
         return JsonResponse({'pwd': 'notExists'})
-
-
-def cook_get(request):
-    lname = request.COOKIES.get('uname') #[{},{}...]
-    return JsonResponse({'list':lname})
-
-
-def toLogin111(request):
-    dict = request.POST
-    uname = dict.get('username')
-    upwd = dict.get('pwd')
-    the_user = UserInfo.users.get(userName=uname)
-    verify_pwd = the_user.userPsw
-    if verify_pwd == upwd:
-        print(uname)
-        response = HttpResponseRedirect('/')
-        response.set_cookie('uname', uname)
-        print('ok')
-        return response
-    else:
-        print('错误')
-        # return HttpResponseRedirect('/User/login/')
-        return render(request, 'User/login.html', {'display': 'block'})
 
 
 # 返回用户名
@@ -102,14 +74,6 @@ def readName(request):
         if i != '':
             list.append(i)
     return JsonResponse({'lname': list})
-
-
-# 锁账户
-def lockPwd(request):
-    f_login = open('static/txt/user_lock.txt', 'r+')
-    user_list = f_login.read().split(",")
-
-    return JsonResponse({'lock': list})
 
 
 # 跳转用户中心
