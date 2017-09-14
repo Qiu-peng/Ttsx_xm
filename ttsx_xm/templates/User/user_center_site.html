@@ -6,15 +6,17 @@
     {% block head %}
         <script type="text/javascript">
         $(function () {
-            var user = $('#user').html()
-            if(user != ''){
-                $(".login_info").show();
-                $(".login_btn").hide();
-            }
-            if(user == ''){
-                $(".login_info").hide();
-                $(".login_btn").show();
-            }
+            $.get('/Goods/getname/', function (data) {
+                if(data.uname != null){
+                    $('#user').html(data.uname)
+                    $(".login_info").show();
+                    $(".login_btn").hide();
+                }
+                else{
+                    $(".login_info").hide();
+                    $(".login_btn").show();
+                }
+            });
         });
         </script>
     {% endblock head %}
@@ -24,20 +26,20 @@
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
 				<div class="login_info fl">
-					欢迎您：<span id="user">{{ uname }}</span>
+					欢迎您：<span id="user">用户名</span>
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="/User/login/">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="/User/register/">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="/User/user_center/{{ uname }}/">用户中心</a>
+					<a href="/User/user_center/">用户中心</a>
 					<span>|</span>
 					<a href="/Cart/cart/">我的购物车</a>
 					<span>|</span>
-					<a href="/User/user_order/{{ uname }}/">我的订单</a>
+					<a href="/User/user_order/">我的订单</a>
 				</div>
 			</div>
 		</div>		
@@ -56,9 +58,9 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="/User/user_center/{{ uname }}/">· 个人信息</a></li>
-				<li><a href="/User/user_order/{{ uname }}/">· 全部订单</a></li>
-				<li><a href="/User/user_site/{{ uname }}/" class="active">· 收货地址</a></li>
+				<li><a href="/User/user_center/">· 个人信息</a></li>
+				<li><a href="/User/user_order/">· 全部订单</a></li>
+				<li><a href="/User/user_site/" class="active">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">

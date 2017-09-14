@@ -3,7 +3,7 @@ from django.db import models
 
 class UserInfoManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(isValid=True)
+        return super().get_queryset().all()
 
     def create(self, name, psw, email):
         user = UserInfo()

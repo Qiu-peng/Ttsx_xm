@@ -21,46 +21,41 @@
             //判断密码匹配,跳转
             $('.input_submit').click(function () {
                 $.post('/User/toLogin/', {'name': $('.name_input').val()}, function (data) {//{}
-                    var upwd = $('.pass_input').val()
-                    var i = 1;
-                    if (data.pwd == upwd && upwd.length > 0) {
-                        $.get('/User/toindex/', {'name': $('.name_input').val()}, function (data) {
-                            url = "http://127.0.0.1:8000/Goods/name=" + data.uname;
-                            window.location.href = url;
+                    var upwd = $('.pass_input').val();
+                    if (data.pwd == upwd) {
+                        $.get('/User/toindex/', {'name': $('.name_input').val(),'ischeck':$(".Remember").prop("checked")}, function () {
+                            window.location.href = '/';
                         });
-                        $.get('/User/saveName/', {'name': $('.name_input').val()})
                     }
+                    else if(data.pwd == 'notValid'){
+                        $('.pass_input').val('');
+                        $('.btn_error').html('当前账号不可用').show();
+                        }
+                    else if(data.pwd == 'notExists'){
+                        $('.pass_input').val('');
+                        $('.btn_error').html('用户名不存在').show();
+                        }
                     else {
                         $('.pass_input').val('');
-                        $('.btn_error').show();
-                        i += 1;
-                        if (i >= 3) {
-                            $.get('/User/lockPwd/')
-                        }
+                        $('.btn_error').html('用户名或密码错误,请重试!').show();
+
                     }
                     });
             });
+
+
             //焦点,隐藏
             $('.pass_input').focus(function () {
-                    $('.btn_error').hide(); // 提示文字隐藏
+                $('.btn_error').hide(); // 提示文字隐藏
             });
             // 监听键盘事件 (这里是监听回车的抬起)
             $(document).keyup(function (event) {
-                    if (event.keyCode == 13) {
-                        $('.input_submit').click();
-                    }
+                if (event.keyCode == 13) {
+                    $('.input_submit').click();
+                }
             });
             // 双击
             $('.name_input').dblclick(function () {
-                $.get('/User/session_get/', function (data) {
-                    var list = data.name;
-                    var shi = $('#rename').empty();
-
-                    $.each(list, function (i, n) {//n-->
-
-                        shi.append('<option>' + list + '</option>');
-                    });
-                })
                 $('.rename').show();
                 $('.op').show();
             });
@@ -87,6 +82,29 @@
                 var name = $(this).html();
                 $('.name_input').val(name);
                 $('.rename').hide();
+                // 判断是否有session
+                $.post('/User/remember/',{'name':$('.name_input').val()},function (data) {
+                    var pwd =data.repwd
+                    if(pwd){
+                        $(".Remember").prop("checked",true);
+                        $('.pass_input').val(pwd)
+                    }else {
+                        $('.pass_input').val('')
+                    }
+                });
+
+            });
+
+            $(".Remember").click(function () {
+                var ischecked = $(".Remember").prop("checked");
+                if(ischecked==0){
+                    $.post('/User/clearSession/', function (data) {
+                        var type =data.type
+                        if(type ==0){
+                            $('.pass_input').val('')
+                        }
+                    });
+                };
             });
 
 
@@ -123,7 +141,7 @@
 						<div class="pwd_error">输入错误</div>
 
                         <div class="more_input clearfix">
-							<input type="checkbox" name="Remember">
+							<input type="checkbox" name="Remember" class="Remember">
 							<label>记住密码</label>
 							<a href="#">忘记密码</a>
 						</div>

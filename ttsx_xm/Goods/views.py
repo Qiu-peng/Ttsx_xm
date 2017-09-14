@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.http import JsonResponse
 from random import randint
 
 
@@ -8,7 +9,7 @@ from random import randint
 def index(request):
     """按新添加推荐商品3个，按点击量过滤展示商品图片4张"""
     global goodsl
-    goodsl=[]
+    goodsl = []
     # 获取新添加的三个水果，和点击量最高的四个水果
     fruit = GoodsInfo.objects.filter(gtype=1).order_by("-id")[:3]
     fruit2 = GoodsInfo.objects.filter(gtype=1).order_by('-gclick')[:4]
@@ -43,7 +44,10 @@ def index(request):
     }
     return render(request, 'Goods/index.html', context)
 
-goodsl=[]
+
+goodsl = []
+
+
 def detail(request, picid):
     # 根据传过来的id获取指定图片数据
     goods = GoodsInfo.objects.get(id=picid)
@@ -55,7 +59,7 @@ def detail(request, picid):
     response = render(request, 'Goods/detail.html', context)
     global goodsl
     goodsl.append(goods.id)
-    response.set_cookie('good',goodsl)
+    response.set_cookie('good', goodsl)
     return response
 
 
@@ -75,3 +79,10 @@ def login(request, uname):
     context = {'uname': uname}
     print(context)
     return render(request, 'Goods/index.html', context)
+
+
+# 登录页跳转过来的首页显示,
+def getname(request):
+    uname = request.COOKIES.get('uname')
+    context = {'uname': uname}
+    return JsonResponse(context)

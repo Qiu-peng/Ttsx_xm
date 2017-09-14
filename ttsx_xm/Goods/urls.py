@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^$', views.index),  # 调用首页视图
     url(r'^(\d+)/$', views.detail),
     url(r'^list(\d+)/$', views.list),
-    url('^name=(\w{6,20})/$', views.login),  # 登录页跳转过来的首页显示
+    url(r'^getname/$', views.getname),  # 从cookie获取用户名
+
 ]
