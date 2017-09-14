@@ -18,11 +18,12 @@ urlpatterns =[
     url(r'^user_center/$', views.center),  # 跳转用户中心
     url(r'^user_order/$', views.center_order),
     url(r'^user_site/$', views.center_site),
-    # 邮件配置
-    url(r'^send/$', views.send),
-    url(r'^active/$', views.active),
-    # 验证码
-    url(r'^verify_code/$', views.verify_code),
+
+    url(r'^verify_code/$', views.verify_code), # 验证码
     url(r'^yzm/$', views.yzm),
 
+    url(r'^send(\d+)/$', views.send),  # 发送邮件
+    url(r'^active(\d+)/$', views.active),  # 激活用户
 ]
+
+

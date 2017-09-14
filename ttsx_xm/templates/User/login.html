@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/static/js/jquery.sha1.js"></script>
     <script type="text/javascript">
         $(function () {
-
+            //存用户名
             $.get('/User/readName/', function (data) {// {list:[...]}
                 var list = data.lname;  // []
                 var rename = $('.rename');
@@ -40,6 +40,13 @@
                         $('.btn_error').html('用户名不存在').show();
                         i +=1;
                         }
+                    else if(data.pwd == 'notActive'){
+                        $('.pass_input').val('');
+                        $('.btn_error').html('当前账号未激活!').show();
+                        var uid = data.uid;
+                        var url = 'http://127.0.0.1:8000/User/send'+uid;
+                        window.location.href = url;
+                    }
                     else {
                         $('.pass_input').val('');
                         $('.btn_error').html('用户名或密码错误,请重试!').show();
@@ -49,13 +56,14 @@
                         i=0;
                         $('.yzm').css('display','block');
                     }
-                    });
+                });
                 // 验证码是否可见
                 var display =$(".yzm").css('display');
                 if(display !='none'){
                     // 禁用btn属性
                     $(".input_submit").attr("disabled", true);
                 }
+
             });
 
 
