@@ -11,8 +11,8 @@ urlpatterns =[
 
     url('^toLogin/$', views.toLogin),  # 处理密码匹配
     url('^toindex/$', views.toindex),  # 记录并返回用户名
-    url('^cook_get/$', views.cook_get),
-    url('^readName/$', views.readName),
+
+    url('^readName/$', views.readName),  # 读用户名
     url('^remember/$', views.remember),
     url('^clearSession/$', views.clearSession),
 

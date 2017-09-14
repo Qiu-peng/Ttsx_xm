@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 
 
 # 显示登录页面
@@ -22,11 +22,6 @@ def toLogin(request):
             return JsonResponse({'pwd': 'notValid'})
     else:
         return JsonResponse({'pwd': 'notExists'})
-
-
-def cook_get(request):
-    lname = request.COOKIES.get('uname') #[{},{}...]
-    return JsonResponse({'list':lname})
 
 
 # 返回用户名
@@ -73,10 +68,12 @@ def ishere(request):
 
     return JsonResponse({'it': getit})
 
+
 # 跳转用户中心
 def center(request, uname):
     context = {'uname': uname}
     return render(request, 'User/user_center_info.html', context)
+
 
 # 读账号
 def readName(request):
@@ -87,7 +84,6 @@ def readName(request):
         if i != '':
             list.append(i)
     return JsonResponse({'lname': list})
-
 
 
 def remember(request):
@@ -111,6 +107,7 @@ def clearSession(request):
     else:
         flag = 1
     return JsonResponse({'type': flag})
+
 
 # 跳转用户中心
 def center(request):

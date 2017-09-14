@@ -29,16 +29,15 @@
                     }
                     else if(data.pwd == 'notValid'){
                         $('.pass_input').val('');
-                        $('.btn_error').html('当前账号不可用').show();
+                        $('.btn_error').html('当前账号不可用!').show();
                         }
                     else if(data.pwd == 'notExists'){
                         $('.pass_input').val('');
-                        $('.btn_error').html('用户名不存在').show();
+                        $('.btn_error').html('用户名不存在!').show();
                         }
                     else {
                         $('.pass_input').val('');
-                        $('.btn_error').html('用户名或密码错误,请重试!').show();
-
+                        $('.btn_error').html('用户名或密码错误,请重试!').show()
                     }
                     });
             });
