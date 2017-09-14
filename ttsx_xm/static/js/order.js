@@ -3,18 +3,21 @@
  */
 
 $(function () {
-    //取出购物车中的商品信息作为一整个ul 添加到div中
-
-    /*
-     //商品列表
-     var $goodslist = $('.common_list_con');
-     $.each('购物车商品',function () {
-     // 构造ul
-     var $ul = $();
-     //将ul 加入到div中
-     $goodslist.append($ul);
-     });
-     */
+      // 点击提交订单时
+      // $('#order_btn').click(function () {
+      //
+      //           localStorage.setItem('order_finish', 2);
+      //
+      //           $('.popup_con').fadeIn('fast', function () {
+      //
+      //               setTimeout(function () {
+      //                   $('.popup_con').fadeOut('fast', function () {
+      //                       window.location.href = '/';
+      //                   });
+      //               }, 3000)
+      //
+      //           });
+      //       });
 
     // 获取所有商品
     var $goodsul = $('.goods_list_td')
@@ -32,7 +35,7 @@ $(function () {
 
         // 计算小计金额，并转换成字符串
         var col7 = col5 * col6 + '元';
-        var col07 = $(this).children().eq(6).html(col7);
+        $(this).children().eq(6).html(col7);
     });
 
     // 商品的总数量

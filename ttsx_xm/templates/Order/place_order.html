@@ -8,23 +8,6 @@
     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
     <script src="/static/js/order.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            $('#order_btn').click(function () {
-                localStorage.setItem('order_finish', 2);
-
-                $('.popup_con').fadeIn('fast', function () {
-
-                    setTimeout(function () {
-                        $('.popup_con').fadeOut('fast', function () {
-                            window.location.href = '/';
-                        });
-                    }, 3000)
-
-                });
-            });
-        });
-    </script>
 {% endblock head %}
 
 {% block body %}
@@ -123,6 +106,7 @@
             <li class="col07">16.80元</li>
         </ul>
         {% endcomment %}
+
         {% comment %}
         {% for c in cart %}
             <ul class="goods_list_td clearfix">
@@ -131,26 +115,46 @@
             </ul>
         {% endfor %}
         {% endcomment %}
-        {% for c in cart %}
 
+        {# 购物车--订单   #}
+        {% if cart %}
+            {% for c in cart %}
+                <ul class="goods_list_td clearfix">
+                    {# 商品序号 #}
+                    <li class="col01">{{ forloop.counter }}</li>
+                    {# 商品图片 #}
+                    <li class="col02"><img src='/static/media/{{ c.goods.gpic }}'></li>
+                    {# 商品名称 #}
+                    <li class="col03">{{ c.goods.gtitle}}</li>
+                    {# 商品单位 #}
+                    <li class="col04">{{ c.goods.gunit }}</li>
+                    {# 商品价格 #}
+                    <li class="col05">{{ c.goods.gprice }}元</li>
+                    {# 商品数量 #}
+                    <li class="col06">{{ c.count }}</li>
+                    {# 商品金额 #}
+                    <li class="col07">0</li>
+                </ul>
+            {% endfor %}
+        {# 立即购买--订单   #}
+        {% else %}
             <ul class="goods_list_td clearfix">
                 {# 商品序号 #}
-                <li class="col01">{{forloop.counter}}</li>
+                <li class="col01">1</li>
                 {# 商品图片 #}
-                <li class="col02"><img src='/static/media/{{ c.goods.gpic }}'></li>
+                <li class="col02"><img src='/static/media/{{ good.gpic }}'></li>
                 {# 商品名称 #}
-                <li class="col03">{{ c.goods.gtitle.split.0}}{{ c.goods.gtitle.split.1}}</li>
+                <li class="col03">{{ good.gtitle}}</li>
                 {# 商品单位 #}
-                <li class="col04">{{ c.goods.gunit}}</li>
+                <li class="col04">{{ good.gunit }}</li>
                 {# 商品价格 #}
-                <li class="col05">{{ c.goods.gprice }}</li>
+                <li class="col05">{{ good.gprice }}元</li>
                 {# 商品数量 #}
-                <li class="col06">{{ c.count }}</li>
+                <li class="col06">{{ goodnum }}</li>
                 {# 商品金额 #}
                 <li class="col07">0</li>
             </ul>
-        {% endfor %}
-
+        {% endif %}
     </div>
 
     <h3 class="common_title">总金额结算</h3>
@@ -164,7 +168,10 @@
     </div>
 
     <div class="order_submit clearfix">
-        <a href="javascript:;" id="order_btn">提交订单</a>
+        <form action="handle_order/" method="post">
+            <input type="submit" value="提交订单" id="order_btn">
+        </form>
+        {#        <a href="javascript:;" id="order_btn">提交订单</a>#}
     </div>
     <div class="popup_con">
         <div class="popup">
