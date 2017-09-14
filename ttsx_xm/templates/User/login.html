@@ -23,7 +23,7 @@
                 $.post('/User/toLogin/', {'name': $('.name_input').val()}, function (data) {//{}
                     var upwd = $('.pass_input').val();
                     if (data.pwd == upwd) {
-                        $.get('/User/toindex/', {'name': $('.name_input').val()}, function () {
+                        $.get('/User/toindex/', {'name': $('.name_input').val(),'ischeck':$(".Remember").prop("checked")}, function () {
                             window.location.href = '/';
                         });
                     }
@@ -41,6 +41,8 @@
                     }
                     });
             });
+
+
             //焦点,隐藏
             $('.pass_input').focus(function () {
                 $('.btn_error').hide(); // 提示文字隐藏
@@ -79,6 +81,29 @@
                 var name = $(this).html();
                 $('.name_input').val(name);
                 $('.rename').hide();
+                // 判断是否有session
+                $.post('/User/remember/',{'name':$('.name_input').val()},function (data) {
+                    var pwd =data.repwd
+                    if(pwd){
+                        $(".Remember").prop("checked",true);
+                        $('.pass_input').val(pwd)
+                    }else {
+                        $('.pass_input').val('')
+                    }
+                });
+
+            });
+
+            $(".Remember").click(function () {
+                var ischecked = $(".Remember").prop("checked");
+                if(ischecked==0){
+                    $.post('/User/clearSession/', function (data) {
+                        var type =data.type
+                        if(type ==0){
+                            $('.pass_input').val('')
+                        }
+                    });
+                };
             });
 
 
@@ -115,7 +140,7 @@
 						<div class="pwd_error">输入错误</div>
 
                         <div class="more_input clearfix">
-							<input type="checkbox" name="Remember">
+							<input type="checkbox" name="Remember" class="Remember">
 							<label>记住密码</label>
 							<a href="#">忘记密码</a>
 						</div>

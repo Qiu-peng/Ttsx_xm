@@ -13,6 +13,8 @@ urlpatterns =[
     url('^toindex/$', views.toindex),  # 记录并返回用户名
 
     url('^readName/$', views.readName),  # 读用户名
+    url('^remember/$', views.remember),
+    url('^clearSession/$', views.clearSession),
 
     url(r'^user_center/$', views.center),  # 跳转用户中心
     url(r'^user_order/$', views.center_order),
