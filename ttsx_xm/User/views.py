@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.conf import settings
 from django.core.mail import send_mail
 from PIL import Image, ImageDraw, ImageFont
+from hashlib import sha1
 
 
 # 显示登录页面
