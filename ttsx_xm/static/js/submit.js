@@ -16,6 +16,8 @@ $(function () {
                     window.location.href = '/';
                 });
             }, 3000)
+
+
         });
         }
     else if(statuscode == '2'){
