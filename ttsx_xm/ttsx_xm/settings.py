@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'Goods',
     'User',
     'Order',
+    'djcelery',
     'tinymce',
     'haystack',
 )
@@ -120,6 +121,11 @@ TINYMCE_DEFAULT_CONFIG = {
     'width': 600,
     'height': 400,
 }
+
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'redis://127.0.0.1:6379/2'
+CELERY_IMPORTS = ('User.task')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

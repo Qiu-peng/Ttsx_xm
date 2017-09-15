@@ -42,7 +42,16 @@
                         }
                     else if(data.pwd == 'notActive'){
                         $('.pass_input').val('');
-                        $('.btn_error').html('当前账号未激活!').show();
+                        $('.active_error').show();
+                        var timer = setInterval(func, 1000);
+                        var i = 3;
+                        func();
+                        function func() {
+                            $('.active_error span').html(i--)
+                            if (i ==  0){
+                                clearInterval(timer)
+                            }
+                        }
                         var uid = data.uid;
                         var url = 'http://127.0.0.1:8000/User/send'+uid;
                         window.location.href = url;
@@ -192,7 +201,8 @@
 							<a href="#">忘记密码</a>
 						</div>
 						<input type="button" name="" value="登录" class="input_submit">
-                        <div class="btn_error" style="display: {{ display }}">用户名或密码错误,请重试!</div>
+                        <div class="btn_error">用户名或密码错误,请重试!</div>
+                        <div class="active_error">当前账号未激活! <span>3</span>秒 后跳转激活链接!</div>
 
                     </form>
                     <div class="yzm">
