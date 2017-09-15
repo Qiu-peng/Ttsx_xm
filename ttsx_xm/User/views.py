@@ -35,7 +35,7 @@ def toLogin(request):
 
 # 返回用户名
 def toindex(request):
-    uname = request.GET.get('name')  # 读取用户名
+    uname = request.POST.get('name')  # 读取用户名
     # 保存到txt中
     f_login = open('static/txt/user.txt', 'r+')
     user_list = f_login.read().split(",")
@@ -44,11 +44,11 @@ def toindex(request):
         user_save.write('%s,' % uname)
         user_save.close()
     # 记住密码选项
-    ischeck = request.GET.get('ischeck')
-    the_user = UserInfo.users.filter(userName=uname)
-    list = [the_user[0].userName, the_user[0].userPsw]
+    ischeck = request.POST.get('ischeck')
+    pwd = request.POST.get('pwd')
+    list_u = [uname, pwd]
     if ischeck:
-        request.session['repwd'] = list  # 存对象
+        request.session['repwd'] = list_u  # 存对象
     context = {'uname': uname}
     return JsonResponse(context)
 
@@ -72,8 +72,11 @@ def regist(request):
     add = UserInfo.users.create(uname, upsw_sh1, uemail)
     add.save()
     # 注册时发送激活邮件
+    print(1)
     msg = '<br/><a href="http://127.0.0.1:8000/User/active%s/">点击激活</a>' % add.id
+    print(2)
     send_mail('天天生鲜用户注册激活', '', settings.EMAIL_FROM, [uemail], html_message=msg)
+    print(3)
     return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
 
 
@@ -96,12 +99,12 @@ def readName(request):
     return JsonResponse({'lname': list})
 
 
+# 记住密码
 def remember(request):
     name = request.POST.get('name')
-    the_user = UserInfo.users.filter(userName=name)
-    pwd = the_user[0].userPsw
-    list = request.session.get('repwd')
-    uname = list[0]
+    list_u = request.session.get('repwd')
+    uname = list_u[0]
+    pwd = list_u[1]
     if uname == name:
         return JsonResponse({'repwd': pwd})
     else:

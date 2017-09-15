@@ -26,7 +26,7 @@
                     var upwd = $('.pass_input').val();
                     var shapwd =$.sha1(upwd);
                     if (data.pwd == shapwd) {
-                        $.get('/User/toindex/', {'name': $('.name_input').val(),'ischeck':$(".Remember").prop("checked")}, function () {
+                        $.post('/User/toindex/', {'name': $('.name_input').val(),'ischeck':$(".Remember").prop("checked"),'pwd': upwd}, function () {
                             window.location.href = '/';
                         });
                     }
@@ -107,7 +107,7 @@
                 $('.rename').hide();
                 // 判断是否有session
                 $.post('/User/remember/',{'name':$('.name_input').val()},function (data) {
-                    var pwd =data.repwd
+                    var pwd =data.repwd //　密文
                     if(pwd){
                         $(".Remember").prop("checked",true);
                         $('.pass_input').val(pwd)
@@ -139,7 +139,6 @@
                     var ret =data.ret;
                     if(ret == true){
                         $('.tishi').html("输入正确").css('color', 'green');
-                        // $('.yzm').delay(500).hide(0);
                         $('.yzm').delay(500).css('display','none');
                         $('.yzm_input').val("");
                         $(".input_submit").attr("disabled", false);
