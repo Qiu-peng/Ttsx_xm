@@ -195,7 +195,7 @@ html,body{height:100%}
 
 .sort_bar{height:30px;background-color:#f0fdec}
 .sort_bar a{display:block;height:30px;line-height:30px;padding:0 20px;float:left;color:#000}
-.sort_bar .active{background-color:#37ab40;color:#fff;}
+.sort_bar .active{background-color:#43a200;color:#fff}
 
 
 .goods_type_list{

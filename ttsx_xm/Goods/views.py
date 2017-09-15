@@ -71,7 +71,7 @@ def detail(request, picid):
     if len(goodsl) > 5:
         del goodsl[5]
     response.set_cookie('Rcently', goodsl, expires=24 * 60 * 60 * 30)
-    print(goodsl)
+    # print(goodsl)
     return response
 
 
@@ -92,8 +92,8 @@ def list(request, lid, sort, pi):
     paginator = Paginator(goods, 15)
     page = paginator.page(int(pi))
     pagenum = paginator.page_range
-    context = {'goods2': goods2,'pi':int(pi),'sort':int(sort),
-               'sort': sort, 'page': page, 'pagenum': pagenum}
+    context = {'goods2': goods2, 'pi': int(pi), 'sort': int(sort),
+               'page': page, 'pagenum': pagenum}
     return render(request, 'Goods/list.html', context)
 
 

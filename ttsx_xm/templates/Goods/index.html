@@ -212,7 +212,7 @@
 {#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in eggs2 %}
                 <li>
-                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.0 }}</a></h4>
+                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
@@ -268,7 +268,7 @@
 {#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in fastFrozen2 %}
                 <li>
-                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.0 }}</a></h4>
+                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
                     <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
