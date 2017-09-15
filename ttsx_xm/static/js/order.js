@@ -20,22 +20,22 @@ $(function () {
       //       });
 
     // 获取所有商品
-    var $goodsul = $('.goods_list_td')
+    var $goodsul = $('.goods_list_td');
     // 循环取出每一个商品
     $.each($goodsul, function () {
         // 取出li 中的内容
-        var col05 = $(this).children().eq(4).html();
+        var col05 = $(this).children('li').eq(4).html();
         // 转换为数字类型
         var col5 = parseFloat(col05);
 
         // 取出li 中的内容
-        var col06 = $(this).children().eq(5).html();
+        var col06 = $(this).children('li').eq(5).html();
         // 转换为数字类型
         var col6 = parseFloat(col06);
 
         // 计算小计金额，并转换成字符串
-        var col7 = col5 * col6 + '元';
-        $(this).children().eq(6).html(col7);
+        var col7 = (col5 * col6).toFixed(2) + '元';
+        $(this).children('li').eq(6).html(col7);
     });
 
     // 商品的总数量
