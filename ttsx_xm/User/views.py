@@ -2,9 +2,9 @@ from django.shortcuts import render
 from .models import *
 from PIL import Image, ImageDraw, ImageFont
 from django.http import JsonResponse, HttpResponse
-from django.conf import settings
-from django.core.mail import send_mail
 from hashlib import sha1
+from . import task
+import time
 
 
 # 显示登录页面
@@ -30,7 +30,6 @@ def toLogin(request):
             return JsonResponse({'pwd': 'notValid'})
     else:
         return JsonResponse({'pwd': 'notExists'})
-
 
 
 # 返回用户名
@@ -71,12 +70,8 @@ def regist(request):
     # 添加进数据库表中
     add = UserInfo.users.create(uname, upsw_sh1, uemail)
     add.save()
-    # 注册时发送激活邮件
-    print(1)
-    msg = '<br/><a href="http://127.0.0.1:8000/User/active%s/">点击激活</a>' % add.id
-    print(2)
-    send_mail('天天生鲜用户注册激活', '', settings.EMAIL_FROM, [uemail], html_message=msg)
-    print(3)
+    # 任务加入celery中
+    task.send.delay(add.id, uemail)
     return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
 
 
@@ -92,7 +87,7 @@ def ishere(request):
 def readName(request):
     f_login = open('static/txt/user.txt', 'r+')
     user_list = f_login.read().split(",")
-    list =[]
+    list = []
     for i in user_list:
         if i != '':
             list.append(i)
@@ -210,9 +205,10 @@ def send(request, uid):
     the_user = UserInfo.users.get(id=uid)
     uid = the_user.id
     uemail = the_user.userEmail
-    msg = '<a href="http://127.0.0.1:8000/User/active%s/">点击激活</a>' % uid
-    send_mail('天天生鲜用户注册激活', '', settings.EMAIL_FROM, [uemail], html_message=msg)
-    return HttpResponse('激活邮件已发送,请移步邮箱激活!')
+    time.sleep(3)  # 延迟3s发送邮件,让用户看见未激活提示
+    # 任务加入celery中
+    task.send.delay(uid, uemail)
+    return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
 
 
 # 激活用户
