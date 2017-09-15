@@ -69,26 +69,5 @@ $(function () {
     // 修改实付款
     $('.total_pay b').html(pay);
 
-    // 点击提交订单时
-    $('#order_btn').click(function (data) {
-
-        // $('#handleorder').prop({'action':"handle_order/"});
-        console.log(data);
-
-        // localStorage.setItem('order_finish', 2);
-        //
-        // $('.popup_con').fadeIn('fast', function () {
-        //
-        //     setTimeout(function () {
-        //         $('.popup_con').fadeOut('fast', function () {
-        //             window.location.href = '/';
-        //         });
-        //     }, 3000)
-        // });
-
-
-
-    });
-
 
 });
