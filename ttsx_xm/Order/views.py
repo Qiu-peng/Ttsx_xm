@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from Cart.models import *
 from .models import *
 from django.db import transaction
@@ -55,6 +56,7 @@ def handle_order(request):
         order.save()
         return order
 
+    # 此函数调用出错
     def createdetail(goods,order):
         # 创建详单对象
         detail = OrderDetailInfo()
@@ -67,7 +69,15 @@ def handle_order(request):
     # 立即购买的订单处理
     if gid:
         # 创建订单
+        # print('---------7')
+        # print(createorder)
+        # print('---------8')
         order = createorder()
+        # print('---------9')
+        # print(order)
+        # print('---------10')
+
+
         # 查询立即购买的商品
         goods = GoodsInfo.objects.get(id=gid)
         # 库存足够
@@ -79,42 +89,58 @@ def handle_order(request):
             # 减少库存量
             goods.gkucun -= gcount
             goods.save()
-            # 创建详单
-            print(gcount)
-            detail = createdetail(goods,order)
-            print()
-            print(detail)
+
+            # 创建详单对象
+            # print('--------1')
+            detail = OrderDetailInfo()
+            # print(detail)
+            # print('--------2')
+            detail.goods = goods
+            detail.order = order
             detail.count = gcount
+            detail.price = goods.gprice
             detail.save()
+
+            # 创建详单  函数调用出错
+            # print('-----------3')
+            # print(createdetail)
+            # print('-----------4')
+            # detail = createdetail(goods,order)
+            # print('-----------5')
+            # print(detail)
+            # print('-----------6')
+            # detail.count = gcount
+            # detail.save()
+
             # 提交事务
             transaction.savepoint_commit(trans_id)
-            # 回到首页
-            return redirect('/')
+            # return redirect('/')
+
+            # return render(request,'/Goods/index.html/')
         # 库存不足
         else:
             # 回滚事务
             transaction.savepoint_rollback(trans_id)
-            # 应该回到立即购买页面
+            # 回到立即购买页面
             return redirect('/Cart/cart')
+
+
+
 
     # 购物车订单处理
     else:
-        # 创建订单
+        # 创建订单  django负责维护的订单日期  比本地早8小时
         order = createorder()
 
         # 查询选中的购物车信息，逐个遍历
         clist = CartInfo.objects.filter(id__in=cid)
-        print(clist)
+        # 判断提交事务 或回滚事务
         isOK = True
         for cart in clist:
             goods = cart.goods
 
             # 库存足够
             if goods.gkucun >= cart.count:
-                print(goods)
-                print(cart.count)
-                print(type(cart.count))
-
                 # 计算总金额
                 order.ototal += cart.count * goods.gprice
                 order.save()
@@ -124,20 +150,20 @@ def handle_order(request):
 
 
                 # 创建详单对象
-                # detail = OrderDetailInfo()
-                # detail.goods = goods
-                # detail.order = order
-                # detail.count = cart.count
-                # detail.price = goods.gprice
-                # detail.save()
+                detail = OrderDetailInfo()
+                detail.goods = goods
+                detail.order = order
+                detail.count = cart.count
+                detail.price = goods.gprice
+                detail.save()
 
 
                 # 创建详单
-                det=createdetail(goods,order) # 此处错误
-                print(det)
-                print(cart.count)
-                det.count = cart.count
-                det.save()
+                # det=createdetail(goods,order) # 此处错误
+                # print(det)
+                # print(cart.count)
+                # det.count = cart.count
+                # det.save()
 
                 # 删除购物车对象
                 cart.delete()
@@ -149,8 +175,11 @@ def handle_order(request):
             # 提交事务
             transaction.savepoint_commit(trans_id)
             return redirect('/')
+
         else:
             # 回滚事务
             transaction.savepoint_rollback(trans_id)
             # 回到购物车
+
             return redirect('/Cart/cart')
+

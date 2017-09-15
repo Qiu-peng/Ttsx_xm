@@ -3,21 +3,6 @@
  */
 
 $(function () {
-      // 点击提交订单时
-      // $('#order_btn').click(function () {
-      //
-      //           localStorage.setItem('order_finish', 2);
-      //
-      //           $('.popup_con').fadeIn('fast', function () {
-      //
-      //               setTimeout(function () {
-      //                   $('.popup_con').fadeOut('fast', function () {
-      //                       window.location.href = '/';
-      //                   });
-      //               }, 3000)
-      //
-      //           });
-      //       });
 
     // 获取所有商品
     var $goodsul = $('.goods_list_td');
@@ -72,10 +57,10 @@ $(function () {
     // console.log(total_pay);
 
     // 拼接总金额，加‘元’
-    var total = total_money+'元';
+    var total = total_money + '元';
 
     // 拼接实付款，加‘元’
-    var pay = total_pay+'元';
+    var pay = total_pay + '元';
 
     // 修改商品数量
     $('.total_goods_count em').html(num);
@@ -84,6 +69,26 @@ $(function () {
     // 修改实付款
     $('.total_pay b').html(pay);
 
+    // 点击提交订单时
+    $('#order_btn').click(function (data) {
+
+        // $('#handleorder').prop({'action':"handle_order/"});
+        console.log(data);
+
+        // localStorage.setItem('order_finish', 2);
+        //
+        // $('.popup_con').fadeIn('fast', function () {
+        //
+        //     setTimeout(function () {
+        //         $('.popup_con').fadeOut('fast', function () {
+        //             window.location.href = '/';
+        //         });
+        //     }, 3000)
+        // });
+
+
+
+    });
 
 
 });

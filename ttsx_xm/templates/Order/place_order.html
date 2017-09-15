@@ -48,7 +48,7 @@
             <input type="button" class="input_btn fr" name="" value="搜索">
         </div>
     </div>
-    <form action="handle_order/" method="post">
+    <form action="handle_order/" method="post" id="handleorder">
         <h3 class="common_title">确认收货地址</h3>
 
         <div class="common_list_con clearfix">
@@ -145,6 +145,7 @@
         <div class="order_submit clearfix">
 
             <input type="submit" value="提交订单" id="order_btn">
+{#            <input type="hidden" value="{{ status }}" id="status">#}
 
         </div>
     </form>
