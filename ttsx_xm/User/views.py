@@ -52,6 +52,7 @@ def toindex(request):
     return JsonResponse(context)
 
 
+
 # 显示注册页面
 def register(request):
     return render(request, 'User/register.html')
@@ -218,3 +219,38 @@ def active(request, uid):
     active_user.save()
     return HttpResponse('用户已激活, <a href="/User/login/">点击登录</a>')
 
+
+# 显示重置密码页面
+def forget(request):
+    return render(request, 'User/forget.html')
+
+
+def reset_send(request):
+    name = request.POST.get('userName')
+    the_user = UserInfo.users.filter(userName=name)
+    uid = the_user[0].id
+    uemail = the_user[0].userEmail
+
+    # 任务加入celery中
+    task.send_reset.delay(uid, uemail)
+    return HttpResponse('重置密码邮件已发送至注册时的邮箱,请移步邮箱重置密码!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
+
+
+def reset_show(request, uid):
+    the_user = UserInfo.users.filter(id=uid)
+    uname = the_user[0].userName
+    return render(request, 'User/reset.html', {'uname': uname})
+
+
+def reset_pwd(request):
+    name = request.POST.get('uname')
+    new_pwd = request.POST.get('user_pwd')
+    # 密码sha1加密
+    sh1 = sha1()
+    sh1.update(new_pwd.encode('utf-8'))
+    newpsw_sh1 = sh1.hexdigest()
+    # 获取用户
+    reset_user = UserInfo.users.get(userName=name)
+    reset_user.userPsw = newpsw_sh1
+    reset_user.save()
+    return HttpResponse('用户密码已重置, <a href="/User/login/">点击登录</a>')
