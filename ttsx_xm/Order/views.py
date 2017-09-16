@@ -129,6 +129,8 @@ def handle_order(request):
 
                 # 删除购物车对象
                 cart.delete()
+
+
             # 库存不足
             else:
                 isOK = False
