@@ -24,6 +24,10 @@ urlpatterns =[
 
     url(r'^send(\d+)/$', views.send),  # 发送邮件
     url(r'^active(\d+)/$', views.active),  # 激活用户
+
+    url('^sendAddr/$', views.sendAddr), # 收货地址
+    url('^showAdd/$', views.showAdd), # 显示收货地址
+    url('^upAdd/$', views.upAdd), # 修改收货地址
 ]
 
 
