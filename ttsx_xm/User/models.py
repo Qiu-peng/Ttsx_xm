@@ -3,7 +3,7 @@ from django.db import models
 
 class UserInfoManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(isValid=True)
+        return super().get_queryset().all()
 
     def create(self, name, psw, email):
         user = UserInfo()
@@ -24,12 +24,15 @@ class AddressInfoManager(models.Manager):
 
 class UserInfo(models.Model):
     userName = models.CharField(max_length=20)
-    userPsw = models.CharField(max_length=20)
+    userPsw = models.CharField(max_length=40)
     userEmail = models.CharField(max_length=30)
     isValid = models.BooleanField(default=True)
     isActive = models.BooleanField(default=False)
 
     users = UserInfoManager()
+    # 类对象的打印信息
+    def __str__(self):
+        return self.userName
 
 
 class UserAddressInfo(models.Model):

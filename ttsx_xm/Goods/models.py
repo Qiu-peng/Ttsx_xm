@@ -18,7 +18,7 @@ class TypeInfo(models.Model):
 class GoodsInfo(models.Model):
     """商品信息"""
     # 商品名称
-    gtitle = models.CharField(max_length=20)
+    gtitle = models.CharField(max_length=40)
     # 图片路径
     gpic = models.ImageField(upload_to='goods')
     # 单价,总位数5位，小数位数2位

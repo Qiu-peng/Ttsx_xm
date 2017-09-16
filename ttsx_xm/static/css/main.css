@@ -21,13 +21,13 @@ html,body{height:100%}
 	display:none;
 }
 
-.login_info em{color:#ff8800}
+.login_info a{color:#ff8800}
 
-.login_btn a,.user_link a{
+.login_btn a,.user_link a, .login_info .quit{
 	color:#666;
 }
 
-.login_btn a:hover,.user_link a:hover{
+.login_btn a:hover,.user_link a:hover, .login_info .quit:hover{
 	color:#ff8800;
 }
 
@@ -222,7 +222,7 @@ html,body{height:100%}
 .pagenation{height:32px;text-align:center;font-size:0;margin:30px auto;}
 .pagenation a{display:inline-block;border:1px solid #d2d2d2;background-color:#f8f6f7;font-size:12px;padding:7px 10px;color:#666;margin:5px}
 
-.pagenation .active{background-color:#fff;color:#43a200}
+.pagenation .active{background-color:#43a200;color:#fff}
 
 
 /* 商品详情样式 */
@@ -304,9 +304,64 @@ html,body{height:100%}
 .more_input a{float:right;color:#666}
 .more_input a:hover{color:#ff8800}
 
-.input_submit{width:100%;height:40px;position:absolute;left:0;top:180px;background-color:#47aa34;color:#fff;font-size:22px;border:0px;font-family:'Microsoft Yahei';cursor:pointer;}
-.aaa{position: absolute;left:0;bottom:10px;color:#f00;display: none}
+.input_submit{width:100%;height:40px;position:absolute;left:0;top:180px;background-color:#47aa34;color:#fff;font-size:22px;border:0px;font-family:'Microsoft Yahei';cursor:pointer;outline-color: #47aa34}
+.btn_error{position: absolute;left:10px;bottom:10px;color:#f00;display: none}
+.active_error{position: absolute;left: -360px;top: 0px;width: 350px;height: 150px;background-color: white;text-align:center;line-height:150px;font-family:'Microsoft Yahei';font-size:16px;color: #666666;display: none}
+.active_error span{font-size: 18px;}
+.rename{width:306px;position: absolute;left:0;top:38px; display: none;z-index:999;}
+.op{width:306px;height:33px; line-height:33px; border-bottom:1px solid lightgray;border-left:1px solid lightgray;border-right:1px solid lightgray;background-color: ghostwhite;text-indent:10px;font-size:14px;display: none;}
+.op:hover{background-color: yellowgreen;}
+.yzm{
+	width: 266px;
+	height: 120px;
+	position: absolute;
+	left:0;
+	top:100px;
+	background:url(../images/info_bg.png);
+	display: none;
+	border-bottom: 1px solid #4e4e4e;
+}
+.yzm .img{
+	margin-top:10px;
+	margin-left:20px;
+	cursor:pointer;
+}
+.yzm .text{
+	margin-top:12px;
+	margin-left:20px;
+	font-size: 14px;
+	color: green;
+}
+.yzm_input{
+	margin:10px 10px 10px ;
+	width: 100px;
+	height: 30px;
+	font-size: 14px;
+	line-height: 30px;
+	text-indent: 10px;
+}
+.tishi{
+	height: 30px;
+	width: 100px;
+	margin-left:20px;
+	font-size: 14px;
+	line-height: 30px;
+	text-indent: 10px;
+	color: brown;
+}
 
+.yzm_btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 15px;
+	background-color:#47aa34;
+	color:#fff;
+	border: 0px;
+	font-size: 14px;
+}
+.yzm_btn:hover{
+	background-color: #458B74;
+}
 /* 注册页面 */
 .register_con{
 	width:700px;
@@ -652,3 +707,75 @@ html,body{height:100%}
 .stress{
 	color:#ff8800;
 }
+/*去除下拉框的三角*/
+select{
+appearance:none;
+-moz-appearance:none; /* Firefox */
+-webkit-appearance:none; /* Safari 和 Chrome */
+}
+.forget{
+	width: 1000px;
+	height: 500px;
+	border: 1px solid #cecece;
+	margin: 10px auto 0px;
+
+}
+.box{
+	width: 380px;
+	height: 75px;
+	display: inline-block;
+	margin: 30px 30px 30px 150px;
+}
+.tubiao{
+	display: inline-block;
+}
+.hhh{
+	display: inline-block;
+	height: 70px;
+	border-left: 2px solid #37ab40;
+	font-size: 34px;
+	line-height: 100px;
+	color: #37ab40;
+}
+.find{
+	height: 100px;
+	text-align: center;
+}
+.find h2{
+	width: 950px;
+	margin: auto;
+	font-size: 34px;
+	line-height: 100px;
+	border-bottom: 2px solid #cecece;
+	font-family:'Microsoft Yahei'
+}
+
+.text{
+	width: 400px;
+	height: 200px;
+	margin: auto;
+	margin-top: 50px;
+}
+.reset_text{
+	font-size: 16px;
+	margin: 10px 0;
+}
+.text_in{
+	display: block;
+	width: 350px;
+	height: 40px;
+	margin: 10px 0px;
+	outline-color: #37ab40;
+	text-indent: 5px;
+}
+.sub{
+	width: 350px;
+	height: 35px;
+	background-color:#47aa34;
+	margin-top: 20px;
+	color:#fff;
+	border: 0px;
+	font-size: 16px;
+}
+
+

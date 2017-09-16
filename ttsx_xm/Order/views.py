@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
 from Cart.models import *
 from .models import *
 from django.db import transaction
 from datetime import datetime
+
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
 
 def showorder(request):
@@ -19,6 +21,7 @@ def showorder(request):
         # 获取到购物车对象
         if clist:
             cart.append(clist[0])
+
 
     # 获取立即购买的商品对象，只有1个商品
     good = GoodsInfo.objects.get(pk=goodsid[0])
@@ -148,3 +151,13 @@ def handle_order(request):
             # 回到购物车
             context = {'status': '3'}
             return render(request, 'Order/submitorder.html', context)
+
+# 退出登录,删除cookie
+def delete(request):
+    uname = request.COOKIES.get('uname')
+    if uname:
+        response = HttpResponseRedirect('/Order/')
+        response.set_cookie('uname', 1, expires=0)
+        return response
+
+

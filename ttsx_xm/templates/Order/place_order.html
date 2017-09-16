@@ -7,6 +7,41 @@
 {% block head %}
     <script src="/static/js/order.js"></script>
 
+
+    <script type="text/javascript">
+        $(function () {
+            //显示 欢迎用户块
+            $.get('/Goods/getname/', function (data) {
+                if(data.uname != null){
+                    $(".login_info").show();
+                    $(".login_btn").hide();
+                    $(".user").html(data.uname);
+                }
+                else{
+                    $('#user').attr('href', '/User/login/');
+                    $(".login_info").hide();
+                    $(".login_btn").show();
+                }
+            });
+
+{#            $('#order_btn').click(function () {#}
+{#                localStorage.setItem('order_finish', 2);#}
+{##}
+{#                $('.popup_con').fadeIn('fast', function () {#}
+{##}
+{#                    setTimeout(function () {#}
+{#                        $('.popup_con').fadeOut('fast', function () {#}
+{#                            window.location.href = '/';#}
+{#                        });#}
+{#                    }, 3000)#}
+{##}
+{#                });#}
+{#            });#}
+
+
+        });
+    </script>
+
 {% endblock head %}
 
 {% block body %}
@@ -15,25 +50,26 @@
         <div class="header">
             <div class="welcome fl">欢迎来到天天生鲜!</div>
             <div class="fr">
-                <div class="login_info fl">
-                    欢迎您：<em>张 山</em>
-                </div>
-                <div class="login_btn fl">
-                    <a href="/User/login/">登录</a>
-                    <span>|</span>
-                    <a href="/User/register/">注册</a>
-                </div>
-                <div class="user_link fl">
-                    <span>|</span>
-                    <a href="/User/user_center_info/">用户中心</a>
-                    <span>|</span>
-                    <a href="/Cart/cart/">我的购物车</a>
-                    <span>|</span>
-                    <a href="/User/user_center_order/">我的订单</a>
 
-                </div>
+				<div class="login_info fl">
+					欢迎您：<a class="user" href="/User/user_center/">用户名</a>
+                    <a class="quit" href="/Order/delete/">&nbsp;&nbsp;退出</a>
+				</div>
+				<div class="login_btn fl">
+					<a href="/User/login/">登录</a>
+					<span>|</span>
+					<a href="/User/register/">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a id="user" href="/User/user_center/">用户中心</a>
+					<span>|</span>
+					<a href="/Cart/cart/">我的购物车</a>
+					<span>|</span>
+					<a href="/User/user_order/">我的订单</a>
+				</div>
+			</div>
 
-            </div>
         </div>
     </div>
 
