@@ -70,7 +70,12 @@ def detail(request, picid):
     # 限制长度
     if len(goodsl) > 5:
         del goodsl[5]
-    response.set_cookie('Rcently', goodsl, expires=24 * 60 * 60 * 30)
+    # 转换成字符串
+    j = ""
+    for i in goodsl:
+         j += str(i)
+         j +=","
+    response.set_cookie('Recently', j, expires=24 * 60 * 60 * 30)
     # print(goodsl)
     return response
 
