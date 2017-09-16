@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import *
 from django.http import HttpResponseRedirect, JsonResponse
 from random import randint
+from django.core.paginator import *
 
 
 # Create your views here.
@@ -69,15 +70,20 @@ def detail(request, picid):
     # 限制长度
     if len(goodsl) > 5:
         del goodsl[5]
-    response.set_cookie('Rcently', goodsl, expires=24 * 60 * 60 * 30)
-    print(goodsl)
+    # 转换成字符串
+    j = ""
+    for i in goodsl:
+         j += str(i)
+         j +=","
+    response.set_cookie('Recently', j, expires=24 * 60 * 60 * 30)
+    # print(goodsl)
     return response
 
 
-def list(request, lid, sort):
+def list(request, lid, sort, pi):
     # 根据传过来的id获取这个商品同类的所有商品
-    if int(sort) == 0:   # 默认排序
-        goods = GoodsInfo.objects.filter(gtype=lid)
+    if int(sort) == 0:  # 默认排序
+        goods = GoodsInfo.objects.filter(gtype=lid).order_by("-id")
         # print("sort=0")
     elif int(sort) == 1:  # 价格从低到高排序
         goods = GoodsInfo.objects.filter(gtype=lid).order_by("gprice")
@@ -85,13 +91,14 @@ def list(request, lid, sort):
     elif int(sort) == 2:  # 按点击量从高到底排序
         goods = GoodsInfo.objects.filter(gtype=lid).order_by("-gclick")
         # print("sort=2")
-    # 获取当前商品大类对象
-    type = TypeInfo.objects.get(id=lid)
     # 获取当前商品的同类的三个新品
     goods2 = GoodsInfo.objects.filter(gtype=lid).order_by("-id")[:3]
-
-    context = {'goods': goods, 'type': type, 'goods2': goods2,'sort':sort}
-
+    # 分页
+    paginator = Paginator(goods, 15)
+    page = paginator.page(int(pi))
+    pagenum = paginator.page_range
+    context = {'goods2': goods2, 'pi': int(pi), 'sort': int(sort),
+               'page': page, 'pagenum': pagenum}
     return render(request, 'Goods/list.html', context)
 
 
@@ -109,5 +116,3 @@ def delete(request):
         response = HttpResponseRedirect('/')
         response.set_cookie('uname', 1, expires=0)
         return response
-
-

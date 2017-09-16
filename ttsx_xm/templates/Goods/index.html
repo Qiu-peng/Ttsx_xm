@@ -55,12 +55,12 @@
 
 	<div class="center_con clearfix">
 		<ul class="subnav fl">
-			<li><a href="/Goods/list1_0" class="fruit">新鲜水果</a></li>
-			<li><a href="/Goods/list2_0" class="seafood">海鲜水产</a></li>
-			<li><a href="/Goods/list3_0" class="meet">猪牛羊肉</a></li>
-			<li><a href="/Goods/list4_0" class="egg">禽类蛋品</a></li>
-			<li><a href="/Goods/list5_0" class="vegetables">新鲜蔬菜</a></li>
-			<li><a href="/Goods/list6_0" class="ice">速冻食品</a></li>
+			<li><a href="/Goods/list1_0_1" class="fruit">新鲜水果</a></li>
+			<li><a href="/Goods/list2_0_1" class="seafood">海鲜水产</a></li>
+			<li><a href="/Goods/list3_0_1" class="meet">猪牛羊肉</a></li>
+			<li><a href="/Goods/list4_0_1" class="egg">禽类蛋品</a></li>
+			<li><a href="/Goods/list5_0_1" class="vegetables">新鲜蔬菜</a></li>
+			<li><a href="/Goods/list6_0_1" class="ice">速冻食品</a></li>
 		</ul>
 		<div class="slide fl">
 			<ul class="slide_pics">
@@ -90,7 +90,7 @@
                 <a href="/Goods/{{ goods.id }}">{{ goods.gtitle.split.1}}</a>
                 {% endfor %}
 			</div>
-			<a href="/Goods/list{{ fruit.0.gtype.id }}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+			<a href="/Goods/list{{ fruit.0.gtype.id }}_0_1" class="goods_more fr" id="fruit_more">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -102,7 +102,7 @@
 
                     <h4><a href="/Goods/{{ fpic.id }}/">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}/"><img src="/static/media/{{ fpic.gpic }}"></a>
-                    <div class="prize">{{ fpic.gprice }}</div>
+                    <div class="prize">￥{{ fpic.gprice }}</div>
 
                 </li>
                 {% endfor %}
@@ -122,7 +122,7 @@
                 {% endfor %}
 
 			</div>
-			<a href="/Goods/list{{ fish.0.gtype.id }}" class="goods_more fr">查看更多 ></a>
+			<a href="/Goods/list{{ fish.0.gtype.id }}_0_1" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -133,7 +133,7 @@
                 <li>
                     <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
-                    <div class="prize">{{ fpic.gprice }}</div>
+                    <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
                 {% endfor %}
 
@@ -151,7 +151,7 @@
                 <a href="/Goods/{{ goods.id }}">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
-			<a href="/Goods/list{{ meal.0.gtype.id }}" class="goods_more fr">查看更多 ></a>
+			<a href="/Goods/list{{ meal.0.gtype.id }}_0_1" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -162,7 +162,7 @@
                 <li>
                     <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
-                    <div class="prize">{{ fpic.gprice }}</div>
+                    <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
                 {% endfor %}
 			</ul>
@@ -179,7 +179,7 @@
                 <a href="/Goods/{{ goods.id }}">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
-			<a href="/Goods/list{{ eggs.0.gtype.id }}" class="goods_more fr">查看更多 ></a>
+			<a href="/Goods/list{{ eggs.0.gtype.id }}_0_1" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -188,9 +188,9 @@
 {#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in eggs2 %}
                 <li>
-                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.0 }}</a></h4>
+                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
-                    <div class="prize">{{ fpic.gprice }}</div>
+                    <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
                 {% endfor %}
 			</ul>
@@ -207,7 +207,7 @@
                 <a href="/Goods/{{ goods.id }}">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
-			<a href="/Goods/list{{ vege.0.gtype.id }}" class="goods_more fr">查看更多 ></a>
+			<a href="/Goods/list{{ vege.0.gtype.id }}_0_1" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -218,7 +218,7 @@
                 <li>
                     <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
-                    <div class="prize">{{ fpic.gprice }}</div>
+                    <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
                 {% endfor %}
 			</ul>
@@ -235,7 +235,7 @@
                 <a href="/Goods/{{ goods.id }}">{{ goods.gtitle.split.1 }}</a>
                 {% endfor %}
 			</div>
-			<a href="/Goods/list{{ fastFrozen.0.gtype.id }}" class="goods_more fr">查看更多 ></a>
+			<a href="/Goods/list{{ fastFrozen.0.gtype.id }}_0_1" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -244,9 +244,9 @@
 {#            从数据库过滤获取点击量最高的四个商品，遍历显示#}
                 {% for fpic in fastFrozen2 %}
                 <li>
-                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.0 }}</a></h4>
+                    <h4><a href="/Goods/{{ fpic.id }}">{{ fpic.gtitle.split.1 }}</a></h4>
                     <a href="/Goods/{{ fpic.id }}"><img src="/static/media/{{ fpic.gpic }}"></a>
-                    <div class="prize">{{ fpic.gprice }}</div>
+                    <div class="prize">￥{{ fpic.gprice }}</div>
                 </li>
                 {% endfor %}
 			</ul>
