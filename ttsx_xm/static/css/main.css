@@ -531,22 +531,34 @@ html,body{height:100%}
 .oper_btn{display:inline-block;border:1px solid #ddd;color:#666;padding:5px 10px}
 
 .popup_con{display:none;}
-.popup{width:300px;height:150px;border:1px solid #dddddd;border-top:2px solid #00bc6f;background-color:#f7f7f7;position:fixed;
+.popup{width:500px;height:500px;border:1px solid #dddddd;border-top:2px solid #00bc6f;background-color:#f7f7f7;position:fixed;
 	left:50%;
-	margin-left:-150px;
+	margin-left:-250px;
 	top:50%;
-	margin-top:-75px;
+	margin-top:-200px;
 	z-index:1000;
+}
+.popup .img{
+	text-align:center;
+}
+.popup h3{
+	text-align:center;
 }
 
 .popup p{height:100px;line-height:100px;text-align:center;font-size:18px;}
 
 .popup h4{
+
     height:50px;
     line-height:50px;
     text-align:center;
     color:#666;
 	font-size:14px;
+}
+
+.popup h4 a{
+	color:red;
+	text-decoration: none;
 }
 #count{
 	color:red;
