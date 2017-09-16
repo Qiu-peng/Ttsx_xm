@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from hashlib import sha1
 from . import task
 import time
-
+from Goods.models import *
 
 # 显示登录页面
 def login(request):
@@ -224,6 +224,7 @@ def forget(request):
     return render(request, 'User/forget.html')
 
 
+# 发送重置密码邮件
 def reset_send(request):
     name = request.POST.get('userName')
     the_user = UserInfo.users.filter(userName=name)
@@ -235,12 +236,14 @@ def reset_send(request):
     return HttpResponse('重置密码邮件已发送至注册时的邮箱,请移步邮箱重置密码!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
 
 
+# 新密码填写页面
 def reset_show(request, uid):
     the_user = UserInfo.users.filter(id=uid)
     uname = the_user[0].userName
     return render(request, 'User/reset.html', {'uname': uname})
 
 
+# 用新密码重写数据表
 def reset_pwd(request):
     name = request.POST.get('uname')
     new_pwd = request.POST.get('user_pwd')
@@ -253,3 +256,19 @@ def reset_pwd(request):
     reset_user.userPsw = newpsw_sh1
     reset_user.save()
     return HttpResponse('用户密码已重置, <a href="/User/login/">点击登录</a>')
+
+
+# 用户中心最近浏览数据
+def recent_scan(request):
+    li = request.COOKIES.get('Rcently')
+    the_li = []
+    print(li)
+    for item in li:
+        print(item)
+        it = GoodsInfo.objects.get(id=item)
+        the_li.append(it)
+    return JsonResponse({'list': the_li})
+
+
+
+

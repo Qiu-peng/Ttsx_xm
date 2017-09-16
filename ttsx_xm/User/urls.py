@@ -29,6 +29,8 @@ urlpatterns =[
     url(r'^reset_send/$', views.reset_send),  # 给用户发送重置邮件
     url(r'^reset_show(\d+)/$', views.reset_show),  # 用户填写新密码
     url(r'^reset_pwd/$', views.reset_pwd),   # 将用户新密码填入数据库
+
+    url(r'^recent_scan/$', views.recent_scan),  # 最近浏览
 ]
 
 
