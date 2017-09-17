@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
-
-{% block body %}
-
     {% block title %}
-    <title>天天生鲜-登录</title>
+        <title>天天生鲜-登录</title>
+
     {% endblock title %}
 
+    {% block head %}
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.sha1.js"></script>
+    <script type="text/javascript" src="/static/js/login.js"></script>
+    {% endblock head %}
+{% block body %}
+
+
 	<div class="login_top clearfix">
-		<a href="index.html" class="login_logo"><img src="/static/images/logo02.png"></a>
+		<a href="/Goods/" class="login_logo"><img src="/static/images/logo02.png"></a>
 	</div>
 
 	<div class="login_form_bg">
@@ -16,23 +22,41 @@
 			<div class="slogan fl">日夜兼程 · 急速送达</div>
 			<div class="login_form fr">
 				<div class="login_title clearfix">
-					<h1>用户登录</h1>
-					<a href="#">立即注册</a>
+					<h1>用户登录 </h1>
+					<a href="/User/register/">立即注册</a>
 				</div>
 				<div class="form_input">
-					<form>
+
+					<form method="post" >
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
-						<div class="user_error">输入错误</div>
-						<input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
+						<div class="rename">
+                        </div>
+                        <div class="user_error">输入错误</div>
+
+                        <input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
 						<div class="pwd_error">输入错误</div>
-						<div class="more_input clearfix">
-							<input type="checkbox" name="">
-							<label>记住用户名</label>
-							<a href="#">忘记密码</a>
+
+                        <div class="more_input clearfix">
+							<input type="checkbox" name="Remember" class="Remember">
+							<label>记住密码</label>
+							<a href="/User/forget/">忘记密码</a>
 						</div>
-						<input type="submit" name="" value="登录" class="input_submit">
-					</form>
+						<input type="button" name="" value="登录" class="input_submit">
+                        <div class="btn_error">用户名或密码错误,请重试!</div>
+                        <div class="active_error">当前账号未激活! <span>3</span>秒 后跳转激活链接!</div>
+
+                    </form>
+                    <div class="yzm">
+                        <div class="text">您的操作有误,请三思!</div>
+                        <img src="/User/verify_code/" class="img fl">
+                        <input type="text" name="yzm" class="yzm_input fl" placeholder="请输入验证码">
+                        <div class="tishi fl"></div>
+                        <input type="button" class="yzm_btn fl" value="提    交">
+                    </div>
+
+
 				</div>
+
 			</div>
 		</div>
 	</div>

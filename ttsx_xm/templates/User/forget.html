@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+    {% block title %}
+        <title>天天生鲜-找回密码</title>
+    {% endblock title %}
+
+    {% block head %}
+        <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+
+    {% endblock head %}
+
+    {% block body %}
+        <div class="box">
+            <a href="/Goods/" class="tubiao"><img src="/static/images/logo02.png"></a>
+            <p class="hhh fr">&nbsp;重置密码</p>
+        </div>
+
+        <div class="forget">
+            <div class="find">
+            <h2>输入账号</h2>
+            </div>
+
+            <form class="text" method="post" action="/User/reset_send/">
+                <p class="reset_text">请输入要重置密码的帐号</p>
+                <input type="text" name="userName" class="text_in" placeholder="请输入账户名"/>
+                <input type="submit" class="sub" value="下 一 步"/>
+            </form>
+        </div>
+    {% endblock body %}

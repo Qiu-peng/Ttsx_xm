@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-    {% block title %}
+{% block title %}
     <title>天天生鲜-商品列表</title>
-    {% endblock title %}
-
+{% endblock title %}
+{% block head %}
+<script src="/static/js/list.js"></script>
+{% endblock head %}
 {% block body %}
 
 	<div class="header_con">
@@ -13,31 +15,31 @@
 					欢迎您：<em>张 山</em>
 				</div>
 				<div class="login_btn fl">
-					<a href="login.html">登录</a>
+					<a href="/User/login/">登录</a>
 					<span>|</span>
-					<a href="register.html">注册</a>
+					<a href="/User/register/">注册</a>
 				</div>
 				<div class="user_link fl">
 					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
+					<a href="/User/user_center/">用户中心</a>
 					<span>|</span>
-					<a href="cart.html">我的购物车</a>
+					<a href="/Cart/cart/">我的购物车</a>
 					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
+					<a href="/User/user_order/">我的订单</a>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
 		</div>
 		<div class="guest_cart fr">
 			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl">1</div>
+            <div class="goods_count fl">0</div>
 		</div>
 	</div>
 
@@ -47,16 +49,17 @@
 				<h1>全部商品分类</h1>	
 				<span></span>			
 				<ul class="subnav">
-					<li><a href="#" class="fruit">新鲜水果</a></li>
-					<li><a href="#" class="seafood">海鲜水产</a></li>
-					<li><a href="#" class="meet">猪牛羊肉</a></li>
-					<li><a href="#" class="egg">禽类蛋品</a></li>
-					<li><a href="#" class="vegetables">新鲜蔬菜</a></li>
-					<li><a href="#" class="ice">速冻食品</a></li>
+{#                    list后面第一个数字为商品type，第二个为排序方法，第三个为页码#}
+					<li><a href="/Goods/list1_0_1" class="fruit">新鲜水果</a></li>
+					<li><a href="/Goods/list2_0_1" class="seafood">海鲜水产</a></li>
+					<li><a href="/Goods/list3_0_1" class="meet">猪牛羊肉</a></li>
+					<li><a href="/Goods/list4_0_1" class="egg">禽类蛋品</a></li>
+					<li><a href="/Goods/list5_0_1" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/Goods/list6_0_1" class="ice">速冻食品</a></li>
 				</ul>
 			</div>
 			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
+				<li><a href="/">首页</a></li>
 				<li class="interval">|</li>
 				<li><a href="">手机生鲜</a></li>
 				<li class="interval">|</li>
@@ -68,7 +71,7 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+		<a href="#">{{ goods2.0.gtype.ttile }}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -76,28 +79,31 @@
 			<div class="new_goods">
 				<h3>新品推荐</h3>
 				<ul>
-					<li>
-						<a href="#"><img src="images/goods/goods001.jpg"></a>
-						<h4><a href="#">进口柠檬</a></h4>
-						<div class="prize">￥3.90</div>
-					</li>
-					<li>
-						<a href="#"><img src="images/goods/goods002.jpg"></a>
-						<h4><a href="#">玫瑰香葡萄</a></h4>
-						<div class="prize">￥16.80</div>
-					</li>
+                    {% for good in goods2 %}
+                        <li style="text-align: center">
+                        <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
+						<h4><a href="/Goods/{{ good.id }}">{{ good.gtitle.split.1 }}</a></h4>
+						<div class="prize">￥{{ good.gprice }}</div>
+                        </li>
+                    {% endfor %}
+
+
 				</ul>
 			</div>
 		</div>
 
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="#" class="active">默认</a>
-				<a href="#">价格</a>
-				<a href="#">人气</a>
+				<a href="/Goods/list{{ goods2.0.gtype.id }}_0_1"
+                {% if sort == 0 %} class="active" {% endif %}>默认</a>
+				<a href="/Goods/list{{ goods2.0.gtype.id }}_1_1"
+                {% if sort == 1 %} class="active" {% endif %}>价格</a>
+				<a href="/Goods/list{{ goods2.0.gtype.id }}_2_1"
+                {% if sort == 2 %} class="active" {% endif %}>人气</a>
 			</div>
 
 			<ul class="goods_type_list clearfix">
+
 				<li>
 					<a href="detail.html"><img src="images/goods/goods003.jpg"></a>
 					<h4><a href="detail.html">大兴大棚草莓</a></h4>
@@ -231,20 +237,41 @@
 						<span class="prize">￥16.80</span>
 						<span class="unit">16.80/500g</span>
 						<a href="#" class="add_goods" title="加入购物车"></a>
+                {% for good in page %}
+                    <li style="text-align: center" id="{{ good.id }}">
+                    <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
+                    <h4><a href="/Goods/{{ good.id }}">{{ good.gtitle.split.1 }}</a></h4>
+                    <div class="operate">
+						<span class="prize">￥{{ good.gprice }}</span>
+						<span class="unit">{{ good.gunit }}</span>
+						<a href="javascript:;" class="add_goods" title="{{ good.gpic }}"></a>
+
 					</div>
-				</li>
+                    </li>
+                {% endfor %}
 			</ul>
 
 			<div class="pagenation">
-				<a href="#"><上一页</a>
-				<a href="#" class="active">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">下一页></a>
+                {% if page.has_previous %}
+                    <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ page.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                {% for i in pagenum %}
+                    {% if i == pi %}
+                    <a href="" class="active">{{ i }}</a>
+                    {% else %}
+                    <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page.has_next %}
+                <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ page.next_page_number }}">下一页</a>
+                {% endif %}
 			</div>
 		</div>
+        <div class="mv" style="display: none;width: 50px;height: 50px;
+                                position: absolute;left: 0;top: 0;z-index: 10000;border-radius: 50%;">
+            <img src="/static/images/goods/goods001.jpg" style="width: auto;height: auto;max-width: 100%;max-height: 100%">
+        </div>
 	</div>
 
 {% endblock body %}

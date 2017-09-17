@@ -18,12 +18,12 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-
-    url('^User/', include('User.urls')),
-    url('^Goods/', include('Goods.urls')),
-    url('^Order/', include('Order.urls')),
-    url('^Cart/', include('Cart.urls')),
-
-    url(r'^$',include('Goods.urls')),
+    url(r'^$', include('Goods.urls')),  # 主页跳转
+    url('^Goods/', include('Goods.urls')),  # 商品模块跳转
+    url('^User/', include('User.urls')),    # 用户模块跳转
+    url('^Order/', include('Order.urls')),  # 订单模块跳转
+    url('^Cart/', include('Cart.urls')),  # 购物车模块跳转
+    url(r'^tinymce/',include('tinymce.urls')),  # 配置编辑器url
+    url(r'^search/', include('haystack.urls')),  # 配置搜索引擎
 
 ]

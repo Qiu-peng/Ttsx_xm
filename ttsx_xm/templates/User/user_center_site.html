@@ -3,34 +3,93 @@
     {% block title %}
     <title>天天生鲜-用户中心</title>
     {% endblock title %}
->>>>>>> dev
+    {% block head %}
+        <script type="text/javascript">
+        $(function () {
+            function f5() {
+                $.get('/User/showAdd/',function (data) {
+                var value =data.value;
+                var list =value.list;
+                var thead =value.thead;
+                $('.site_cont').append("<dl><div class='stext'><dt id='now'>当前地址：</dt><span><dd id='nowAdd' class='fl'>"+thead.tadd+"（"+thead.tname+"　收)　"+thead.tphone+"</span></dd><div class='simg fr'><a id='adds'><img src='/static/images/444.png'></a><a id='adda'><input type='hidden' class='hid' value="+thead.tid+"><img src='/static/images/111.png'></a><a id='addj'><img src='/static/images/222.png'></a><a id='addjian'><img src='/static/images/333.png'></a></div></div></dl>");
+                $.each(list,function (i,n) {//n-->{id:**,title:***}
+                    $('.site_cont').append("<dl><div class='stextt'><span><dd id='noAdd' class='fl'>"+n.tadd+"（"+n.tname+"　收)　"+n.tphone+"</span></dd><div class='simg fr'><a id='adds'><img src='/static/images/444.png'></a><a id='adda'><input type='hidden' class='hid' value="+n.tid+"><img src='/static/images/555.png'></a><a id='addj'><img src='/static/images/222.png'></a><a id='addjian'><img src='/static/images/333.png'></a></div></div></dl>");
+                });
+            });
+            };
+            f5();
+
+            function clear() {
+                $('.sendname').val('');
+                $('.site_area').val('');
+                $('.iphone').val('')
+            };
+            var name ='';
+            $.get('/Goods/getname/', function (data) {
+                if(data.uname != null){
+                    $('#user').html(data.uname)
+                    $(".login_info").show();
+                    $(".login_btn").hide();
+                    name =data.uname;
+                }
+                else{
+                    $(".login_info").hide();
+                    $(".login_btn").show();
+                }
+            });
+
+            $('.info_submit').click(function () {
+                var sendname =$('.sendname').val();
+                var site_area =$('.site_area').val();
+                var iphone =$('.iphone').val();
+                $.post('/User/sendAddr/',{'sendname':sendname,'site_area':site_area,'iphone':iphone,'name':name},function (data) {
+                    if(data.type){
+                        clear();
+                        $('.site_con').css('display','none');
+                        $('.site_cont').html('');
+                        f5();
+                    };
+                });
+            });
+            $('.x').click(function () {
+                $('.site_con').css('display','none');
+                clear();
+            });
+
+            // 设置
+            $('.right_content').delegate("#adds", "click", function () {
+                $('.site_con').css('display','block');
+
+            });
+            // 设为Now收货地址
+            $('.right_content').delegate("#adda", "click", function (){
+                $.get('/User/upAdd/',{'id':$(this).find('.hid').val()},function (data) {
+                    if(data.ok){
+                        $('.site_cont').html('');
+                        f5();
+                    }
+                });
+
+            });
+            // 新增
+            $('.right_content').delegate("#addj", "click", function () {
+                $('.site_con').css('display','block');
+
+            });
+            // 删除
+            $('.right_content').delegate("#addjian", "click", function () {
+
+            });
+
+
+        });
+        </script>
+    {% endblock head %}
 {% block body %}
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
-				<div class="login_btn fl">
-					<a href="login.html">登录</a>
-					<span>|</span>
-					<a href="register.html">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
-					<span>|</span>
-					<a href="cart.html">我的购物车</a>
-					<span>|</span>
-					<a href="user_center_order.html">我的订单</a>
-				</div>
-			</div>
-		</div>		
-	</div>
+
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="http://127.0.0.1:8000" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -42,40 +101,35 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="user_center_info.html">· 个人信息</a></li>
-				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a href="user_center_site.html" class="active">· 收货地址</a></li>
+				<li><a href="/User/user_center/">· 个人信息</a></li>
+				<li><a href="/User/user_order/">· 全部订单</a></li>
+				<li><a href="/User/user_site/" class="active">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
 				<h3 class="common_title2">收货地址</h3>
-				<div class="site_con">
-					<dl>
-						<dt>当前地址：</dt>
-						<dd>北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
-					</dl>					
+				<div class="site_cont">
+
 				</div>
-				<h3 class="common_title2">编辑地址</h3>
+
 				<div class="site_con">
+                    <h3 class="common_title2">&emsp;&emsp;编辑地址</h3>
+                    <img src="/static/images/x.png" class="x fr">
 					<form>
 						<div class="form_group">
 							<label>收件人：</label>
-							<input type="text" name="">
+							<input type="text" class="sendname">
 						</div>
 						<div class="form_group form_group2">
 							<label>详细地址：</label>
 							<textarea class="site_area"></textarea>
 						</div>
 						<div class="form_group">
-							<label>邮编：</label>
-							<input type="text" name="">
-						</div>
-						<div class="form_group">
 							<label>手机：</label>
-							<input type="text" name="">
+							<input type="text" class="iphone">
 						</div>
 
-						<input type="submit" name="" value="提交" class="info_submit">
+						<input type="button" name="" value="提交" class="info_submit">
 					</form>
 				</div>
 		</div>

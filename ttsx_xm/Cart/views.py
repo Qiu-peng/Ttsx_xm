@@ -1,3 +1,4 @@
+
 from django.shortcuts import render,redirect
 from .models import *
 from Goods.models import *
@@ -55,3 +56,20 @@ def remove(request):
     cart = CartInfo.objects.filter(id=int(cart_id))
     cart.delete()
     cart.save()
+
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
+
+def cart(request):
+    return render(request, 'Cart/cart.html')
+
+
+# 退出登录,删除cookie
+def delete(request):
+    uname = request.COOKIES.get('uname')
+    if uname:
+        response = HttpResponseRedirect("/Cart/cart/")
+        response.set_cookie('uname', 1, expires=0)
+        return response
+

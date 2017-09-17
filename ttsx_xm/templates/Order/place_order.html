@@ -5,26 +5,43 @@
 {% endblock title %}
 
 {% block head %}
-    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
     <script src="/static/js/order.js"></script>
+
 
     <script type="text/javascript">
         $(function () {
-            $('#order_btn').click(function () {
-                localStorage.setItem('order_finish', 2);
-
-                $('.popup_con').fadeIn('fast', function () {
-
-                    setTimeout(function () {
-                        $('.popup_con').fadeOut('fast', function () {
-                            window.location.href = '/';
-                        });
-                    }, 3000)
-
-                });
+            //显示 欢迎用户块
+            $.get('/Goods/getname/', function (data) {
+                if(data.uname != null){
+                    $(".login_info").show();
+                    $(".login_btn").hide();
+                    $(".user").html(data.uname);
+                }
+                else{
+                    $('#user').attr('href', '/User/login/');
+                    $(".login_info").hide();
+                    $(".login_btn").show();
+                }
             });
+
+{#            $('#order_btn').click(function () {#}
+{#                localStorage.setItem('order_finish', 2);#}
+{##}
+{#                $('.popup_con').fadeIn('fast', function () {#}
+{##}
+{#                    setTimeout(function () {#}
+{#                        $('.popup_con').fadeOut('fast', function () {#}
+{#                            window.location.href = '/';#}
+{#                        });#}
+{#                    }, 3000)#}
+{##}
+{#                });#}
+{#            });#}
+
+
         });
     </script>
+
 {% endblock head %}
 
 {% block body %}
@@ -33,42 +50,32 @@
         <div class="header">
             <div class="welcome fl">欢迎来到天天生鲜!</div>
             <div class="fr">
-                <div class="login_info fl">
-                    欢迎您：<em>张 山</em>
-                </div>
-                <div class="login_btn fl">
-                    <a href="../User/login.html">登录</a>
-                    <span>|</span>
-                    <a href="../User/register.html">注册</a>
-                </div>
-                <div class="user_link fl">
-                    <span>|</span>
-                    <a href="/User/user_center_info.html">用户中心</a>
-                    <span>|</span>
-                    <a href="/Cart/cart.html">我的购物车</a>
-                    <span>|</span>
-                    <a href="/User/user_center_order.html">我的订单</a>
-                    <a href="../User/login.html">登录</a>
-                    <span>|</span>
-                    <a href="../User/register.html">注册</a>
-                </div>
-                <div class="user_link fl">
-                    <span>|</span>
-                    <a href="../User/user_center_info.html">用户中心</a>
-                    <span>|</span>
-                    <a href="../Cart/cart.html">我的购物车</a>
-                    <span>|</span>
-                    <a href="../User/user_center_order.html">我的订单</a>
-                </div>
-            </div>
+
+				<div class="login_info fl">
+					欢迎您：<a class="user" href="/User/user_center/">用户名</a>
+                    <a class="quit" href="/Order/delete/">&nbsp;&nbsp;退出</a>
+				</div>
+				<div class="login_btn fl">
+					<a href="/User/login/">登录</a>
+					<span>|</span>
+					<a href="/User/register/">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a id="user" href="/User/user_center/">用户中心</a>
+					<span>|</span>
+					<a href="/Cart/cart/">我的购物车</a>
+					<span>|</span>
+					<a href="/User/user_order/">我的订单</a>
+				</div>
+			</div>
+
         </div>
     </div>
 
     <div class="search_bar clearfix">
 
-        <a href="/Goods/index.html" class="logo fl"><img src="/static/images/logo.png"></a>
-
-        <a href="../Goods/index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+        <a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
 
         <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</div>
         <div class="search_con fr">
@@ -76,84 +83,106 @@
             <input type="button" class="input_btn fr" name="" value="搜索">
         </div>
     </div>
+    <form action="handle_order/" method="post">
+        <h3 class="common_title">确认收货地址</h3>
 
-    <h3 class="common_title">确认收货地址</h3>
+        <div class="common_list_con clearfix">
+            <dl>
+                <dt>寄送到：</dt>
+                <dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+            </dl>
 
-    <div class="common_list_con clearfix">
-        <dl>
-            <dt>寄送到：</dt>
-            <dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
-        </dl>
+            <a href="/User/user_center_site" class="edit_site">编辑收货地址</a>
 
-        <a href="/User/user_center_site.html" class="edit_site">编辑收货地址</a>
 
-        <a href="../User/user_center_site.html" class="edit_site">编辑收货地址</a>
-
-    </div>
-
-    <h3 class="common_title">支付方式</h3>
-    <div class="common_list_con clearfix">
-        <div class="pay_style_con clearfix">
-            <input type="radio" name="pay_style" checked>
-            <label class="cash">货到付款</label>
-            <input type="radio" name="pay_style">
-            <label class="weixin">微信支付</label>
-            <input type="radio" name="pay_style">
-            <label class="zhifubao"></label>
-            <input type="radio" name="pay_style">
-            <label class="bank">银行卡支付</label>
-        </div>
-    </div>
-
-    <h3 class="common_title">商品列表</h3>
-
-    <div class="common_list_con clearfix">
-        <ul class="goods_list_th clearfix">
-            <li class="col01">商品名称</li>
-            <li class="col02">商品单位</li>
-            <li class="col03">商品价格</li>
-            <li class="col04">数量</li>
-            <li class="col05">小计</li>
-        </ul>
-        <ul class="goods_list_td clearfix">
-            <li class="col01">1</li>
-            <li class="col02"><img src="/static/images/goods/goods012.jpg"></li>
-            <li class="col03">奇异果</li>
-            <li class="col04">500g</li>
-            <li class="col05">25.80元</li>
-            <li class="col06">1</li>
-            <li class="col07">25.80元</li>
-        </ul>
-        <ul class="goods_list_td clearfix">
-            <li class="col01">2</li>
-            <li class="col02"><img src="/static/images/goods/goods003.jpg"></li>
-            <li class="col03">大兴大棚草莓</li>
-            <li class="col04">500g</li>
-            <li class="col05">16.80元</li>
-            <li class="col06">1</li>
-            <li class="col07">16.80元</li>
-        </ul>
-    </div>
-
-    <h3 class="common_title">总金额结算</h3>
-
-    <div class="common_list_con clearfix">
-        <div class="settle_con">
-            <div class="total_goods_count">共<em>2</em>件商品，总金额<b>42.60元</b></div>
-            <div class="transit">运费：<b>10元</b></div>
-            <div class="total_pay">实付款：<b>52.60元</b></div>
-        </div>
-    </div>
-
-    <div class="order_submit clearfix">
-        <a href="javascript:;" id="order_btn">提交订单</a>
-    </div>
-    <div class="popup_con">
-        <div class="popup">
-            <p>订单提交成功！</p>
         </div>
 
-        <div class="mask"></div>
-    </div>
+        <h3 class="common_title">支付方式</h3>
+        <div class="common_list_con clearfix">
+            <div class="pay_style_con clearfix">
+                <input type="radio" name="pay_style" checked>
+                <label class="cash">货到付款</label>
+                <input type="radio" name="pay_style">
+                <label class="weixin">微信支付</label>
+                <input type="radio" name="pay_style">
+                <label class="zhifubao"></label>
+                <input type="radio" name="pay_style">
+                <label class="bank">银行卡支付</label>
+            </div>
+        </div>
+
+        <h3 class="common_title">商品列表</h3>
+
+        <div class="common_list_con clearfix">
+            <ul class="goods_list_th clearfix">
+                <li class="col01">商品名称</li>
+                <li class="col02">商品单位</li>
+                <li class="col03">商品价格</li>
+                <li class="col04">数量</li>
+                <li class="col05">小计</li>
+            </ul>
+
+            {# 购物车-->订单   #}
+
+            {% if cart %}
+                {% for c in cart %}
+                    <ul class="goods_list_td clearfix" >
+                        <input type="hidden" name="cid" value="{{ c.id }}">
+                        {# 商品序号 #}
+                        <li class="col01">{{ forloop.counter }}</li>
+                        {# 商品图片 #}
+                        <li class="col02"><img src='/static/media/{{ c.goods.gpic }}'></li>
+                        {# 商品名称 #}
+                        <li class="col03">{{ c.goods.gtitle }}</li>
+                        {# 商品单位 #}
+                        <li class="col04">{{ c.goods.gunit }}</li>
+                        {# 商品价格 #}
+                        <li class="col05">{{ c.goods.gprice }}元</li>
+                        {# 商品数量 #}
+                        <li class="col06">{{ c.count }}</li>
+                        {# 商品金额 #}
+                        <li class="col07">0</li>
+                    </ul>
+                {% endfor %}
+                {# 立即购买-->订单   #}
+            {% else %}
+                <ul class="goods_list_td clearfix" >
+                    <input type="hidden" name="gid" value="{{ good.id }}">
+                    <input type="hidden" name="count" value="{{ goodnum }}">
+                    {# 商品序号 #}
+                    <li class="col01">1</li>
+                    {# 商品图片 #}
+                    <li class="col02"><img src='/static/media/{{ good.gpic }}'></li>
+                    {# 商品名称 #}
+                    <li class="col03">{{ good.gtitle }}</li>
+                    {# 商品单位 #}
+                    <li class="col04">{{ good.gunit }}</li>
+                    {# 商品价格 #}
+                    <li class="col05">{{ good.gprice }}元</li>
+                    {# 商品数量 #}
+                    <li class="col06">{{ goodnum }}</li>
+                    {# 商品金额 #}
+                    <li class="col07">0</li>
+                </ul>
+            {% endif %}
+        </div>
+
+        <h3 class="common_title">总金额结算</h3>
+
+        <div class="common_list_con clearfix">
+            <div class="settle_con">
+                <div class="total_goods_count">共<em>2</em>件商品，总金额<b>42.60元</b></div>
+                <div class="transit">运费：<b>10元</b></div>
+                <div class="total_pay">实付款：<b>52.60元</b></div>
+            </div>
+        </div>
+
+        <div class="order_submit clearfix">
+
+            <input type="submit" value="提交订单" id="order_btn">
+
+        </div>
+    </form>
+
 {% endblock body %}
 
