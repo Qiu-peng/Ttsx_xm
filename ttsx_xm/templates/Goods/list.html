@@ -103,6 +103,140 @@
 			</div>
 
 			<ul class="goods_type_list clearfix">
+
+				<li>
+					<a href="detail.html"><img src="images/goods/goods003.jpg"></a>
+					<h4><a href="detail.html">大兴大棚草莓</a></h4>
+					<div class="operate">
+						<span class="prize">￥16.80</span>
+						<span class="unit">16.80/500g</span>
+						<a href="#" class="add_goods" id=1 title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods004.jpg"></a>
+					<h4><a href="#">吐鲁番梨光杏</a></h4>
+					<div class="operate">
+						<span class="prize">￥5.50</span>
+						<span class="unit">5.50/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods005.jpg"></a>
+					<h4><a href="#">黄肉桃</a></h4>
+					<div class="operate">
+						<span class="prize">￥10.00</span>
+						<span class="unit">10.00/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods006.jpg"></a>
+					<h4><a href="#">进口西梅</a></h4>
+					<div class="operate">
+						<span class="prize">￥28.80</span>
+						<span class="unit">28.8/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods007.jpg"></a>
+					<h4><a href="#">香梨</a></h4>
+					<div class="operate">
+						<span class="prize">￥6.45</span>
+						<span class="unit">6.45/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods008.jpg"></a>
+					<h4><a href="#">栗子</a></h4>
+					<div class="operate">
+						<span class="prize">￥9.50</span>
+						<span class="unit">9.50/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods009.jpg"></a>
+					<h4><a href="#">海南香蕉</a></h4>
+					<div class="operate">
+						<span class="prize">￥3.30</span>
+						<span class="unit">3.30/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods010.jpg"></a>
+					<h4><a href="#">青苹果</a></h4>
+					<div class="operate">
+						<span class="prize">￥5.00</span>
+						<span class="unit">5.00/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods011.jpg"></a>
+					<h4><a href="#">山莓</a></h4>
+					<div class="operate">
+						<span class="prize">￥28.80</span>
+						<span class="unit">28.8/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+
+				<li>
+					<a href="#"><img src="images/goods/goods012.jpg"></a>
+					<h4><a href="#">奇异果</a></h4>
+					<div class="operate">
+						<span class="prize">￥25.80</span>
+						<span class="unit">25.8/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				<li>
+					<a href="#"><img src="images/goods/goods013.jpg"></a>
+					<h4><a href="#">蜜桔</a></h4>
+					<div class="operate">
+						<span class="prize">￥4.80</span>
+						<span class="unit">4.8/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				<li>
+					<a href="#"><img src="images/goods/goods014.jpg"></a>
+					<h4><a href="#">脐橙</a></h4>
+					<div class="operate">
+						<span class="prize">￥3.50</span>
+						<span class="unit">3.50/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				<li>
+					<a href="#"><img src="images/goods/goods001.jpg"></a>
+					<h4><a href="#">进口柠檬</a></h4>
+					<div class="operate">
+						<span class="prize">￥3.90</span>
+						<span class="unit">3.90/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				<li>
+					<a href="#"><img src="images/goods/goods002.jpg"></a>
+					<h4><a href="#">玫瑰香葡萄</a></h4>
+					<div class="operate">
+						<span class="prize">￥16.80</span>
+						<span class="unit">16.80/500g</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
                 {% for good in page %}
                     <li style="text-align: center" id="{{ good.id }}">
                     <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
@@ -111,6 +245,7 @@
 						<span class="prize">￥{{ good.gprice }}</span>
 						<span class="unit">{{ good.gunit }}</span>
 						<a href="javascript:;" class="add_goods" title="{{ good.gpic }}"></a>
+
 					</div>
                     </li>
                 {% endfor %}

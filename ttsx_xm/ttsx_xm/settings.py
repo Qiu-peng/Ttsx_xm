@@ -112,6 +112,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+
+
 # 配置文件保存在项目静态文件中的位置
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
@@ -160,3 +163,4 @@ HAYSTACK_CONNECTIONS = {
 }
 # 当添加、修改、删除数据时，自动生成索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
