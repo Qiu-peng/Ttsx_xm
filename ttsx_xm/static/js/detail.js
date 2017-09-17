@@ -24,7 +24,7 @@ $(function () {
 // {#            购物车宽高#}
             var mvInCarLeft = carLeft + $(".cart_name").outerWidth()/2 - 25;
             var mvInCarTop = carTop + $(".cart_name").outerHeight()/2 - 25;
-// {#            立即购买点击事件#}
+// {#            购物车点击事件#}
             $(".add_cart").click(function () {
 // {#                图片动画#}
                 $(".mv").css({'left':mvLeft,'top':mvTop}).show();
