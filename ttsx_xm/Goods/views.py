@@ -75,9 +75,9 @@ def detail(request, picid):
     for i in goodsl:
          j += str(i)
          j +=","
-    uname = request.COOKIES.get('uname')
-    response.set_cookie(uname, j, expires=24 * 60 * 60 * 30)
-    # print(goodsl)
+    uname = request.COOKIES.get("uname")
+    if uname:
+        response.set_cookie(uname, j, expires=24 * 60 * 60 * 30)
     return response
 
 
@@ -95,7 +95,7 @@ def list(request, lid, sort, pi):
     # 获取当前商品的同类的三个新品
     goods2 = GoodsInfo.objects.filter(gtype=lid).order_by("-id")[:3]
     # 分页
-    paginator = Paginator(goods, 15)
+    paginator = Paginator(goods, 10)
     page = paginator.page(int(pi))
     pagenum = paginator.page_range
     context = {'goods2': goods2, 'pi': int(pi), 'sort': int(sort),
@@ -119,13 +119,3 @@ def delete(request):
         return response
 
 
-# 全文检索自定义上下文
-# from haystack.views import SearchView
-#
-#
-# class MySearchView(SearchView):
-#     def extra_context(self):
-#         context = super(MySearchView, self).extra_context()
-#         context['title'] = '搜索'
-#         context['guest_cart'] = 1
-#         context['cart_count'] = cart_count(self.request)

@@ -24,21 +24,6 @@
                 }
             });
 
-{#            $('#order_btn').click(function () {#}
-{#                localStorage.setItem('order_finish', 2);#}
-{##}
-{#                $('.popup_con').fadeIn('fast', function () {#}
-{##}
-{#                    setTimeout(function () {#}
-{#                        $('.popup_con').fadeOut('fast', function () {#}
-{#                            window.location.href = '/';#}
-{#                        });#}
-{#                    }, 3000)#}
-{##}
-{#                });#}
-{#            });#}
-
-
         });
     </script>
 
@@ -122,8 +107,7 @@
                 <li class="col05">小计</li>
             </ul>
 
-            {# 购物车-->订单   #}
-
+            {# 购物车-->订单 的显示   #}
             {% if cart %}
                 {% for c in cart %}
                     <ul class="goods_list_td clearfix" >
@@ -144,7 +128,7 @@
                         <li class="col07">0</li>
                     </ul>
                 {% endfor %}
-                {# 立即购买-->订单   #}
+            {# 立即购买-->订单 的 显示   #}
             {% else %}
                 <ul class="goods_list_td clearfix" >
                     <input type="hidden" name="gid" value="{{ good.id }}">

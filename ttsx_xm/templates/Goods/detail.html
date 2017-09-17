@@ -64,29 +64,6 @@
 
     {% block body %}
 
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
-				<div class="login_btn fl">
-					<a href="/User/login/">登录</a>
-					<span>|</span>
-					<a href="/User/register/">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="/User/user_center/">用户中心</a>
-					<span>|</span>
-					<a href="/Cart/cart">我的购物车</a>
-					<span>|</span>
-					<a href="/User/user_order/">我的订单</a>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="search_bar clearfix">
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
@@ -202,7 +179,8 @@
 		</div>
 {#       移动动画div#}
         <div class="mv" style="display: none;width: 50px;height: 50px;
-                                position: absolute;left: 0;top: 0;z-index: 10000;border-radius: 50%;">
+                                position: absolute;left: 0;top: 0;
+                                z-index: 10000;border-radius: 50%">
             <img src="/static/media/{{ goods.gpic }}" style="width: auto;height: auto;max-width: 100%;max-height: 100%">
         </div>
 
