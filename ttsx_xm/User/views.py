@@ -53,7 +53,6 @@ def toindex(request):
     return JsonResponse(context)
 
 
-
 # 显示注册页面
 def register(request):
     return render(request, 'User/register.html')
@@ -156,7 +155,7 @@ def center_order(request, pIndex):
 # 用户中心地址页面
 def center_site(request):
     uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
+    context ={'uname': uname}
     return render(request, 'User/user_center_site.html', context)
 
 
@@ -213,10 +212,12 @@ def yzm(request):
     """验证码的验证"""
     # 1.获取post请求当中的输入验证码的内容
     verify = request.POST.get('yzm')
+    # 小写转大写
+    ver =verify.upper()
     # 2.获取浏览器请求当中的session中的值
     verifycode = request.session.get('verifycode')
     # 3.判断两个验证码是否相同
-    if verify == verifycode:
+    if ver == verifycode:
         return JsonResponse({'ret': True})
     else:
         return JsonResponse({'ret': False})
@@ -239,6 +240,45 @@ def active(request, uid):
     active_user.isActive = True
     active_user.save()
     return HttpResponse('用户已激活, <a href="/User/login/">点击登录</a>')
+
+
+# 保存收货信息
+def sendAddr(request):
+    sendname = request.POST.get('sendname')
+    addr = request.POST.get('site_area')
+    iphone = request.POST.get('iphone')
+    name = request.POST.get('name')
+    user = UserInfo.users.filter(userName=name)
+    uid = user[0].id
+    userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid , 0)
+    userAdd.save()
+    return JsonResponse({'type': True})
+
+# 显示收货地址
+def showAdd(request):
+    theAdd = UserAddressInfo.address.filter(uNow=True);
+    tid = theAdd[0].id
+    tname = theAdd[0].uName
+    tadd = theAdd[0].uAddress
+    tphone = theAdd[0].uPhone
+    tp =tphone[3:7]
+    tpx=tphone.replace(tp, '****')
+    thead = {'tid':tid,'tname':tname,'tadd': tadd,'tphone':tpx}
+    theAdd0 = UserAddressInfo.address.filter(uNow=0)
+    list =[]
+    for s in theAdd0:
+        tphone =s.uPhone
+        tp = tphone[3:7]
+        tpx = tphone.replace(tp, '****')
+        list.append({'tid': s.id, 'tname': s.uName, 'tadd': s.uAddress, 'tphone': tpx})
+    context = {'thead':thead, 'list':list}
+    return JsonResponse({'value':context})
+
+# 修改当前收货地址
+def upAdd(request):
+    aid =request.GET.get('id')
+    UserAddressInfo.address.update(aid, True)
+    return JsonResponse({'ok':True})
 
 
 # 显示重置密码页面
@@ -278,6 +318,4 @@ def reset_pwd(request):
     reset_user.userPsw = newpsw_sh1
     reset_user.save()
     return HttpResponse('用户密码已重置, <a href="/User/login/">点击登录</a>')
-
-
 

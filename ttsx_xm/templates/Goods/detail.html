@@ -4,6 +4,8 @@
     {% endblock title %}
 
     {% block head %}
+    <script src="/static/js/blowup.js"></script>
+    <script src="/static/js/detail.js"></script>
     <script type="text/javascript">
         $(function () {
 
@@ -55,48 +57,8 @@
 {#            修改立即购买a标签的href路径#}
             buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val());
 
-
-{#            设置立即购买点击动画效果#}
-{#            获取按钮绝对坐标#}
-            var addLeft = $(".add_cart").offset().left;
-            var addTop = $(".add_cart").offset().top;
-
-{#            获取按钮宽高#}
-            var addWidth = $(".add_cart").outerWidth();
-            var addHight = $(".add_cart").outerHeight();
-
-{#            图片初始位置#}
-            var mvLeft = addLeft + addWidth/2 - 25;
-            var mvTop = addTop + addHight/2 -25;
-
-{#            获取购物车绝对位置#}
-            var carLeft = $(".cart_name").offset().left;
-            var carTop = $(".cart_name").offset().top;
-
-{#            购物车宽高#}
-            var mvInCarLeft = carLeft + $(".cart_name").outerWidth()/2 - 25;
-            var mvInCarTop = carTop + $(".cart_name").outerHeight()/2 - 25;
-{#            立即购买点击事件#}
-            $(".add_cart").click(function () {
-{#                图片动画#}
-                $(".mv").css({'left':mvLeft,'top':mvTop}).show();
-                $(".mv").stop().animate({
-                    width:50,
-                    height:50,
-                    left:mvInCarLeft,
-                    top:mvInCarTop,
-                },1000,'swing',function () {
-                    $(".mv").hide();
-{#                    图片消失，数量加一#}
-                    $(".goods_count").html(parseInt($(".goods_count").html())+1);
-                });
-            });
-{#            鼠标悬浮图片放大#}
-            var pic = $(".goods_detail_pic");
-            pic.mouseenter(function () {
-
-            })
         })
+
     </script>
     {% endblock head %}
 
@@ -173,14 +135,15 @@
 
 	<div class="goods_detail_con clearfix">
 {#      goods.pic动态获取路径#}
-		<div class="goods_detail_pic fl"><img src="/static/media/{{ goods.gpic }}"></div>
+		<div class="goods_detail_pic fl">
+            <img src="/static/media/{{ goods.gpic }}" class="da">
+        </div>
 
 		<div class="goods_detail_list fr">
 {#            获取商品名和商品简介#}
             <h3>{{ goods.gtitle }}</h3>
             <p>{{ goods.gjianjie }}</p>
-{#			<h3>大兴大棚草莓</h3>#}
-{#			<p>草莓浆果柔软多汁，味美爽口，适合速冻保鲜贮藏。草莓速冻后，可以保持原有的色、香、味，既便于贮藏，又便于外销。</p>#}
+
 			<div class="prize_bar">
 {#                获取商品单价和商品单位#}
 				<span class="show_pirze">¥<em>{{ goods.gprice }}</em></span>
@@ -196,7 +159,7 @@
                 <div style="line-height: 50px;font-size: 16px;color: #00bc6f;">&nbsp;&nbsp;库存量：{{ goods.gkucun }}</div>
 			</div>
 			<div class="total">总价：<em>{{ goods.gprice }}元</em></div>
-			<div class="operate_btn">
+			<div class="operate_btn" id="{{ goods.id }}">
 				<a href="javascript:" class="buy_btn">立即购买</a>
 				<a href="javascript:" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
@@ -217,16 +180,6 @@
                     </li>
                     {% endfor %}
 
-{#					<li>#}
-{#						<a href="#"><img src="/static/images/goods/goods001.jpg"></a>#}
-{#						<h4><a href="#">进口柠檬</a></h4>#}
-{#						<div class="prize">￥3.90</div>#}
-{#					</li>#}
-{#					<li>#}
-{#						<a href="#"><img src="/static/images/goods/goods002.jpg"></a>#}
-{#						<h4><a href="#">玫瑰香葡萄</a></h4>#}
-{#						<div class="prize">￥16.80</div>#}
-{#					</li>#}
 				</ul>
 			</div>
 		</div>
@@ -243,58 +196,18 @@
                     {% autoescape off %}
                     <dd>{{ goods.gcontent }}</dd>
                     {% endautoescape %}
-{#					<dd>草莓采摘园位于北京大兴区 庞各庄镇四各庄村 ，每年1月-6月面向北京以及周围城市提供新鲜草莓采摘和精品礼盒装草莓，草莓品种多样丰富，个大香甜。所有草莓均严格按照有机标准培育，不使用任何化肥和农药。草莓在采摘期间免洗可以直接食用。欢迎喜欢草莓的市民前来采摘，也欢迎各大单位选购精品有机草莓礼盒，有机草莓礼盒是亲朋馈赠、福利送礼的最佳选择。 </dd>#}
 				</dl>
 			</div>
 
 		</div>
+{#       移动动画div#}
         <div class="mv" style="display: none;width: 50px;height: 50px;
-                                position: fixed;left: 0;top: 0;z-index: 10000;border-radius: 50%;">
+                                position: absolute;left: 0;top: 0;z-index: 10000;border-radius: 50%;">
             <img src="/static/media/{{ goods.gpic }}" style="width: auto;height: auto;max-width: 100%;max-height: 100%">
         </div>
-        <div class="biger" style="display: none;width: 100px;height: 100px;position: fixed;">
 
-        </div>
 	</div>
     {% endblock body %}
 
 {% block bottom %}
-
-{#	<div class="footer">#}
-{#		<div class="foot_link">#}
-{#			<a href="#">关于我们</a>#}
-{#			<span>|</span>#}
-{#			<a href="#">联系我们</a>#}
-{#			<span>|</span>#}
-{#			<a href="#">招聘人才</a>#}
-{#			<span>|</span>#}
-{#			<a href="#">友情链接</a>#}
-{#		</div>#}
-{#		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>#}
-{#		<p>电话：010-****888    京ICP备*******8号</p>#}
-{#	</div>#}
-{##}
-{#	<div class="add_jump"></div>#}
-
-	<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript">
-		var $add_x = $('#add_cart').offset().top;
-		var $add_y = $('#add_cart').offset().left;
-
-		var $to_x = $('#show_count').offset().top;
-		var $to_y = $('#show_count').offset().left;
-
-		$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
-		$('#add_cart').click(function(){
-			$(".add_jump").stop().animate({
-				'left': $to_y+7,
-				'top': $to_x+7},
-				"fast", function() {
-					$(".add_jump").fadeOut('fast',function(){
-						$('#show_count').html(2);
-					});
-
-			});
-		})
-	</script>
 {% endblock bottom %}

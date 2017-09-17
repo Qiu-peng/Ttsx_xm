@@ -14,12 +14,25 @@ class UserInfoManager(models.Manager):
 
 
 class AddressInfoManager(models.Manager):
-    def create(self, adrName, adrPsw, adrEmail):
-        adress = UserAddressInfo()
-        adress.userName = adrName
-        adress.userPsw = adrPsw
-        adress.userEmail = adrEmail
-        return adress
+    def get_queryset(self):
+        return super().get_queryset().all()
+
+    def create(self, sendName, add, iphone, uid, uNow):
+        userAdr = UserAddressInfo()
+        userAdr.uName = sendName
+        userAdr.uAddress = add
+        userAdr.uPhone = iphone
+        userAdr.user_id = uid
+        userAdr.uNow = uNow
+        return userAdr
+
+    def update(self, aid, uNow):
+        upadd =UserAddressInfo.address.get(uNow =True)
+        upadd.uNow =False
+        upadd.save()
+        uadd = UserAddressInfo.address.get(id =aid)
+        uadd.uNow = uNow
+        uadd.save()
 
 
 class UserInfo(models.Model):
@@ -39,6 +52,7 @@ class UserAddressInfo(models.Model):
     uName = models.CharField(max_length=20)
     uAddress = models.CharField(max_length=100)
     uPhone = models.CharField(max_length=11)
+    uNow = models.BooleanField(default=False)
     user = models.ForeignKey('UserInfo')
 
     address = AddressInfoManager()
