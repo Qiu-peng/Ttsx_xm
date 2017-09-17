@@ -60,11 +60,6 @@ def remove(request):
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
-
-def cart(request):
-    return render(request, 'Cart/cart.html')
-
-
 # 退出登录,删除cookie
 def delete(request):
     uname = request.COOKIES.get('uname')
