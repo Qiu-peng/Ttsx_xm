@@ -114,5 +114,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-# 配置文件保存在项目静态文件中的位置
-MEDIA_ROOT=os.path.join(BASE_DIR, 'static/media')
+
+
+

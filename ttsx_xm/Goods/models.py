@@ -29,6 +29,8 @@ class GoodsInfo(models.Model):
     gunit = models.CharField(max_length=20, default='500g')
     # 点击量
     gclick = models.IntegerField()
+
+    gjianjie = models.CharField(max_length=200)
     # 库存量
     gkucun = models.IntegerField()
     # 描述

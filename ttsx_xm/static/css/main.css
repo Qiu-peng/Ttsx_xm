@@ -387,8 +387,8 @@ html,body{height:100%}
 .settlements .col03 span{color:#ff0000;}
 .settlements .col03 b{color:#ff0000;font-size:14px;padding:0 5px;}
 
-.settlements .col04{width:14%;text-align:center;float:right;}
-.settlements .col04 a{display:block;height:78px;background-color:#ff3d3d;text-align:center;line-height:78px;color:#fff;font-size:24px}
+.settlements .col04{width:14%;text-align:center;float:right;margin:0px;background-color:#ff3d3d;}
+.settlements .col04 input{margin:auto;border:none;display:block;height:78px;text-align:center;line-height:78px;background-color:#ff3d3d;color:#fff;font-size:24px}
 
 
 .common_title{width:1200px;margin:20px auto 0;font-size:14px;}
