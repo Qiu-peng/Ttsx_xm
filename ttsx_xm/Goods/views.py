@@ -116,3 +116,15 @@ def delete(request):
         response = HttpResponseRedirect('/')
         response.set_cookie('uname', 1, expires=0)
         return response
+
+
+# 全文检索自定义上下文
+# from haystack.views import SearchView
+#
+#
+# class MySearchView(SearchView):
+#     def extra_context(self):
+#         context = super(MySearchView, self).extra_context()
+#         context['title'] = '搜索'
+#         context['guest_cart'] = 1
+#         context['cart_count'] = cart_count(self.request)
