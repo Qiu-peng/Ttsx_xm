@@ -16,7 +16,7 @@ urlpatterns =[
     url('^clearSession/$', views.clearSession),
 
     url(r'^user_center/$', views.center),  # 跳转用户中心
-    url(r'^user_order/$', views.center_order),
+    url(r'^user_order(?P<pIndex>[0-9]*)/$', views.center_order),
     url(r'^user_site/$', views.center_site),
 
     url(r'^verify_code/$', views.verify_code), # 验证码

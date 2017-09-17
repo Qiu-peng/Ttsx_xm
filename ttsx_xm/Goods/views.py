@@ -78,7 +78,6 @@ def detail(request, picid):
     uname = request.COOKIES.get("uname")
     if uname:
         response.set_cookie(uname, j, expires=24 * 60 * 60 * 30)
-    # print(goodsl)
     return response
 
 

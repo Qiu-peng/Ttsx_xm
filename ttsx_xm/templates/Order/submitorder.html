@@ -13,8 +13,13 @@
     <input type="hidden" id="status" value={{ status }}>
     <div class="popup">
         <p>订单提交成功！</p>
-
-        <h4><span id="count">5</span>秒后自动跳转</h4>
+        <div class="buy">
+            <h3>总金额：{{ total }}元</h3>
+            <div class="img">
+                <img src="/Order/code/" alt="收款码">
+            </div>
+        </div>
+        <h4><span id="count">5</span>秒后自动跳转 <a href="">点此处直接跳转</a></h4>
     </div>
 
     <div class="mask"></div>
