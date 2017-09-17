@@ -5,8 +5,9 @@ from django.http import JsonResponse, HttpResponse
 from hashlib import sha1
 from . import task
 import time
+from django.core.paginator import Paginator
 from Goods.models import *
-
+from Order.models import *
 # 显示登录页面
 def login(request):
     return render(request, 'User/login.html')
@@ -121,14 +122,34 @@ def clearSession(request):
 # 跳转用户中心
 def center(request):
     uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
+    li = request.COOKIES.get(uname).split(',')
+    the_li = []
+    for item in li:
+        if item != '':
+            it = GoodsInfo.objects.get(id=item)
+            the_li.append(it)
+    context = {'uname': uname, 'list': the_li}
     return render(request, 'User/user_center_info.html', context)
 
 
 # 用户中心订单页面
-def center_order(request):
+def center_order(request, pIndex):
     uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
+    # 订单信息
+    uid = UserInfo.users.get(userName=uname).id
+    the_order = OrderInfo.objects.filter(user_id=uid)  # 订单列表
+    ali = []
+    if the_order != []:
+        # 订单详情
+        for item in the_order:
+            oid = item.oid
+            the_detail = OrderDetailInfo.objects.filter(order_id=oid)  # oid筛选出订单里的商品
+            the_list = []
+            for detail in the_detail:
+                goods = GoodsInfo.objects.get(id=detail.goods_id)  # 订单id筛选出商品
+                the_list.append({'detail': detail, 'goods': goods})
+            ali.append({"order": item, "the_list": the_list})
+    context = {'uname': uname, 'list': ali}  # [{'order': order对象, "list": {goods对象, detail对象} }, {},....]
     return render(request, 'User/user_center_order.html', context)
 
 
@@ -257,19 +278,6 @@ def reset_pwd(request):
     reset_user.userPsw = newpsw_sh1
     reset_user.save()
     return HttpResponse('用户密码已重置, <a href="/User/login/">点击登录</a>')
-
-
-# 用户中心最近浏览数据
-def recent_scan(request):
-    li = request.COOKIES.get('Rcently')
-    the_li = []
-    print(li)
-    for item in li:
-        print(item)
-        it = GoodsInfo.objects.get(id=item)
-        the_li.append(it)
-    return JsonResponse({'list': the_li})
-
 
 
 

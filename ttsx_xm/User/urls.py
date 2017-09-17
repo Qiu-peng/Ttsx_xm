@@ -16,7 +16,7 @@ urlpatterns =[
     url('^clearSession/$', views.clearSession),
 
     url(r'^user_center/$', views.center),  # 跳转用户中心
-    url(r'^user_order/$', views.center_order),
+    url(r'^user_order(?P<pIndex>[0-9]*)/$', views.center_order),
     url(r'^user_site/$', views.center_site),
 
     url(r'^verify_code/$', views.verify_code), # 验证码
@@ -30,7 +30,7 @@ urlpatterns =[
     url(r'^reset_show(\d+)/$', views.reset_show),  # 用户填写新密码
     url(r'^reset_pwd/$', views.reset_pwd),   # 将用户新密码填入数据库
 
-    url(r'^recent_scan/$', views.recent_scan),  # 最近浏览
+    # url(r'^page(?P<pIndex>[0-9]*)/$', views.page_test),
 ]
 
 

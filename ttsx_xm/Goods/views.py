@@ -75,7 +75,8 @@ def detail(request, picid):
     for i in goodsl:
          j += str(i)
          j +=","
-    response.set_cookie('Recently', j, expires=24 * 60 * 60 * 30)
+    uname = request.COOKIES.get('uname')
+    response.set_cookie(uname, j, expires=24 * 60 * 60 * 30)
     # print(goodsl)
     return response
 
