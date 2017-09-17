@@ -116,9 +116,9 @@ $(function ($) {
 })
 $(function () {
     $(".da").blowup({
-                width:180,
-                height:180,
-                scale:1.5,
+                width:200,
+                height:200,
+                scale:1.8,
                 border:0,
     });
 })
