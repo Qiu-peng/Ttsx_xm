@@ -103,19 +103,3 @@ def list(request, lid, sort, pi):
     return render(request, 'Goods/list.html', context)
 
 
-# 从cookie拿到登录名,显示在用户名处
-def getname(request):
-    uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
-    return JsonResponse(context)
-
-
-# 退出登录,删除cookie
-def delete(request):
-    uname = request.COOKIES.get('uname')
-    if uname:
-        response = HttpResponseRedirect('/')
-        response.set_cookie('uname', 1, expires=0)
-        return response
-
-

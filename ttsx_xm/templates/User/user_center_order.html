@@ -3,23 +3,7 @@
     {% block title %}
     <title>天天生鲜-用户中心</title>
     {% endblock title %}
-    {% block head %}
-        <script type="text/javascript">
-        $(function () {
-            $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
-                    $('#user').html(data.uname)
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                }
-                else{
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
-        });
-        </script>
-    {% endblock head %}
+    {% block head %}{% endblock head %}
 
 {% block body %}
 

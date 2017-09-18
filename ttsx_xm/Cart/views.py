@@ -38,6 +38,7 @@ def add(request):
     count = CartInfo.objects.filter(user_id=request.session['user_id']).count()
     return JsonResponse({'count': count})
 
+
 # 向已存在的购物车中添加物品
 def edit(request):
     dict=request.GET
@@ -56,15 +57,4 @@ def remove(request):
     cart = CartInfo.objects.filter(id=int(cart_id))
     cart.delete()
     cart.save()
-
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-
-# 退出登录,删除cookie
-def delete(request):
-    uname = request.COOKIES.get('uname')
-    if uname:
-        response = HttpResponseRedirect("/Cart/cart/")
-        response.set_cookie('uname', 1, expires=0)
-        return response
 
