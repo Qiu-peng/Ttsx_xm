@@ -9,21 +9,6 @@
 
 
     <script type="text/javascript">
-        $(function () {
-            //显示 欢迎用户块
-            $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                    $(".user").html(data.uname);
-                }
-                else{
-                    $('#user').attr('href', '/User/login/');
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
-
 {#            $('#order_btn').click(function () {#}
 {#                localStorage.setItem('order_finish', 2);#}
 {##}
@@ -37,9 +22,6 @@
 {##}
 {#                });#}
 {#            });#}
-
-
-        });
     </script>
 
 {% endblock head %}

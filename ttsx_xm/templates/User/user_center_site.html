@@ -25,19 +25,6 @@
                 $('.iphone').val('')
             };
             var name ='';
-            $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
-                    $('#user').html(data.uname)
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                    name =data.uname;
-                }
-                else{
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
-
             $('.info_submit').click(function () {
                 var sendname =$('.sendname').val();
                 var site_area =$('.site_area').val();

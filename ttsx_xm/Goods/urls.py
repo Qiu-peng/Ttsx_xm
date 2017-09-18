@@ -8,7 +8,5 @@ urlpatterns = [
     url(r'^(\d+)/$', views.detail),
     url(r'^list(\d+)_(\d+)_(\d+)/$', views.list),
     # url(r'^serch/',views.MySearchView()),
-    url(r'^getname/$', views.getname),  # 从cookie获取用户名
-    url(r'^delete/$', views.delete),  # 退出登录,删除cookie
 
 ]
