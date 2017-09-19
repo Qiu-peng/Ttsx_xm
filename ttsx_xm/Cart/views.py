@@ -67,4 +67,5 @@ def remove(request):
 def count(request):
     uid=request.session.get('uid')
     c=CartInfo.objects.filter(user_id=uid).aggregate(Sum('count'))
+    # print(c.get('count__sum'))
     return JsonResponse({'count':c.get('count__sum')})

@@ -16,6 +16,10 @@ class GetPathMiddleware():
             '/User/clearSession/',
             '/User/verify_code/',
             '/User/yzm/',
+            '/User/reset_pwd/',
+            '/User/forget/',
+            '/User/reset_send/',
+
         ]
         if request.path not in no_urls and 'active' not in request.path:
             request.session['url_path'] = request.get_full_path()
