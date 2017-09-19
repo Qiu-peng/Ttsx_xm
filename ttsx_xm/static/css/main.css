@@ -619,7 +619,7 @@ html,body{height:100%}
 }
 
 
-.common_title2{height:20px;line-height:20px;font-size:16px;margin:10px 0;color:#292929;z-index: 999}
+.common_title2{height:40px;line-height:40px;font-size:16px;margin:0;color:#292929;z-index: 999;cursor: pointer}
 .user_info_list{
 	background-color:#f9f9f9;
 	margin:10px 0 15px;
@@ -657,7 +657,7 @@ html,body{height:100%}
 	width: 450px;
 	height: 300px;
 	background-color:#8B8378;
-	padding:10px 0;
+	/*padding:10px 0;*/
 	margin-bottom:0;
 	display: none;
 	z-index: 999;
