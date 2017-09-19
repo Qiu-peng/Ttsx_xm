@@ -171,3 +171,8 @@ def handle_order(request):
             return render(request, 'Order/submitorder.html', context)
 
 
+def pay(request):
+    pay = request.GET.get('pay')
+    context = {'pay':pay}
+
+    return render(request,'Order/pay.html',context)
