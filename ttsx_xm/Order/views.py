@@ -16,7 +16,7 @@ def showorder(request):
     # 获取用户对象
     user = UserInfo.users.get(userName=uname)
     # 获取地址对象
-    addr = UserAddressInfo.address.filter(user_id=user.id,uNow=True)
+    addr = UserAddressInfo.address.filter(user_id=user.id)
 
     # 获取url中的商品id
     goodsid = request.GET.getlist('goodsid')
