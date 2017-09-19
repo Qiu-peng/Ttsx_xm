@@ -46,7 +46,13 @@ $(function () {
                 var counts=$('.num_show').val();
                 var goods_id=$('.operate_btn').attr('id');
                 $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
-                    move(data);
+
+                    if(data.ok==1){
+                        move(data);
+                    }else {
+                        location.href='/User/login'
+                    }
+
                 });
             });
 

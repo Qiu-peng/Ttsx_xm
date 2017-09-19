@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'User/base.html' %}
 
     {% block title %}
     <title>天天生鲜-用户中心</title>
@@ -108,16 +108,7 @@
     {% endblock head %}
 {% block body %}
 
-
-	<div class="search_bar clearfix">
-		<a href="http://127.0.0.1:8000" class="logo fl"><img src="/static/images/logo.png"></a>
-		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
-		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>		
-	</div>
-
+{{block.super}}
 	<div class="main_con clearfix">
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
@@ -135,9 +126,9 @@
 				</div>
 
 				<div class="site_con">
-                    <h3 class="common_title2 dialog-title">&emsp;编辑地址</h3>
+                    <h3 class="common_title2">&emsp;编辑地址</h3>
                     <img src="/static/images/x.png" class="x fr">
-					<form class="dialog-content">
+					<form>
                         <input type="hidden" class="hidden" value="">
 						<div class="form_group">
 							<label>收件人：</label>
