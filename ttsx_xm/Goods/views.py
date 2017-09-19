@@ -57,8 +57,10 @@ def detail(request, picid):
     # 设置点击量+1
     goods.gclick += 1
     goods.save()
+    # 获取seestion
+    yhm = request.session.get("uname")
     # 传递上下文
-    context = {'goods': goods, 'goodslist': goodslist}
+    context = {'goods': goods, 'goodslist': goodslist,'yhm':yhm}
     response = render(request, 'Goods/detail.html', context)
     # 引用全局定义的列表,将最近浏览的商品的id存入列表再将列表存入cookie
     global goodsl
@@ -79,6 +81,7 @@ def detail(request, picid):
     uname = request.COOKIES.get("uname")
     if uname:
         response.set_cookie(uname, j, expires=24 * 60 * 60 * 30)
+
     return response
 
 

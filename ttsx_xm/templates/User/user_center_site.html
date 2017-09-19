@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'User/base.html' %}
 
     {% block title %}
     <title>天天生鲜-用户中心</title>
@@ -7,24 +7,13 @@
         <script src="/static/js/jquery.cookie.js"></script>
         <script type="text/javascript">
         $(function () {
-            $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
-                    $('#user').html(data.uname);
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                }
-                else{
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
             function f5() {
                 $('.site_cont').html('');
                 var name =$.cookie('uname')
                 $.get('/User/showAdd/',{'uname':name},function (data) {
                 var value =data.value;
                 if(value=='none'){
-                    $('.tishi').css('display', 'block')
+                    $('.add_btn').css('display', 'block')
                 }
                 var list =value.list;
                 var thead =value.thead;
@@ -54,7 +43,7 @@
                         if(data.type){
                             clear();
                             $('.site_con').css('display','none');
-                            $('.tishi').css('display', 'none');
+                            $('.add_btn').css('display', 'none');
                             f5();
                         };
                     });
@@ -67,7 +56,7 @@
                         };
                     });
                 }
-                $('.tishi').hide();
+                $('.add_btn').hide();
             });
             $('.x').click(function () {
                 $('.site_con').css('display','none');
@@ -109,7 +98,7 @@
                 });
             });
 
-            $('.tishi').click(function () {
+            $('.add_btn').click(function () {
                 $('.site_con').css('display','block');
             })
 
@@ -119,16 +108,7 @@
     {% endblock head %}
 {% block body %}
 
-
-	<div class="search_bar clearfix">
-		<a href="http://127.0.0.1:8000" class="logo fl"><img src="/static/images/logo.png"></a>
-		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
-		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>		
-	</div>
-
+{{block.super}}
 	<div class="main_con clearfix">
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
@@ -140,7 +120,7 @@
 		</div>
 		<div class="right_content clearfix">
 				<h3 class="common_title2">收货地址</h3>
-                <input type="button" class="tishi" value="新 增 地 址">
+                <input type="button" class="add_btn" value="新 增 地 址">
 				<div class="site_cont">
 
 				</div>
@@ -170,3 +150,6 @@
 	</div>
 
 {% endblock body %}
+{% block bottom %}
+    <script src="/static/js/moving.js"></script>
+{% endblock bottom %}
