@@ -136,6 +136,7 @@ def clearSession(request):
 def center(request):
     uname = request.COOKIES.get('uname')
     the_cookie = request.COOKIES.get(uname)
+    uemail = UserInfo.users.get(userName=uname).userEmail
     the_li = []
     if the_cookie != None:
         li = the_cookie.split(',')
@@ -143,7 +144,7 @@ def center(request):
             if item != '':
                 it = GoodsInfo.objects.get(id=item)
                 the_li.append(it)
-    context = {'uname': uname, 'list': the_li}
+    context = {'uname': uname, 'uemail': uemail, 'list': the_li}
     return render(request, 'User/user_center_info.html', context)
 
 

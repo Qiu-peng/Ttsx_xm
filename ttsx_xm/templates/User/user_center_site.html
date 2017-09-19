@@ -7,17 +7,6 @@
         <script src="/static/js/jquery.cookie.js"></script>
         <script type="text/javascript">
         $(function () {
-            $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
-                    $('#user').html(data.uname);
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                }
-                else{
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
             function f5() {
                 $('.site_cont').html('');
                 var name =$.cookie('uname')
@@ -146,9 +135,9 @@
 				</div>
 
 				<div class="site_con">
-                    <h3 class="common_title2">&emsp;编辑地址</h3>
+                    <h3 class="common_title2 dialog-title">&emsp;编辑地址</h3>
                     <img src="/static/images/x.png" class="x fr">
-					<form>
+					<form class="dialog-content">
                         <input type="hidden" class="hidden" value="">
 						<div class="form_group">
 							<label>收件人：</label>
@@ -170,3 +159,6 @@
 	</div>
 
 {% endblock body %}
+{% block bottom %}
+    <script src="/static/js/moving.js"></script>
+{% endblock bottom %}

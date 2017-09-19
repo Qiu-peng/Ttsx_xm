@@ -8,10 +8,6 @@
         $(function () {
 
             jisuan();
-{#            $('.check_all input').click(jisuan);#}
-{#            $('.col01 input').click(jisuan);#}
-            $(':checkbox:not(#check_all)').click(jisuan);
-            $('#check_all').click(jisuan);
             function jisuan() {
     {#                计算价格#}
                 total1=0;
@@ -100,6 +96,7 @@
             $('#check_all').click(function () {
                 state=$(this).prop('checked');
                 $(':checkbox:not(#check_all)').prop('checked',state)
+                jisuan();
             });
 
 {#            单个勾选#}
@@ -113,6 +110,7 @@
                 else{
                     $('#check_all').prop('checked',false);
                 }
+                jisuan();
             });
 
 {#            点击删除#}
@@ -157,7 +155,7 @@
                 <li class="col02"><img src="/static/images/{{ cart.goods.gpic }}"></li>
                 <li class="col03">{{ cart.goods.gtitle }}<br><em>{{ cart.goods.gprice }}/500g</em></li>
                 <li class="col04">500g</li>
-                <li class="col05">{{ cart.goods.gprice }}元</li>
+                <li class="col05"><em>{{ cart.goods.gprice }}元</em></li>
                 <li class="col06">
                 {#            商品数量#}
 
@@ -167,7 +165,7 @@
                         <a href="javascript:;" class="minus fl">-</a>
                     </div>
                 </li>
-                <li class="col07">元</li>
+                <li class="col07"><em>元</em></li>
                 <li class="col08"><a href="javascript:;">删除</a></li>
             </ul>
 
@@ -180,4 +178,5 @@
                 <li class="col04"><input type="submit" name="" value="去结算"></li>
             </ul>
         </form>
+
     {% endblock body %}
