@@ -125,7 +125,7 @@ def handle_order(request):
             transaction.savepoint_rollback(trans_id)
 
             # 回到立即购买页面
-            context = {'status': '2'}
+            context = {'status': '2','gid':gid}
             return render(request, 'Order/submitorder.html', context)
 
     # 购物车订单处理
