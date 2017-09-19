@@ -88,8 +88,8 @@ def regist(request):
     add.save()
     # 任务加入celery中
     task.send.delay(add.id, uemail)
-    return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
-
+    # return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
+    return render(request, 'User/font-demo.html')
 
 # 判断注册用户的用户名是否存在,存在就不存入不注册
 def ishere(request):
@@ -264,8 +264,8 @@ def active(request, uid):
     active_user = UserInfo.users.get(id=uid)
     active_user.isActive = True
     active_user.save()
-    return HttpResponse('用户已激活, <a href="/User/login/">点击登录</a>')
-
+    # return HttpResponse('用户已激活, <a href="/User/login/">点击登录</a>')
+    return render(request, 'User/logging.html')
 
 # 保存收货信息
 def sendAddr(request):
