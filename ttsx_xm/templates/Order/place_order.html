@@ -9,69 +9,29 @@
 
 
     <script type="text/javascript">
+
         $(function () {
             //显示 欢迎用户块
             $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
+                if (data.uname != null) {
                     $(".login_info").show();
                     $(".login_btn").hide();
                     $(".user").html(data.uname);
                 }
-                else{
+                else {
                     $('#user').attr('href', '/User/login/');
                     $(".login_info").hide();
                     $(".login_btn").show();
                 }
             });
 
-{#            $('#order_btn').click(function () {#}
-{#                localStorage.setItem('order_finish', 2);#}
-{##}
-{#                $('.popup_con').fadeIn('fast', function () {#}
-{##}
-{#                    setTimeout(function () {#}
-{#                        $('.popup_con').fadeOut('fast', function () {#}
-{#                            window.location.href = '/';#}
-{#                        });#}
-{#                    }, 3000)#}
-{##}
-{#                });#}
-{#            });#}
-
-
         });
+
     </script>
 
 {% endblock head %}
 
 {% block body %}
-
-    <div class="header_con">
-        <div class="header">
-            <div class="welcome fl">欢迎来到天天生鲜!</div>
-            <div class="fr">
-
-				<div class="login_info fl">
-					欢迎您：<a class="user" href="/User/user_center/">用户名</a>
-                    <a class="quit" href="/Order/delete/">&nbsp;&nbsp;退出</a>
-				</div>
-				<div class="login_btn fl">
-					<a href="/User/login/">登录</a>
-					<span>|</span>
-					<a href="/User/register/">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a id="user" href="/User/user_center/">用户中心</a>
-					<span>|</span>
-					<a href="/Cart/cart/">我的购物车</a>
-					<span>|</span>
-					<a href="/User/user_order/">我的订单</a>
-				</div>
-			</div>
-
-        </div>
-    </div>
 
     <div class="search_bar clearfix">
 
@@ -89,10 +49,16 @@
         <div class="common_list_con clearfix">
             <dl>
                 <dt>寄送到：</dt>
-                <dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+                {% for a in addr %}
+                    <dd>
+
+                        <input type="radio" name="addr" value="{{ a.id }}">{{ a.uAddress }} （{{ a.uName }} 收）<span>{{ a.uPhone }}</span>
+
+                    </dd>
+                {% endfor %}
             </dl>
 
-            <a href="/User/user_center_site" class="edit_site">编辑收货地址</a>
+            <a href="/User/user_site/" class="edit_site">编辑收货地址</a>
 
 
         </div>
@@ -122,11 +88,10 @@
                 <li class="col05">小计</li>
             </ul>
 
-            {# 购物车-->订单   #}
-
+            {# 购物车-->订单 的显示   #}
             {% if cart %}
                 {% for c in cart %}
-                    <ul class="goods_list_td clearfix" >
+                    <ul class="goods_list_td clearfix">
                         <input type="hidden" name="cid" value="{{ c.id }}">
                         {# 商品序号 #}
                         <li class="col01">{{ forloop.counter }}</li>
@@ -144,9 +109,9 @@
                         <li class="col07">0</li>
                     </ul>
                 {% endfor %}
-                {# 立即购买-->订单   #}
+                {# 立即购买-->订单 的 显示   #}
             {% else %}
-                <ul class="goods_list_td clearfix" >
+                <ul class="goods_list_td clearfix">
                     <input type="hidden" name="gid" value="{{ good.id }}">
                     <input type="hidden" name="count" value="{{ goodnum }}">
                     {# 商品序号 #}

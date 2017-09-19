@@ -8,7 +8,6 @@
     <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.sha1.js"></script>
     <script type="text/javascript" src="/static/js/login.js"></script>
-
     {% endblock head %}
 {% block body %}
 
@@ -28,7 +27,7 @@
 				</div>
 				<div class="form_input">
 
-					<form method="post" >
+					<form method="post" action="/User/toLogin/">
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
 						<div class="rename">
                         </div>
@@ -52,7 +51,7 @@
                         <img src="/User/verify_code/" class="img fl">
                         <input type="text" name="yzm" class="yzm_input fl" placeholder="请输入验证码">
                         <div class="tishi fl"></div>
-                        <input type="button" class="yzm_btn fl" value="提    交">
+                        <input type="submit" class="yzm_btn fl" value="提    交">
                     </div>
 
 

@@ -75,8 +75,9 @@ def detail(request, picid):
     for i in goodsl:
          j += str(i)
          j +=","
-    response.set_cookie('Recently', j, expires=24 * 60 * 60 * 30)
-    # print(goodsl)
+    uname = request.COOKIES.get("uname")
+    if uname:
+        response.set_cookie(uname, j, expires=24 * 60 * 60 * 30)
     return response
 
 
@@ -94,7 +95,7 @@ def list(request, lid, sort, pi):
     # 获取当前商品的同类的三个新品
     goods2 = GoodsInfo.objects.filter(gtype=lid).order_by("-id")[:3]
     # 分页
-    paginator = Paginator(goods, 15)
+    paginator = Paginator(goods, 10)
     page = paginator.page(int(pi))
     pagenum = paginator.page_range
     context = {'goods2': goods2, 'pi': int(pi), 'sort': int(sort),
@@ -102,17 +103,3 @@ def list(request, lid, sort, pi):
     return render(request, 'Goods/list.html', context)
 
 
-# 从cookie拿到登录名,显示在用户名处
-def getname(request):
-    uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
-    return JsonResponse(context)
-
-
-# 退出登录,删除cookie
-def delete(request):
-    uname = request.COOKIES.get('uname')
-    if uname:
-        response = HttpResponseRedirect('/')
-        response.set_cookie('uname', 1, expires=0)
-        return response

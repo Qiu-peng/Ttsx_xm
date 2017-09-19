@@ -3,76 +3,9 @@
     <title>天天生鲜-商品列表</title>
 {% endblock title %}
 {% block head %}
-<script type="text/javascript">
-    $(function () {
-{#            设置立即购买点击动画效果#}
-
-{#            获取购物车绝对位置#}
-                var carLeft = $(".cart_name").offset().left;
-                var carTop = $(".cart_name").offset().top;
-
-{#            购物车宽高#}
-                var mvInCarLeft = carLeft + $(".cart_name").outerWidth()/2 - 25;
-                var mvInCarTop = carTop + $(".cart_name").outerHeight()/2 - 25;
-
-{#            立即购买点击事件#}
-            $(".add_goods").click(function () {
-{#                图片动画#}
-{#            获取按钮绝对坐标#}
-                var addLeft = $(this).offset().left;
-                var addTop = $(this).offset().top;
-
-{#            获取按钮宽高#}
-                var addWidth = $(this).outerWidth();
-                var addHight = $(this).outerHeight();
-
-{#            图片初始位置#}
-                var mvLeft = addLeft + addWidth/2 - 25;
-                var mvTop = addTop + addHight/2 -25;
-
-{#                设置图片路径,记得在a标签用一个属性保存图片路径，在这根据属性获取路径#}
-                $(".mv img").prop('src','/static/media/'+$(this).attr('title'));
-                $(".mv").css({'left':mvLeft,'top':mvTop}).show();
-                $(".mv").animate({
-                    width:50,
-                    height:50,
-                    left:mvInCarLeft,
-                    top:mvInCarTop
-                },1000,'swing',function () {
-                    $(".mv").hide();
-{#                    图片消失，数量加一#}
-                    $(".goods_count").html(parseInt($(".goods_count").html())+1);
-                });
-            });
-    })
-</script>
+<script src="/static/js/list.js"></script>
 {% endblock head %}
 {% block body %}
-
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
-				<div class="login_btn fl">
-					<a href="/User/login/">登录</a>
-					<span>|</span>
-					<a href="/User/register/">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="/User/user_center_info/">用户中心</a>
-					<span>|</span>
-					<a href="/Cart/cart/">我的购物车</a>
-					<span>|</span>
-					<a href="/User/user_center_order/">我的订单</a>
-				</div>
-			</div>
-		</div>		
-	</div>
-
 	<div class="search_bar clearfix">
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">
@@ -81,7 +14,7 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl">1</div>
+            <div class="goods_count fl">0</div>
 		</div>
 	</div>
 
@@ -145,39 +78,42 @@
 			</div>
 
 			<ul class="goods_type_list clearfix">
+
                 {% for good in page %}
-                    <li style="text-align: center">
+                    <li style="text-align: center" id="{{ good.id }}">
                     <a href="/Goods/{{ good.id }}"><img src="/static/media/{{ good.gpic }}"></a>
                     <h4><a href="/Goods/{{ good.id }}">{{ good.gtitle.split.1 }}</a></h4>
                     <div class="operate">
 						<span class="prize">￥{{ good.gprice }}</span>
 						<span class="unit">{{ good.gunit }}</span>
-						<a href="#" class="add_goods" title="{{ good.gpic }}"></a>
+						<a href="javascript:;" class="add_goods" title="{{ good.gpic }}"></a>
+
 					</div>
                     </li>
                 {% endfor %}
 			</ul>
 
 			<div class="pagenation">
-				<a href="#">上一页</a>
+                {% if page.has_previous %}
+                    <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_1">首页</a>
+                    <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ page.number|add:-1 }}">上一页</a>
+                {% endif %}
+
                 {% for i in pagenum %}
-                    {% if i == pi %}
+                    {% if i == page.number %}
                     <a href="" class="active">{{ i }}</a>
                     {% else %}
                     <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ i }}">{{ i }}</a>
                     {% endif %}
                 {% endfor %}
-
-{#				<a href="#" class="active">1</a>#}
-{#				<a href="#">2</a>#}
-{#				<a href="#">3</a>#}
-{#				<a href="#">4</a>#}
-{#				<a href="#">5</a>#}
-				<a href="#">下一页</a>
+                {% if page.has_next %}
+                <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ page.number|add:1 }}">下一页</a>
+                <a href="/Goods/list{{ goods2.0.gtype.id }}_{{ sort }}_{{ page.paginator.num_pages }}">尾页</a>
+                {% endif %}
 			</div>
 		</div>
         <div class="mv" style="display: none;width: 50px;height: 50px;
-                                position: fixed;left: 0;top: 0;z-index: 10000;border-radius: 50%;">
+                                position: absolute;left: 0;top: 0;z-index: 10000;border-radius: 50%;">
             <img src="/static/images/goods/goods001.jpg" style="width: auto;height: auto;max-width: 100%;max-height: 100%">
         </div>
 	</div>

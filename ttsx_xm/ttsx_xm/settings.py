@@ -53,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'User.middleware.GetPathMiddleware',
 )
 
 ROOT_URLCONF = 'ttsx_xm.urls'
@@ -112,6 +113,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+
+
 # 配置文件保存在项目静态文件中的位置
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
@@ -160,3 +164,6 @@ HAYSTACK_CONNECTIONS = {
 }
 # 当添加、修改、删除数据时，自动生成索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# 搜索结果分页为12条
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 12

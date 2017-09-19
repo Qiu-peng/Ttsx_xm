@@ -5,6 +5,10 @@ from django.http import JsonResponse, HttpResponse
 from hashlib import sha1
 from . import task
 import time
+from django.core.paginator import Paginator
+from Goods.models import *
+from Order.models import *
+from .user_decorators import *
 
 
 # 显示登录页面
@@ -20,8 +24,12 @@ def toLogin(request):
         if the_user[0].isValid:  # 判断用户是否可用
             if the_user[0].isActive:  # 判断是否激活
                 upwd = the_user[0].userPsw
-                response = JsonResponse({'pwd': upwd})
+                url = request.session.get('url_path', '/')
+                response = JsonResponse({'pwd': upwd, 'url': url})
                 response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
+                # 记录登录状态
+                request.session['uid'] = the_user[0].id
+                request.session['uname'] = uname
                 return response
             else:
                 uid = the_user[0].id
@@ -51,6 +59,11 @@ def toindex(request):
     context = {'uname': uname}
     return JsonResponse(context)
 
+
+def login_out(request):
+    del request.session['uid']
+    del request.session['uname']
+    return redirect('/')
 
 
 # 显示注册页面
@@ -119,20 +132,45 @@ def clearSession(request):
 
 
 # 跳转用户中心
+@is_login
 def center(request):
     uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
+    the_cookie = request.COOKIES.get(uname)
+    the_li = []
+    if the_cookie != None:
+        li = the_cookie.split(',')
+        for item in li:
+            if item != '':
+                it = GoodsInfo.objects.get(id=item)
+                the_li.append(it)
+    context = {'uname': uname, 'list': the_li}
     return render(request, 'User/user_center_info.html', context)
 
 
 # 用户中心订单页面
+@is_login
 def center_order(request):
     uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
+    # 订单信息
+    uid = UserInfo.users.get(userName=uname).id
+    the_order = OrderInfo.objects.filter(user_id=uid)  # 订单列表
+    ali = []
+    if the_order != []:
+        # 订单详情
+        for item in the_order:
+            oid = item.oid
+            the_detail = OrderDetailInfo.objects.filter(order_id=oid)  # oid筛选出订单里的商品
+            the_list = []
+            for detail in the_detail:
+                goods = GoodsInfo.objects.get(id=detail.goods_id)  # 订单id筛选出商品
+                the_list.append({'detail': detail, 'goods': goods})
+            ali.append({"order": item, "the_list": the_list})
+    context = {'uname': uname, 'list': ali}  # [{'order': order对象, "list": {goods对象, detail对象} }, {},....]
     return render(request, 'User/user_center_order.html', context)
 
 
 # 用户中心地址页面
+@is_login
 def center_site(request):
     uname = request.COOKIES.get('uname')
     context ={'uname': uname}
@@ -275,6 +313,7 @@ def showAdd(request):
     context = {'thead':thead, 'list':list}
     return JsonResponse({'value':context})
 
+
 # 修改当前收货地址
 def upAdd(request):
     aid =request.GET.get('id')
@@ -303,6 +342,7 @@ def forget(request):
     return render(request, 'User/forget.html')
 
 
+# 发送重置密码邮件
 def reset_send(request):
     name = request.POST.get('userName')
     the_user = UserInfo.users.filter(userName=name)
@@ -314,12 +354,14 @@ def reset_send(request):
     return HttpResponse('重置密码邮件已发送至注册时的邮箱,请移步邮箱重置密码!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
 
 
+# 新密码填写页面
 def reset_show(request, uid):
     the_user = UserInfo.users.filter(id=uid)
     uname = the_user[0].userName
     return render(request, 'User/reset.html', {'uname': uname})
 
 
+# 用新密码重写数据表
 def reset_pwd(request):
     name = request.POST.get('uname')
     new_pwd = request.POST.get('user_pwd')
@@ -332,3 +374,4 @@ def reset_pwd(request):
     reset_user.userPsw = newpsw_sh1
     reset_user.save()
     return HttpResponse('用户密码已重置, <a href="/User/login/">点击登录</a>')
+

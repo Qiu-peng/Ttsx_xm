@@ -24,7 +24,6 @@ urlpatterns = [
     url('^Order/', include('Order.urls')),  # 订单模块跳转
     url('^Cart/', include('Cart.urls')),  # 购物车模块跳转
     url(r'^tinymce/',include('tinymce.urls')),  # 配置编辑器url
-
     url(r'^search/', include('haystack.urls')),  # 配置搜索引擎
 
 ]
