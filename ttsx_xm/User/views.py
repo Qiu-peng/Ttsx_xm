@@ -149,7 +149,7 @@ def center(request):
 
 # 用户中心订单页面
 @is_login
-def center_order(request):
+def center_order(request, pIndex):
     uname = request.COOKIES.get('uname')
     # 订单信息
     uid = UserInfo.users.get(userName=uname).id
@@ -165,7 +165,11 @@ def center_order(request):
                 goods = GoodsInfo.objects.get(id=detail.goods_id)  # 订单id筛选出商品
                 the_list.append({'detail': detail, 'goods': goods})
             ali.append({"order": item, "the_list": the_list})
-    context = {'uname': uname, 'list': ali}  # [{'order': order对象, "list": {goods对象, detail对象} }, {},....]
+    # 分页
+    paginator = Paginator(the_order, 5)
+    page = paginator.page(int(pIndex))
+    pagenum = paginator.page_range
+    context = {'uname': uname, 'list': ali, 'page': page, 'pagenum': pagenum}  # [{'order': order对象, "list": {goods对象, detail对象} }, {},....]
     return render(request, 'User/user_center_order.html', context)
 
 
@@ -269,11 +273,12 @@ def sendAddr(request):
     user = UserInfo.users.filter(userName=name)
     uid = user[0].id
     theadd= UserAddressInfo.address.filter(uNow=True,user_id=uid);
+    print(theadd)
     if len(theadd)==0:
-        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 1)
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, 1, uid)
         userAdd.save()
     elif len(theadd)>0:
-        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 0)
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, 0, uid)
         userAdd.save()
     return JsonResponse({'type': True})
 
@@ -317,14 +322,17 @@ def showAdd(request):
 # 修改当前收货地址
 def upAdd(request):
     aid =request.GET.get('id')
-    UserAddressInfo.address.update(aid, True)
+    uname =request.GET.get('name')
+    UserAddressInfo.address.update(aid, True, uname)
     return JsonResponse({'ok':True})
+
 
 # 删除收货地址
 def delAdd(request):
     aid = request.GET.get('id')
     UserAddressInfo.address.delete(aid)
     return JsonResponse({'ok': True})
+
 
 # 自动填写收货信息
 def updateAdd(request):
