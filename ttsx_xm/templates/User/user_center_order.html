@@ -23,7 +23,11 @@
             <ul class="order_list_th w978 clearfix">
                 <li class="col01">{{ item.order.odate }}</li>
                 <li class="col02">{{ item.order.oid }}</li>
-                <li class="col02 stress">{{ item.order.oIsPay }}</li>
+                {% if item.order.oIsPay %}
+                <li class="col02 stress">已支付</li>
+                {% else %}
+                <li class="col02 stress">未支付</li>
+                {% endif %}
             </ul>
 
             <table class="order_list_table w980">
@@ -39,10 +43,16 @@
                             </ul>
                         {% endfor %}
                         </td>
-
                         <td width="15%">{{ item.order.ototal }}</td>
-                        <td width="15%">{{ item.order.oIsPay }}付款</td>
-                        <td width="15%"><a href="#" class="oper_btn">去付款</a></td>
+                        {% if item.order.oIsPay %}
+                        <td width="15%">已付款</td>
+                        <td width="15%"><a href="#" class="oper_btn">查看物流</a>
+                        {% else %}
+                        <td width="15%">未付款</td>
+                        <td width="15%"><a href="#" class="oper_btn">去支付</a>
+                        {% endif %}
+                        </td>
+
                     </tr>
                 </tbody>
             </table>
