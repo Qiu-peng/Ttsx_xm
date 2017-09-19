@@ -782,9 +782,11 @@ label{
 }
 .add_btn{
 	width: 200px;
-	height:40px;
+	height:30px;
 	background-color: darkcyan;
 	display: none;
+	border: 0;
+	color: silver;
 }
 
 /*去除下拉框的三角*/
@@ -830,7 +832,7 @@ appearance:none;
 	font-family:'Microsoft Yahei'
 }
 
-.text{
+.forget_text{
 	width: 400px;
 	height: 200px;
 	margin: auto;
