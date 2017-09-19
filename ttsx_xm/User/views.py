@@ -165,7 +165,6 @@ def center_order(request, pIndex):
                 goods = GoodsInfo.objects.get(id=detail.goods_id)  # 订单id筛选出商品
                 the_list.append({'detail': detail, 'goods': goods})
             ali.append({"order": item, "the_list": the_list})
-
     # 分页
     paginator = Paginator(the_order, 5)
     page = paginator.page(int(pIndex))
