@@ -39,6 +39,7 @@ $(function () {
                         $('.goods_count').text(data.count);
                 });
             }
+
 // {#            购物车点击事件#}
             $(".add_cart").click(function () {
 // {#            get请求向/Cart/add传商品id和数量，获取购物车商品数量#}
