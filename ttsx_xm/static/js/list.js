@@ -37,7 +37,7 @@ $(function () {
                 },800,'swing',function () {
                     $(".mv").hide();
 // {#                    图片消失，数量加一#}
-                    $(".goods_count").html(parseInt($(".goods_count").html())+1);
+//                     $(".goods_count").html(parseInt($(".goods_count").html())+1);
                 });
 
 // {#                ajax请求#}
