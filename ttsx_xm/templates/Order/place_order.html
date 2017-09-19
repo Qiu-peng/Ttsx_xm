@@ -6,29 +6,6 @@
 
 {% block head %}
     <script src="/static/js/order.js"></script>
-
-
-    <script type="text/javascript">
-
-        $(function () {
-            //显示 欢迎用户块
-            $.get('/Goods/getname/', function (data) {
-                if (data.uname != null) {
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                    $(".user").html(data.uname);
-                }
-                else {
-                    $('#user').attr('href', '/User/login/');
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
-
-        });
-
-    </script>
-
 {% endblock head %}
 
 {% block body %}

@@ -149,7 +149,7 @@ def center(request):
 
 # 用户中心订单页面
 @is_login
-def center_order(request):
+def center_order(request, pIndex):
     uname = request.COOKIES.get('uname')
     # 订单信息
     uid = UserInfo.users.get(userName=uname).id
@@ -165,7 +165,12 @@ def center_order(request):
                 goods = GoodsInfo.objects.get(id=detail.goods_id)  # 订单id筛选出商品
                 the_list.append({'detail': detail, 'goods': goods})
             ali.append({"order": item, "the_list": the_list})
-    context = {'uname': uname, 'list': ali}  # [{'order': order对象, "list": {goods对象, detail对象} }, {},....]
+
+    # 分页
+    paginator = Paginator(the_order, 5)
+    page = paginator.page(int(pIndex))
+    pagenum = paginator.page_range
+    context = {'uname': uname, 'list': ali, 'page': page, 'pagenum': pagenum}  # [{'order': order对象, "list": {goods对象, detail对象} }, {},....]
     return render(request, 'User/user_center_order.html', context)
 
 
@@ -268,14 +273,34 @@ def sendAddr(request):
     name = request.POST.get('name')
     user = UserInfo.users.filter(userName=name)
     uid = user[0].id
-    userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid , 0)
-    userAdd.save()
+    theadd= UserAddressInfo.address.filter(uNow=True,user_id=uid);
+    if len(theadd)==0:
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 1)
+        userAdd.save()
+    elif len(theadd)>0:
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 0)
+        userAdd.save()
+    return JsonResponse({'type': True})
+
+
+# 修改收货信息
+def uptoAddr(request):
+    sendname = request.POST.get('sendname')
+    addr = request.POST.get('site_area')
+    iphone = request.POST.get('iphone')
+    aid = request.POST.get('aid')
+    UserAddressInfo.address.upto(sendname, addr, iphone, aid)
     return JsonResponse({'type': True})
 
 
 # 显示收货地址
 def showAdd(request):
-    theAdd = UserAddressInfo.address.filter(uNow=True);
+    uname =request.GET.get('uname')
+    user =UserInfo.users.filter(userName=uname)
+    aid =user[0].id
+    theAdd = UserAddressInfo.address.filter(uNow=True,user_id=aid);
+    if len(theAdd)==0:
+        return JsonResponse({'value': 'none'})
     tid = theAdd[0].id
     tname = theAdd[0].uName
     tadd = theAdd[0].uAddress
@@ -283,7 +308,7 @@ def showAdd(request):
     tp =tphone[3:7]
     tpx=tphone.replace(tp, '****')
     thead = {'tid':tid,'tname':tname,'tadd': tadd,'tphone':tpx}
-    theAdd0 = UserAddressInfo.address.filter(uNow=0)
+    theAdd0 = UserAddressInfo.address.filter(uNow=False,user_id=aid);
     list =[]
     for s in theAdd0:
         tphone =s.uPhone
@@ -299,6 +324,24 @@ def upAdd(request):
     aid =request.GET.get('id')
     UserAddressInfo.address.update(aid, True)
     return JsonResponse({'ok':True})
+
+
+# 删除收货地址
+def delAdd(request):
+    aid = request.GET.get('id')
+    UserAddressInfo.address.delete(aid)
+    return JsonResponse({'ok': True})
+
+
+# 自动填写收货信息
+def updateAdd(request):
+    aid = request.GET.get('id')
+    findAdd = UserAddressInfo.address.get(id=aid)
+    name =findAdd.uName
+    add =findAdd.uAddress
+    phone =findAdd.uPhone
+    context ={'name':name, 'addr':add, 'phone':phone, 'aid':aid}
+    return JsonResponse(context)
 
 
 # 显示重置密码页面
