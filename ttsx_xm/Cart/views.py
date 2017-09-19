@@ -9,9 +9,9 @@ from django.db.models import *
 
 def cart(request):
     #可以用关联查询
-    # uid = request.session['user_id']
+    uid = request.session['uid']
     # 查询uid的用户的全部购物车的商品
-    carts = CartInfo.objects.filter(user_id = 1)
+    carts = CartInfo.objects.filter(user_id = uid)
     context= {'carts':carts,'title':'购物车'}
     return render(request,'Cart/cart.html',context)
 
