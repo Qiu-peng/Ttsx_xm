@@ -38,12 +38,14 @@ $(function () {
 // {#                    图片消失，数量加上num_show中写的数量#}
 //                     $(".goods_count").html(parseInt($(".goods_count").html())+parseInt($(".num_show").val()));
                 });
+// {#            ajax请求#}
+                var counts=$('.num_show').val();
+                var goods_id=$('.operate_btn').attr('id');
+                $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
+                $('.goods_count').text(data.count);
+                });
             });
 
-// {#            ajax请求#}
-            var counts=$('.num_show').val();
-            var goods_id=$('.operate_btn').attr('id');
-            $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
-            $('.goods_count').text(data.count);
-            });
+
+
 })

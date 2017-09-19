@@ -4,6 +4,8 @@ from .models import *
 from Goods.models import *
 from django.http import JsonResponse
 # Create your views here.
+
+
 def cart(request):
     #可以用关联查询
     # uid = request.session['user_id']
@@ -11,6 +13,7 @@ def cart(request):
     carts = CartInfo.objects.filter(user_id = 1)
     context= {'carts':carts}
     return render(request,'Cart/cart.html',context)
+
 
 # 给购物车添加商品
 def add(request):
@@ -51,7 +54,7 @@ def edit(request):
     return JsonResponse({'count':count})
 
 
-#删除
+# 删除
 def remove(request):
     cart_id=request.GET.get('cart')
     cart = CartInfo.objects.filter(id=int(cart_id))

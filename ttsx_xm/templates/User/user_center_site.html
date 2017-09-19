@@ -24,7 +24,7 @@
                 $.get('/User/showAdd/',{'uname':name},function (data) {
                 var value =data.value;
                 if(value=='none'){
-                    $('.tishi').css('display', 'block')
+                    $('.add_btn').css('display', 'block')
                 }
                 var list =value.list;
                 var thead =value.thead;
@@ -54,7 +54,7 @@
                         if(data.type){
                             clear();
                             $('.site_con').css('display','none');
-                            $('.tishi').css('display', 'none');
+                            $('.add_btn').css('display', 'none');
                             f5();
                         };
                     });
@@ -67,7 +67,7 @@
                         };
                     });
                 }
-                $('.tishi').hide();
+                $('.add_btn').hide();
             });
             $('.x').click(function () {
                 $('.site_con').css('display','none');
@@ -87,7 +87,8 @@
             });
             // 设为Now收货地址
             $('.right_content').delegate("#adda", "click", function (){
-                $.get('/User/upAdd/',{'id':$(this).find('.hid').val()},function (data) {
+                var name =$.cookie('uname')
+                $.get('/User/upAdd/',{'id':$(this).find('.hid').val(),'name':name},function (data) {
                     if(data.ok){
                         f5();
                     }
@@ -108,7 +109,7 @@
                 });
             });
 
-            $('.tishi').click(function () {
+            $('.add_btn').click(function () {
                 $('.site_con').css('display','block');
             })
 
@@ -133,13 +134,13 @@
 			<h3>用户中心</h3>
 			<ul>
 				<li><a href="/User/user_center/">· 个人信息</a></li>
-				<li><a href="/User/user_order/">· 全部订单</a></li>
+				<li><a href="/User/user_order_1/">· 全部订单</a></li>
 				<li><a href="/User/user_site/" class="active">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
 				<h3 class="common_title2">收货地址</h3>
-                <input type="button" class="tishi" value="新 增 地 址">
+                <input type="button" class="add_btn" value="新 增 地 址">
 				<div class="site_cont">
 
 				</div>

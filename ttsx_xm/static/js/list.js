@@ -42,7 +42,7 @@ $(function () {
 
 // {#                ajax请求#}
                 var counts=1;
-                var goods_id=$(this).parents('.li').attr('id');
+                var goods_id=$(this).parents('li').attr('id');
                 $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
                 $('.goods_count').text(data.count);
                 });

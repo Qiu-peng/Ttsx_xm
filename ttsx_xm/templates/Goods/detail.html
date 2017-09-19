@@ -28,7 +28,7 @@
                     show.val("199")
                 }
 {#                乘一万再除一万是为了去除多位小数的bug#}
-                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
+                total.html("总价：<em>"+({{ goods.gprice }}*show.val()).toFixed(2)+"元</em>");
                 buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val());
             });
             minus.click(function () {
@@ -41,7 +41,7 @@
                 if (show.val() < 1){
                     show.val("1")
                 }
-                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
+                total.html("总价：<em>"+({{ goods.gprice }}*show.val()).toFixed(2)+"元</em>");
                 buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
             });
 {#            监听键盘抬起f#}
@@ -100,8 +100,8 @@
 			</div>
 			<div class="total">总价：<em>{{ goods.gprice }}元</em></div>
 			<div class="operate_btn" id="{{ goods.id }}">
-				<a href="javascript:" class="buy_btn">立即购买</a>
-				<a href="javascript:" class="add_cart" id="add_cart">加入购物车</a>
+                <a href="javascript:" class="buy_btn">立即购买</a>
+                <a href="javascript:" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
 	</div>
