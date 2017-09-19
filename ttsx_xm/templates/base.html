@@ -20,15 +20,18 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
+                {% if request.session.uid %}
 				<div class="login_info fl">
-					欢迎您：<a id="user"></a>
-                    <a class="quit" href="/Goods/delete/">&nbsp;&nbsp;退出</a>
+					欢迎您：<a id="user">{{ request.session.uname }}</a>
+                    <a class="quit" href="/User/login_out/">&nbsp;&nbsp;退出</a>
 				</div>
+                {% else %}
 				<div class="login_btn fl">
 					<a href="/User/login/">登录</a>
 					<span>|</span>
 					<a href="/User/register/">注册</a>
 				</div>
+                {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
 					<a href="/User/user_center/">用户中心</a>

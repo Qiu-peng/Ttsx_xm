@@ -51,20 +51,18 @@
                 }else if (show.val() > 199){
                     show.val("199")
                 }
-                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+"元</em>");
+                total.html("总价：<em>"+({{ goods.gprice }}*10000*show.val()/10000).toFixed(2)+ "元</em>" );
                 buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val())
             });
 {#            修改立即购买a标签的href路径#}
             buy_btn.prop('href','/Order/?goodsid={{ goods.id }}&num='+show.val());
 
-        })
+        });
 
     </script>
     {% endblock head %}
 
     {% block body %}
-
-
 	<div class="search_bar clearfix">
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">

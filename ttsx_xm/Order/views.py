@@ -157,11 +157,3 @@ def handle_order(request):
             context = {'status': '3'}
             return render(request, 'Order/submitorder.html', context)
 
-
-# 退出登录,删除cookie
-def delete(request):
-    uname = request.COOKIES.get('uname')
-    if uname:
-        response = HttpResponseRedirect('/Order/')
-        response.set_cookie('uname', 1, expires=0)
-        return response
