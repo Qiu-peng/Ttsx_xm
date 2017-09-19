@@ -7,17 +7,6 @@
         <script src="/static/js/jquery.cookie.js"></script>
         <script type="text/javascript">
         $(function () {
-            $.get('/Goods/getname/', function (data) {
-                if(data.uname != null){
-                    $('#user').html(data.uname);
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                }
-                else{
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
             function f5() {
                 $('.site_cont').html('');
                 var name =$.cookie('uname')
