@@ -87,7 +87,8 @@
             });
             // 设为Now收货地址
             $('.right_content').delegate("#adda", "click", function (){
-                $.get('/User/upAdd/',{'id':$(this).find('.hid').val()},function (data) {
+                var name =$.cookie('uname')
+                $.get('/User/upAdd/',{'id':$(this).find('.hid').val(),'name':name},function (data) {
                     if(data.ok){
                         f5();
                     }

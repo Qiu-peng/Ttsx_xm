@@ -269,11 +269,12 @@ def sendAddr(request):
     user = UserInfo.users.filter(userName=name)
     uid = user[0].id
     theadd= UserAddressInfo.address.filter(uNow=True,user_id=uid);
+    print(theadd)
     if len(theadd)==0:
-        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 1)
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, 1, uid)
         userAdd.save()
     elif len(theadd)>0:
-        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 0)
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, 0, uid)
         userAdd.save()
     return JsonResponse({'type': True})
 
@@ -317,7 +318,8 @@ def showAdd(request):
 # 修改当前收货地址
 def upAdd(request):
     aid =request.GET.get('id')
-    UserAddressInfo.address.update(aid, True)
+    uname =request.GET.get('name')
+    UserAddressInfo.address.update(aid, True, uname)
     return JsonResponse({'ok':True})
 
 # 删除收货地址
