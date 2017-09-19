@@ -39,7 +39,8 @@ def index(request):
         'meal': meal, 'meal2': meal2,
         'eggs': eggs, 'eggs2': eggs2,
         'vege': vege, 'vege2': vege2,
-        'fastFrozen': fastFrozen, 'fastFrozen2': fastFrozen2
+        'fastFrozen': fastFrozen, 'fastFrozen2': fastFrozen2,
+        'isIndex': 1
     }
     return render(request, 'Goods/index.html', context)
 

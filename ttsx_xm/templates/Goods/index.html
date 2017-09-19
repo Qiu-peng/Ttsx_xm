@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'Goods/base_search.html' %}
     {% block title %}
 	    <title>天天生鲜-首页</title>
     {% endblock title %}
@@ -7,60 +7,9 @@
 	    <script type="text/javascript" src="/static/js/slide.js"></script>
     {% endblock head %}
 
-    {% block body %}
+    {% block bodynext %}
 
-	<div class="search_bar clearfix">
-		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
-        <form method='get' action="/search/" target="_blank">
-        <div class="search_con fl">
-        <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
-        <input type="submit" class="input_btn fr" name="" value="搜索">
-        </div>
-        </form>
-		<div class="guest_cart fr">
-			<a href="/Cart/cart/" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
-		</div>
-	</div>
 
-	<div class="navbar_con">
-		<div class="navbar">
-			<h1 class="fl">全部商品分类</h1>
-			<ul class="navlist fl">
-				<li><a href="/">首页</a></li>
-				<li class="interval">|</li>
-				<li><a href="">手机生鲜</a></li>
-				<li class="interval">|</li>
-				<li><a href="">抽奖</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="center_con clearfix">
-		<ul class="subnav fl">
-			<li><a href="/Goods/list1_0_1" class="fruit">新鲜水果</a></li>
-			<li><a href="/Goods/list2_0_1" class="seafood">海鲜水产</a></li>
-			<li><a href="/Goods/list3_0_1" class="meet">猪牛羊肉</a></li>
-			<li><a href="/Goods/list4_0_1" class="egg">禽类蛋品</a></li>
-			<li><a href="/Goods/list5_0_1" class="vegetables">新鲜蔬菜</a></li>
-			<li><a href="/Goods/list6_0_1" class="ice">速冻食品</a></li>
-		</ul>
-		<div class="slide fl">
-			<ul class="slide_pics">
-				<li><img src="/static/images/slide.jpg" alt="幻灯片"></li>
-				<li><img src="/static/images/slide02.jpg" alt="幻灯片"></li>
-				<li><img src="/static/images/slide03.jpg" alt="幻灯片"></li>
-				<li><img src="/static/images/slide04.jpg" alt="幻灯片"></li>
-			</ul>
-			<div class="prev"></div>
-			<div class="next"></div>
-			<ul class="points"></ul>
-		</div>
-		<div class="adv fl">
-			<a href="#"><img src="/static/images/adv01.jpg"></a>
-			<a href="#"><img src="/static/images/adv02.jpg"></a>
-		</div>
-	</div>
 
 	<div class="list_model">
 		<div class="list_title clearfix">
@@ -236,6 +185,6 @@
 		</div>
 	</div>
 
-    {% endblock body %}
+    {% endblock bodynext %}
 
 

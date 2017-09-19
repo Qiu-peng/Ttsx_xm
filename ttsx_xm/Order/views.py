@@ -7,8 +7,9 @@ from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 import qrcode
 from io import BytesIO
+from User.user_decorators import *
 
-
+@is_login
 def showorder(request):
     # 获取缓存的用户名
     uname = request.COOKIES.get('uname')
@@ -82,6 +83,7 @@ def code(request):
 
 # 提交订单处理
 @transaction.atomic
+@is_login
 def handle_order(request):
     # 接收请求参数
     cid = request.POST.getlist('cid')  # 购物车id
@@ -167,4 +169,5 @@ def handle_order(request):
             # 回到购物车
             context = {'status': '3'}
             return render(request, 'Order/submitorder.html', context)
+
 
