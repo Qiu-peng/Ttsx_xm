@@ -37,12 +37,12 @@ $(function () {
                 },800,'swing',function () {
                     $(".mv").hide();
 // {#                    图片消失，数量加一#}
-                    $(".goods_count").html(parseInt($(".goods_count").html())+1);
+//                     $(".goods_count").html(parseInt($(".goods_count").html())+1);
                 });
 
 // {#                ajax请求#}
                 var counts=1;
-                var goods_id=$(this).parents('.li').attr('id');
+                var goods_id=$(this).parents('li').attr('id');
                 $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
                 $('.goods_count').text(data.count);
                 });

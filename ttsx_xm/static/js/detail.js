@@ -36,7 +36,7 @@ $(function () {
                 },800,'swing',function () {
                     $(".mv").hide();
 // {#                    图片消失，数量加上num_show中写的数量#}
-                    $(".goods_count").html(parseInt($(".goods_count").html())+parseInt($(".num_show").val()));
+//                     $(".goods_count").html(parseInt($(".goods_count").html())+parseInt($(".num_show").val()));
                 });
             });
 
