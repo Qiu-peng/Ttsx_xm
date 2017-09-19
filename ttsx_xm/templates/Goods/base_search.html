@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block body %}
 <div class="search_bar clearfix">
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
@@ -13,6 +14,20 @@
 			<div class="goods_count fl" id="show_count">0</div>
 		</div>
 	</div>
+    <script>
+    if($('.login_info').text().indexOf('退出')==-1){
+       $('#show_count').text(0)
+    }else {
+        $.get('/Cart/count/',function (data) {
+            if ($('#show_count').text()==''||$('#show_count').text()=='0'){
+                $('#show_count').text(0)
+            }else{
+                 $('#show_count').text(data.count)
+            }
+
+        })
+    }
+    </script>
     {% if isIndex == 1 %}
 
     <div class="navbar_con">

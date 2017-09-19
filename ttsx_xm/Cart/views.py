@@ -39,9 +39,9 @@ def add(request):
     if request.is_ajax():
         # count = CartInfo.objects.filter(user_id=request.session['uid']).count()
         count = CartInfo.objects.filter(user_id=request.session['uid']).aggregate(Sum('count'))
-        return JsonResponse({'count': count.get('count__sum')})
+        return JsonResponse({'ok':1,'count': count.get('count__sum')})
     else:
-        return redirect('/cart/')
+        return redirect('/Cart/cart')
 
 
 # 向已存在的购物车中添加物品
@@ -63,3 +63,8 @@ def remove(request):
     cart.delete()
     return JsonResponse({'ok':1})
 
+
+def count(request):
+    uid=request.session.get('uid')
+    c=CartInfo.objects.filter(user_id=uid).aggregate(Sum('count'))
+    return JsonResponse({'count':c.get('count__sum')})

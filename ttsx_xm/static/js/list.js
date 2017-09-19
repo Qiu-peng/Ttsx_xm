@@ -27,26 +27,30 @@ $(function () {
                 var mvTop = addTop + addHight/2 -25;
 
 // {#                设置图片路径,记得在a标签用一个属性保存图片路径，在这根据属性获取路径#}
-                $(".mv img").prop('src','/static/media/'+$(this).attr('title'));
-                $(".mv").css({'left':mvLeft,'top':mvTop}).show();
-                // 获取图片id
-                var goods_id=$(this).parents('li').attr('id');
-                $(".mv").stop().animate({
-                    width:50,
-                    height:50,
-                    left:mvInCarLeft,
-                    top:mvInCarTop
-                },800,'swing',function () {
-                    $(".mv").hide();
-// {#                    图片消失，数量加一#}
-//                     $(".goods_count").html(parseInt($(".goods_count").html())+1);
-// {#                ajax请求#}
-                    var counts=1;
-                    $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
-                        $('.goods_count').text(data.count);
-                    });
 
+                // 获取图片id
+                // {#                ajax请求#}
+                var counts=1;
+                var goods_id=$(this).parents('li').attr('id');
+                $(".mv img").prop('src','/static/media/'+$(this).attr('title'));
+                $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
+                    if(data.ok==1){
+                        $(".mv").css({'left':mvLeft,'top':mvTop}).show();
+                        $(".mv").stop().animate({
+                            width:50,
+                            height:50,
+                            left:mvInCarLeft,
+                            top:mvInCarTop
+                        },800,'swing',function () {
+                            $(".mv").hide();
+                            $('.goods_count').text(data.count);
+
+                        });
+                    }else {
+                        location.href='/User/login/'
+                    }
                 });
+
 
 
             });
