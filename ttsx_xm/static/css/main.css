@@ -342,7 +342,7 @@ html,body{height:100%}
 	line-height: 30px;
 	text-indent: 10px;
 }
-.tishi{
+.yzm .tishi{
 	height: 30px;
 	width: 100px;
 	margin-left:20px;
@@ -780,6 +780,12 @@ label{
 	color: #404040;
 	z-index: 999;
 }
+.add_btn{
+	width: 200px;
+	height:40px;
+	background-color: darkcyan;
+	display: none;
+}
 
 /*去除下拉框的三角*/
 select{
@@ -824,7 +830,7 @@ appearance:none;
 	font-family:'Microsoft Yahei'
 }
 
-.forget_text{
+.text{
 	width: 400px;
 	height: 200px;
 	margin: auto;
