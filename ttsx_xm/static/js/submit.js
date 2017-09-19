@@ -7,7 +7,7 @@
 $(function () {
     // 获取状态码 以确定最终要跳转的页面
     var statuscode = $('#status').val();
-    var timeleft = 5;
+    var timeleft = 10000;
 
     function timing(path) {
         //改变显示的时间值

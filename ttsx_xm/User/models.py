@@ -17,22 +17,35 @@ class AddressInfoManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().all()
 
-    def create(self, sendName, add, iphone, uid, uNow):
+    def create(self, sendName, add, iphone, uNow, uid):
         userAdr = UserAddressInfo()
         userAdr.uName = sendName
         userAdr.uAddress = add
         userAdr.uPhone = iphone
-        userAdr.user_id = uid
         userAdr.uNow = uNow
+        userAdr.user_id = uid
         return userAdr
 
-    def update(self, aid, uNow):
-        upadd =UserAddressInfo.address.get(uNow =True)
+    def update(self, aid, uNow, uname):
+        user = UserInfo.users.filter(userName=uname)
+        uid = user[0].id
+        upadd =UserAddressInfo.address.get(uNow =True, user_id =uid)
         upadd.uNow =False
         upadd.save()
         uadd = UserAddressInfo.address.get(id =aid)
         uadd.uNow = uNow
         uadd.save()
+
+    def upto(self, sendname, addr, iphone, aid):
+        uptoadd = UserAddressInfo.address.get(id =aid)
+        uptoadd.uName = sendname
+        uptoadd.uAddress = addr
+        uptoadd.uPhone = iphone
+        uptoadd.save()
+
+    def delete(self, aid):
+        uadd = UserAddressInfo.address.get(id =aid)
+        uadd.delete()
 
 
 class UserInfo(models.Model):

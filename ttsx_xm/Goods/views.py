@@ -39,7 +39,8 @@ def index(request):
         'meal': meal, 'meal2': meal2,
         'eggs': eggs, 'eggs2': eggs2,
         'vege': vege, 'vege2': vege2,
-        'fastFrozen': fastFrozen, 'fastFrozen2': fastFrozen2
+        'fastFrozen': fastFrozen, 'fastFrozen2': fastFrozen2,
+        'isIndex': 1
     }
     return render(request, 'Goods/index.html', context)
 
@@ -101,21 +102,5 @@ def list(request, lid, sort, pi):
     context = {'goods2': goods2, 'pi': int(pi), 'sort': int(sort),
                'page': page, 'pagenum': pagenum}
     return render(request, 'Goods/list.html', context)
-
-
-# 从cookie拿到登录名,显示在用户名处
-def getname(request):
-    uname = request.COOKIES.get('uname')
-    context = {'uname': uname}
-    return JsonResponse(context)
-
-
-# 退出登录,删除cookie
-def delete(request):
-    uname = request.COOKIES.get('uname')
-    if uname:
-        response = HttpResponseRedirect('/')
-        response.set_cookie('uname', 1, expires=0)
-        return response
 
 

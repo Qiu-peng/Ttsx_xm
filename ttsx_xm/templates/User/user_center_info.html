@@ -2,24 +2,7 @@
     {% block title %}
         <title>天天生鲜-用户中心</title>
     {% endblock title %}
-    {% block head %}
-        <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
-        <script type="text/javascript">
-        $(function () {
-            $.get('/Goods/getname/', function (data) {
-                if (data.uname != null) {
-                    $('#user').html(data.uname)
-                    $(".login_info").show();
-                    $(".login_btn").hide();
-                }
-                else {
-                    $(".login_info").hide();
-                    $(".login_btn").show();
-                }
-            });
-        });
-        </script>
-    {% endblock head %}
+    {% block head %}{% endblock head %}
     {% block body %}
 
 	<div class="search_bar clearfix">
@@ -36,7 +19,7 @@
 			<h3>用户中心</h3>
 			<ul>
 				<li><a href="/User/user_center/" class="active">· 个人信息</a></li>
-				<li><a href="/User/user_order/">· 全部订单</a></li>
+				<li><a href="/User/user_order_1/">· 全部订单</a></li>
 				<li><a href="/User/user_site/">· 收货地址</a></li>
 			</ul>
 		</div>
@@ -46,8 +29,7 @@
 				<h3 class="common_title2">基本信息</h3>
                 <ul class="user_info_list">
                     <li><span>用户名：</span>{{ uname }}</li>
-                    <li><span>联系方式：</span>18210569700</li>
-                    <li><span>联系地址：</span>北京市昌平区</li>
+                    <li><span>联系邮箱：</span>{{ uemail }}</li>
                 </ul>
             </div>
 				
