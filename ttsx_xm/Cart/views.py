@@ -4,9 +4,10 @@ from .models import *
 from Goods.models import *
 from django.http import JsonResponse
 from django.db.models import *
+from User.user_decorators import *
 # Create your views here.
 
-
+@is_login
 def cart(request):
     #可以用关联查询
     uid = request.session['uid']
@@ -15,7 +16,7 @@ def cart(request):
     context= {'carts':carts,'title':'购物车'}
     return render(request,'Cart/cart.html',context)
 
-
+@is_login
 # 给购物车添加商品
 def add(request):
     uid = request.session['uid']
@@ -35,9 +36,12 @@ def add(request):
         cart.goods_id=gs_id
         cart.count=gs_count
     cart.save()
-    # count = CartInfo.objects.filter(user_id=request.session['uid']).count()
-    count = CartInfo.objects.filter(user_id=request.session['uid']).aggregate(Sum('count'))
-    return JsonResponse({'count': count.get('count__sum')})
+    if request.is_ajax():
+        # count = CartInfo.objects.filter(user_id=request.session['uid']).count()
+        count = CartInfo.objects.filter(user_id=request.session['uid']).aggregate(Sum('count'))
+        return JsonResponse({'count': count.get('count__sum')})
+    else:
+        return redirect('/cart/')
 
 
 # 向已存在的购物车中添加物品
