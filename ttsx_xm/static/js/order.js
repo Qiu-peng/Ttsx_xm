@@ -3,6 +3,18 @@
  */
 
 $(function () {
+    // 默认第一个选中
+    $('.common_list_con input:first').attr("checked",true);
+    // 隐藏部分号码
+    var phone=$('.common_list_con span');
+    $.each(phone,function () {
+        var arry = $(this).html().split('');
+        arry.splice(3,4,'*','*','*','*');
+        // console.log(arry);
+        var newphone = arry.join('');
+        $(this).html(newphone);
+    });
+
 
     // 获取所有商品
     var $goodsul = $('.goods_list_td');
