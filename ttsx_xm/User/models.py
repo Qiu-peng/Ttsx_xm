@@ -34,6 +34,17 @@ class AddressInfoManager(models.Manager):
         uadd.uNow = uNow
         uadd.save()
 
+    def upto(self, sendname, addr, iphone, aid):
+        uptoadd = UserAddressInfo.address.get(id =aid)
+        uptoadd.uName = sendname
+        uptoadd.uAddress = addr
+        uptoadd.uPhone = iphone
+        uptoadd.save()
+
+    def delete(self, aid):
+        uadd = UserAddressInfo.address.get(id =aid)
+        uadd.delete()
+
 
 class UserInfo(models.Model):
     userName = models.CharField(max_length=20)
