@@ -15,8 +15,9 @@ $(function () {
             var upwd = $('.pass_input').val();
             var shapwd =$.sha1(upwd);
             if (data.pwd == shapwd) {
-                $.post('/User/toindex/', {'name': $('.name_input').val(),'ischeck':$(".Remember").prop("checked"),'pwd': upwd}, function () {
-                    window.location.href = '/';
+                url = data.url
+                $.post('/User/toindex/', {'name': $('.name_input').val(), 'ischeck':$(".Remember").prop("checked"),'pwd': upwd}, function (data) {
+                    window.location.href = url;
                 });
             }
             else if(data.pwd == 'notValid'){

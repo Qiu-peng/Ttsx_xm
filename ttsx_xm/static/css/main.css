@@ -18,7 +18,7 @@ html,body{height:100%}
 }
 
 .login_info{
-	display:none;
+	display:block;
 }
 
 .login_info a{color:#ff8800}
@@ -536,7 +536,7 @@ html,body{height:100%}
 	left:50%;
 	margin-left:-250px;
 	top:50%;
-	margin-top:-200px;
+	margin-top:-250px;
 	z-index:1000;
 }
 .popup .img{
@@ -686,7 +686,7 @@ html,body{height:100%}
 .site_cont dt{
 	font-size:14px;
 	line-height:30px;
-	text-indent:30px;
+	text-indent:10px;
 	font-weight:bold;
 }
 
@@ -778,6 +778,14 @@ html,body{height:100%}
 label{
 	color: #404040;
 	z-index: 999;
+}
+.tishi{
+	width: 300px;
+	height: 30px;
+	background-color: darkcyan;
+	color: silver;
+	border: 0;
+	display: none;
 }
 /*去除下拉框的三角*/
 select{

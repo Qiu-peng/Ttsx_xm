@@ -8,6 +8,9 @@ import time
 from django.core.paginator import Paginator
 from Goods.models import *
 from Order.models import *
+from .user_decorators import *
+
+
 # 显示登录页面
 def login(request):
     return render(request, 'User/login.html')
@@ -21,8 +24,12 @@ def toLogin(request):
         if the_user[0].isValid:  # 判断用户是否可用
             if the_user[0].isActive:  # 判断是否激活
                 upwd = the_user[0].userPsw
-                response = JsonResponse({'pwd': upwd})
+                url = request.session.get('url_path', '/')
+                response = JsonResponse({'pwd': upwd, 'url': url})
                 response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
+                # 记录登录状态
+                request.session['uid'] = the_user[0].id
+                request.session['uname'] = uname
                 return response
             else:
                 uid = the_user[0].id
@@ -51,6 +58,12 @@ def toindex(request):
         request.session['repwd'] = list_u  # 存对象
     context = {'uname': uname}
     return JsonResponse(context)
+
+
+def login_out(request):
+    del request.session['uid']
+    del request.session['uname']
+    return redirect('/')
 
 
 # 显示注册页面
@@ -119,20 +132,24 @@ def clearSession(request):
 
 
 # 跳转用户中心
+@is_login
 def center(request):
     uname = request.COOKIES.get('uname')
-    li = request.COOKIES.get(uname).split(',')
+    the_cookie = request.COOKIES.get(uname)
     the_li = []
-    for item in li:
-        if item != '':
-            it = GoodsInfo.objects.get(id=item)
-            the_li.append(it)
+    if the_cookie != None:
+        li = the_cookie.split(',')
+        for item in li:
+            if item != '':
+                it = GoodsInfo.objects.get(id=item)
+                the_li.append(it)
     context = {'uname': uname, 'list': the_li}
     return render(request, 'User/user_center_info.html', context)
 
 
 # 用户中心订单页面
-def center_order(request, pIndex):
+@is_login
+def center_order(request):
     uname = request.COOKIES.get('uname')
     # 订单信息
     uid = UserInfo.users.get(userName=uname).id
@@ -153,6 +170,7 @@ def center_order(request, pIndex):
 
 
 # 用户中心地址页面
+@is_login
 def center_site(request):
     uname = request.COOKIES.get('uname')
     context ={'uname': uname}
@@ -250,13 +268,34 @@ def sendAddr(request):
     name = request.POST.get('name')
     user = UserInfo.users.filter(userName=name)
     uid = user[0].id
-    userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid , 0)
-    userAdd.save()
+    theadd= UserAddressInfo.address.filter(uNow=True,user_id=uid);
+    if len(theadd)==0:
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 1)
+        userAdd.save()
+    elif len(theadd)>0:
+        userAdd = UserAddressInfo.address.create(sendname, addr, iphone, uid, 0)
+        userAdd.save()
     return JsonResponse({'type': True})
+
+
+# 修改收货信息
+def uptoAddr(request):
+    sendname = request.POST.get('sendname')
+    addr = request.POST.get('site_area')
+    iphone = request.POST.get('iphone')
+    aid = request.POST.get('aid')
+    UserAddressInfo.address.upto(sendname, addr, iphone, aid)
+    return JsonResponse({'type': True})
+
 
 # 显示收货地址
 def showAdd(request):
-    theAdd = UserAddressInfo.address.filter(uNow=True);
+    uname =request.GET.get('uname')
+    user =UserInfo.users.filter(userName=uname)
+    aid =user[0].id
+    theAdd = UserAddressInfo.address.filter(uNow=True,user_id=aid);
+    if len(theAdd)==0:
+        return JsonResponse({'value': 'none'})
     tid = theAdd[0].id
     tname = theAdd[0].uName
     tadd = theAdd[0].uAddress
@@ -264,7 +303,7 @@ def showAdd(request):
     tp =tphone[3:7]
     tpx=tphone.replace(tp, '****')
     thead = {'tid':tid,'tname':tname,'tadd': tadd,'tphone':tpx}
-    theAdd0 = UserAddressInfo.address.filter(uNow=0)
+    theAdd0 = UserAddressInfo.address.filter(uNow=False,user_id=aid);
     list =[]
     for s in theAdd0:
         tphone =s.uPhone
@@ -274,11 +313,28 @@ def showAdd(request):
     context = {'thead':thead, 'list':list}
     return JsonResponse({'value':context})
 
+
 # 修改当前收货地址
 def upAdd(request):
     aid =request.GET.get('id')
     UserAddressInfo.address.update(aid, True)
     return JsonResponse({'ok':True})
+
+# 删除收货地址
+def delAdd(request):
+    aid = request.GET.get('id')
+    UserAddressInfo.address.delete(aid)
+    return JsonResponse({'ok': True})
+
+# 自动填写收货信息
+def updateAdd(request):
+    aid = request.GET.get('id')
+    findAdd = UserAddressInfo.address.get(id=aid)
+    name =findAdd.uName
+    add =findAdd.uAddress
+    phone =findAdd.uPhone
+    context ={'name':name, 'addr':add, 'phone':phone, 'aid':aid}
+    return JsonResponse(context)
 
 
 # 显示重置密码页面
