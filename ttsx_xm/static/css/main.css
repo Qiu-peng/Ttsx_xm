@@ -328,6 +328,7 @@ html,body{height:100%}
 	cursor:pointer;
 }
 .yzm .text{
+	height: 15px;
 	margin-top:12px;
 	margin-left:20px;
 	font-size: 14px;
@@ -779,14 +780,7 @@ label{
 	color: #404040;
 	z-index: 999;
 }
-.tishi{
-	width: 300px;
-	height: 30px;
-	background-color: darkcyan;
-	color: silver;
-	border: 0;
-	display: none;
-}
+
 /*去除下拉框的三角*/
 select{
 appearance:none;
@@ -830,7 +824,7 @@ appearance:none;
 	font-family:'Microsoft Yahei'
 }
 
-.text{
+.forget_text{
 	width: 400px;
 	height: 200px;
 	margin: auto;
