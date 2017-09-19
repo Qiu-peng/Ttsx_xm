@@ -10,6 +10,13 @@ from io import BytesIO
 
 
 def showorder(request):
+    # 获取缓存的用户名
+    uname = request.COOKIES.get('uname')
+    # 获取用户对象
+    user = UserInfo.users.get(userName=uname)
+    # 获取地址对象
+    addr = UserAddressInfo.address.filter(user_id=user.id,uNow=True)
+
     # 获取url中的商品id
     goodsid = request.GET.getlist('goodsid')
     # 立即购买的数量
@@ -29,7 +36,7 @@ def showorder(request):
             # 获取到购物车对象
             if clist:
                 cart.append(clist[0])
-    context = {'cart': cart, 'goodnum': goodnum, 'good': good}
+    context = {'cart': cart, 'goodnum': goodnum, 'good': good,'addr':addr}
     return render(request, 'Order/place_order.html', context)
 
 
@@ -38,14 +45,16 @@ def createorder(request):
     order = OrderInfo()
     order.oid = datetime.now().strftime('%Y%m%d%H%M%S')
     # 获取缓存的用户名
-    # uname = request.COOKIES.get('uname')
+    uname = request.COOKIES.get('uname')
     # 获取用户对象
-    # user = UserInfo.objects.get(userName=uname)
+    user = UserInfo.users.get(userName=uname)
     # 用户id
-    order.user_id = 1  # user.id
+    order.user_id = user.id
     order.ototal = 0
-    # 用户地址
-    order.oaddress = '深圳'  # UserAddressInfo.objects.get(user=user).uAddress
+    # 获取POST 请求参数中的地址对象id
+    aid = request.POST.get('addr')
+    # 需获取用户提交的地址
+    order.oaddress = UserAddressInfo.address.get(id=aid).uAddress
     # 保存修改
     order.save()
     return order
@@ -69,6 +78,7 @@ def code(request):
     qcode.save(buf, 'png')
     response = HttpResponse(buf.getvalue(), 'image/png')
     return response
+
 
 # 提交订单处理
 @transaction.atomic
@@ -99,6 +109,7 @@ def handle_order(request):
 
             # 创建详单
             detail = createdetail(goods, order)
+            detail.count = gcount
             detail.save()
 
             # 提交事务
