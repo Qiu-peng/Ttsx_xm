@@ -869,7 +869,7 @@ appearance:none;
 }
 .dz{
 	margin-left: 10px;
-    width:13ch;
+    width:17ch;
 	white-space:nowrap;
 	overflow:hidden;
 	animation:typing 1.5s steps(30,end),/* # of steps = # of chars */
