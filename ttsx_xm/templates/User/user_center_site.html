@@ -4,16 +4,33 @@
     <title>天天生鲜-用户中心</title>
     {% endblock title %}
     {% block head %}
+        <script src="/static/js/jquery.cookie.js"></script>
         <script type="text/javascript">
         $(function () {
+            $.get('/Goods/getname/', function (data) {
+                if(data.uname != null){
+                    $('#user').html(data.uname);
+                    $(".login_info").show();
+                    $(".login_btn").hide();
+                }
+                else{
+                    $(".login_info").hide();
+                    $(".login_btn").show();
+                }
+            });
             function f5() {
-                $.get('/User/showAdd/',function (data) {
+                $('.site_cont').html('');
+                var name =$.cookie('uname')
+                $.get('/User/showAdd/',{'uname':name},function (data) {
                 var value =data.value;
+                if(value=='none'){
+                    $('.tishi').css('display', 'block')
+                }
                 var list =value.list;
                 var thead =value.thead;
-                $('.site_cont').append("<dl><div class='stext'><dt id='now'>当前地址：</dt><span><dd id='nowAdd' class='fl'>"+thead.tadd+"（"+thead.tname+"　收)　"+thead.tphone+"</span></dd><div class='simg fr'><a id='adds'><img src='/static/images/444.png'></a><a id='adda'><input type='hidden' class='hid' value="+thead.tid+"><img src='/static/images/111.png'></a><a id='addj'><img src='/static/images/222.png'></a><a id='addjian'><img src='/static/images/333.png'></a></div></div></dl>");
+                $('.site_cont').append("<dl><div class='stext'><dt id='now'>当前地址：</dt><span><dd id='nowAdd' class='fl'>"+thead.tadd+"（"+thead.tname+"　收)　"+thead.tphone+"</span></dd><div class='simg fr'><a id='adds'><input type='hidden' class='hid' value="+thead.tid+"><img src='/static/images/444.png'></a><a id='adda'><input type='hidden' class='hid' value="+thead.tid+"><img src='/static/images/111.png'></a><a id='addj'><img src='/static/images/222.png'></a><a id='addjian'><input type='hidden' class='hid' value="+thead.tid+"><img src='/static/images/333.png'></a></div></div></dl>");
                 $.each(list,function (i,n) {//n-->{id:**,title:***}
-                    $('.site_cont').append("<dl><div class='stextt'><span><dd id='noAdd' class='fl'>"+n.tadd+"（"+n.tname+"　收)　"+n.tphone+"</span></dd><div class='simg fr'><a id='adds'><img src='/static/images/444.png'></a><a id='adda'><input type='hidden' class='hid' value="+n.tid+"><img src='/static/images/555.png'></a><a id='addj'><img src='/static/images/222.png'></a><a id='addjian'><img src='/static/images/333.png'></a></div></div></dl>");
+                    $('.site_cont').append("<dl><div class='stextt'><span><dd id='noAdd' class='fl'>"+n.tadd+"（"+n.tname+"　收)　"+n.tphone+"</span></dd><div class='simg fr'><a id='adds'><input type='hidden' class='hid' value="+n.tid+"><img src='/static/images/444.png'></a><a id='adda'><input type='hidden' class='hid' value="+n.tid+"><img src='/static/images/555.png'></a><a id='addj'><img src='/static/images/222.png'></a><a id='addjian'><input type='hidden' class='hid' value="+n.tid+"><img src='/static/images/333.png'></a></div></div></dl>");
                 });
             });
             };
@@ -22,21 +39,35 @@
             function clear() {
                 $('.sendname').val('');
                 $('.site_area').val('');
-                $('.iphone').val('')
+                $('.iphone').val('');
+                $('.hidden').val('');
             };
-            var name ='';
+
             $('.info_submit').click(function () {
                 var sendname =$('.sendname').val();
                 var site_area =$('.site_area').val();
                 var iphone =$('.iphone').val();
-                $.post('/User/sendAddr/',{'sendname':sendname,'site_area':site_area,'iphone':iphone,'name':name},function (data) {
-                    if(data.type){
-                        clear();
-                        $('.site_con').css('display','none');
-                        $('.site_cont').html('');
-                        f5();
-                    };
-                });
+                var aid =$('.hidden').val();
+                if(aid ==''){
+                    var name =$.cookie('uname')
+                    $.post('/User/sendAddr/',{'sendname':sendname,'site_area':site_area,'iphone':iphone,'name':name},function (data) {
+                        if(data.type){
+                            clear();
+                            $('.site_con').css('display','none');
+                            $('.tishi').css('display', 'none');
+                            f5();
+                        };
+                    });
+                }else {
+                    $.post('/User/uptoAddr/',{'sendname':sendname,'site_area':site_area,'iphone':iphone, 'aid':aid},function (data) {
+                        if(data.type){
+                            clear();
+                            $('.site_con').css('display','none');
+                            f5();
+                        };
+                    });
+                }
+                $('.tishi').hide();
             });
             $('.x').click(function () {
                 $('.site_con').css('display','none');
@@ -45,14 +76,19 @@
 
             // 设置
             $('.right_content').delegate("#adds", "click", function () {
-                $('.site_con').css('display','block');
+                $.get('/User/updateAdd/',{'id':$(this).find('.hid').val()},function (data) {
+                    $('.site_con').css('display','block');
+                    $('.sendname').val(data.name);
+                    $('.site_area').val(data.addr);
+                    $('.iphone').val(data.phone);
+                    $('.hidden').val(data.aid)
+                });
 
             });
             // 设为Now收货地址
             $('.right_content').delegate("#adda", "click", function (){
                 $.get('/User/upAdd/',{'id':$(this).find('.hid').val()},function (data) {
                     if(data.ok){
-                        $('.site_cont').html('');
                         f5();
                     }
                 });
@@ -65,12 +101,20 @@
             });
             // 删除
             $('.right_content').delegate("#addjian", "click", function () {
-
+                $.get('/User/delAdd/',{'id':$(this).find('.hid').val()},function (data) {
+                    if(data.ok){
+                        f5();
+                    }
+                });
             });
 
+            $('.tishi').click(function () {
+                $('.site_con').css('display','block');
+            })
 
         });
         </script>
+
     {% endblock head %}
 {% block body %}
 
@@ -95,14 +139,16 @@
 		</div>
 		<div class="right_content clearfix">
 				<h3 class="common_title2">收货地址</h3>
+                <input type="button" class="tishi" value="新 增 地 址">
 				<div class="site_cont">
 
 				</div>
 
 				<div class="site_con">
-                    <h3 class="common_title2">&emsp;&emsp;编辑地址</h3>
+                    <h3 class="common_title2">&emsp;编辑地址</h3>
                     <img src="/static/images/x.png" class="x fr">
 					<form>
+                        <input type="hidden" class="hidden" value="">
 						<div class="form_group">
 							<label>收件人：</label>
 							<input type="text" class="sendname">
