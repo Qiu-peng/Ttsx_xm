@@ -25,6 +25,8 @@ def toLogin(request):
             if the_user[0].isActive:  # 判断是否激活
                 upwd = the_user[0].userPsw
                 url = request.session.get('url_path', '/')
+                if '/User/reset_show' in url:
+                    url = '/'
                 response = JsonResponse({'pwd': upwd, 'url': url})
                 response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
                 # 记录登录状态
