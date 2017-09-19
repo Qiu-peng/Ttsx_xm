@@ -273,7 +273,6 @@ def sendAddr(request):
     user = UserInfo.users.filter(userName=name)
     uid = user[0].id
     theadd= UserAddressInfo.address.filter(uNow=True,user_id=uid);
-    print(theadd)
     if len(theadd)==0:
         userAdd = UserAddressInfo.address.create(sendname, addr, iphone, 1, uid)
         userAdd.save()
