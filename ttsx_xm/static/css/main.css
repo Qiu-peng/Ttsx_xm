@@ -780,6 +780,7 @@ label{
 	color: #404040;
 	z-index: 999;
 }
+
 .add_btn{
 	width: 200px;
 	height:30px;
@@ -834,7 +835,7 @@ appearance:none;
 
 .forget_text{
 	width: 400px;
-	height: 200px;
+	height: 100px;
 	margin: auto;
 	margin-top: 50px;
 }
