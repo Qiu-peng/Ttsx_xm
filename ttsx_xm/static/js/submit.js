@@ -9,11 +9,11 @@ $(function () {
     var statuscode = $('#status').val();
     // 商品id
     var gid = parseInt($('#gid').val());
-    var timeleft = 100;
+    var timeleft = 15;
 
     function timing(path) {
         //改变显示的时间值
-        $('#count').html(timeleft);
+        $('#count').html();
         //时间值减1
         timeleft--;
         //当时间值为0时，跳转
@@ -22,15 +22,18 @@ $(function () {
             location.href = path;
         }
     }
-    // 回到首页 或者回到订单中心
+    // 回到首页
     if (statuscode == '1') {
+        $('#count').next().text('');
+        var total = $('.buy h3 span').text();
+        var url = '/Order/pay?pay='+total;
         $('.popup_con').show(function () {
 
             $('.popup h4 a').prop('href','/');
-            timing('/');
+            timing(url);
             // 每一秒执行一次函数
             setInterval(function () {
-                timing('/');
+                timing(url);
             }, 1000);
 
         });

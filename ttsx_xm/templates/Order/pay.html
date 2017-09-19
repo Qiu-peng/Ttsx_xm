@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收款成功</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            var timeleft = 3;
+
+            function timing(path) {
+                //改变显示的时间值
+                $('#count').html(timeleft);
+                //时间值减1
+                timeleft--;
+                //当时间值为0时，跳转
+                // console.log(path);
+                if (timeleft < 1) {
+                    location.href = path;
+                }
+            }
+
+            $('.popup').css({'height': '200'});
+            $('.popup_con').show(function () {
+
+                $('.popup h4 a').prop('href', '/');
+                timing('/');
+                // 每一秒执行一次函数
+                setInterval(function () {
+                    timing('/');
+                }, 1000);
+
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<div class="popup_con">
+    <input type="hidden" id="status" value={{ status }}>
+    <input type="hidden" id="gid" value={{ gid }}>
+    <div class="popup">
+        <p>付款成功</p>
+        <div class="buy">
+            <h3>总金额：{{ pay }}元</h3>
+
+        </div>
+        <h4><span id="count"></span>秒后自动跳转 <a href="">点此处直接跳转</a></h4>
+    </div>
+
+    <div class="mask"></div>
+</div>
+</body>
+</html>
