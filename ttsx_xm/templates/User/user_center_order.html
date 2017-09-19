@@ -26,44 +26,68 @@
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<h3 class="common_title2">全部订单</h3>
+            <h3 class="common_title2">全部订单</h3>
             {% for item in list %}
-				<ul class="order_list_th w978 clearfix">
-					<li class="col01">{{ item.order.odate }}</li>
-					<li class="col02">{{ item.order.oid }}</li>
-					<li class="col02 stress">{{ item.order.oIsPay }}</li>
-				</ul>
+            <ul class="order_list_th w978 clearfix">
+                <li class="col01">{{ item.order.odate }}</li>
+                <li class="col02">{{ item.order.oid }}</li>
+                <li class="col02 stress">{{ item.order.oIsPay }}</li>
+            </ul>
 
-				<table class="order_list_table w980">
-					<tbody>
-						<tr>
-							<td width="55%">
-                            {% for it in item.the_list %}
-								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="/static/media/{{ it.goods.gpic }}"></li>
-									<li class="col02">{{ it.goods.gtitle }}<em>{{ it.goods.gunit }}</em></li>
-									<li class="col03">{{ it.detail.count }}</li>
-									<li class="col04">{{ it.detail.price }}</li>
-								</ul>
-                            {% endfor %}
-							</td>
+            <table class="order_list_table w980">
+                <tbody>
+                    <tr>
+                        <td width="55%">
+                        {% for it in item.the_list %}
+                            <ul class="order_goods_list clearfix">
+                                <li class="col01"><img src="/static/media/{{ it.goods.gpic }}"></li>
+                                <li class="col02">{{ it.goods.gtitle }}<em>{{ it.goods.gunit }}</em></li>
+                                <li class="col03">{{ it.detail.count }}</li>
+                                <li class="col04">{{ it.detail.price }}</li>
+                            </ul>
+                        {% endfor %}
+                        </td>
 
-							<td width="15%">{{ item.order.ototal }}</td>
-							<td width="15%">{{ item.order.oIsPay }}付款</td>
-							<td width="15%"><a href="#" class="oper_btn">去付款</a></td>
-						</tr>
-					</tbody>
-				</table>
-				{% endfor %}
-				<div class="pagenation">
-					<a href="#">上一页</a>
+                        <td width="15%">{{ item.order.ototal }}</td>
+                        <td width="15%">{{ item.order.oIsPay }}付款</td>
+                        <td width="15%"><a href="#" class="oper_btn">去付款</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+
+            <div class="pagenation">
+                {% if page.has_previous %}
+                <a href="/User/user_order_1/">首页</a>
+				<a href="/User/user_order_{{ page.number|add:-1 }}/">上一页</a>
+                {% endif %}
+
+            {% for i in page.paginator.page_range %}
+                {% if i == page.number %}
+				<a href="#" class="active">{{ i }}</a>
+                {% else %}
+				<a href="/User/user_order_{{ i }}/">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+                {% if page.has_next %}
+                <a href="/User/user_order_{{ page.number|add:1 }}/">下一页</a>
+				<a href="/User/user_order_{{ page.paginator.num_pages }}/">末页</a>
+                {% endif %}
+			</div>
+
+
+{#				<div class="pagenation">#}
+{#					<a href="#">上一页</a>#}
 {#					<a href="#" class="active">1</a>#}
 {#					<a href="#">2</a>#}
 {#					<a href="#">3</a>#}
 {#					<a href="#">4</a>#}
 {#					<a href="#">5</a>#}
-					<a href="#">下一页></a>
-				</div>
+{#					<a href="#">下一页></a>#}
+{#				</div>#}
+
+
 		</div>
 	</div>
 
