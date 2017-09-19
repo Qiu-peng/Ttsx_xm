@@ -11,13 +11,13 @@ def cart(request):
     # uid = request.session['user_id']
     # 查询uid的用户的全部购物车的商品
     carts = CartInfo.objects.filter(user_id = 1)
-    context= {'carts':carts}
+    context= {'carts':carts,'title':'购物车'}
     return render(request,'Cart/cart.html',context)
 
 
 # 给购物车添加商品
 def add(request):
-    uid = request.session['user_id']
+    uid = request.session['uid']
     dict=request.GET
     gs_count=dict.get('count')
     gs_id=dict.get('goodsid')
@@ -34,7 +34,7 @@ def add(request):
         cart.goods_id=gs_id
         cart.count=gs_count
     cart.save()
-    count = CartInfo.objects.filter(user_id=request.session['user_id']).count
+    count = CartInfo.objects.filter(user_id=request.session['uid']).count()
     return JsonResponse({'count': count})
 
 
