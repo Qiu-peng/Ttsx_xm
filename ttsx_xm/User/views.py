@@ -25,7 +25,7 @@ def toLogin(request):
             if the_user[0].isActive:  # 判断是否激活
                 upwd = the_user[0].userPsw
                 url = request.session.get('url_path', '/')
-                if '/User/reset_show' in url:
+                if ('/User/reset_show' in url) or ('/User/send' in url):
                     url = '/'
                 response = JsonResponse({'pwd': upwd, 'url': url})
                 response.set_cookie('uname', uname, expires=7 * 24 * 60 * 60)  # 7天后过期
@@ -257,8 +257,8 @@ def send(request, uid):
     time.sleep(3)  # 延迟3s发送邮件,让用户看见未激活提示
     # 任务加入celery中
     task.send.delay(uid, uemail)
-    return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
-
+    # return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
+    return render(request, 'User/font-demo.html')
 
 # 激活用户
 def active(request, uid):
@@ -362,7 +362,7 @@ def reset_send(request):
 
     # 任务加入celery中
     task.send_reset.delay(uid, uemail)
-    return HttpResponse('重置密码邮件已发送至注册时的邮箱,请移步邮箱重置密码!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
+    return HttpResponse('<br/><h2>&nbsp;&nbsp;&nbsp;&nbsp;重置密码邮件已发送至注册时的邮箱,请移步邮箱重置密码!</h2><br/><br/><h2><a href="https://mail.qq.com/">&nbsp;&nbsp;&nbsp;&nbsp;点击登录qq邮箱</a></h2>')
 
 
 # 新密码填写页面
@@ -384,5 +384,5 @@ def reset_pwd(request):
     reset_user = UserInfo.users.get(userName=name)
     reset_user.userPsw = newpsw_sh1
     reset_user.save()
-    return HttpResponse('用户密码已重置, <a href="/User/login/">点击登录</a>')
+    return HttpResponse('<br/><br/><h2>用户密码已重置, <a href="/User/login/">点击登录</a></h2>')
 
