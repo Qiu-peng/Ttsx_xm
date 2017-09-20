@@ -1,0 +1,738 @@
+
+/*@import "https://fonts.googleapis.com/css?family=Baloo+Chettan|Gloria+Hallelujah";*/
+/* malayalam */
+@font-face {
+  font-family: 'Baloo Chettan';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Baloo Chettan Regular'), local('BalooChettan-Regular'), url(../family/1ODsFofLybGVOJ90e_EwdFSUkuZV-bl-lGON5owOSSuY.woff2) format('woff2');
+  unicode-range: U+0307, U+0323, U+0964-0965, U+0D02-0D7F, U+200B-200D, U+20B9, U+25CC;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Baloo Chettan';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Baloo Chettan Regular'), local('BalooChettan-Regular'), url(../family/2ODsFofLybGVOJ90e_EwdFezsp63q1uOGbd03Z6MLOGY.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Baloo Chettan';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Baloo Chettan Regular'), local('BalooChettan-Regular'), url(../family/3ODsFofLybGVOJ90e_EwdFYWJ_68QkJGit4N52Kif7Do.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Baloo Chettan';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Baloo Chettan Regular'), local('BalooChettan-Regular'), url(../family/4ODsFofLybGVOJ90e_EwdFSPOCIAftl0JjyAbK_MREh4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+/* latin */
+@font-face {
+  font-family: 'Gloria Hallelujah';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Gloria Hallelujah'), local('GloriaHallelujah'), url(../family/5CA1k7SlXcY5kvI81M_R28cNDay8z-hHR7F16xrcXsJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+/*主字体最大div位置*/
+html, body, .anim-wrap {
+
+  width: 100%;
+  /*高度稍微向下*/
+  height: 85%;
+
+  margin: 0;
+
+}
+/*副字体最大div样式*/
+body, .anim-wrap1 {
+  
+  position: absolute;
+  
+  width: 100%;
+  /*高度向下一点*/
+  height: 110%;
+
+  /*margin-top: 0;*/
+
+}
+
+body, .anim-wrap2 {
+
+  position: absolute;
+  
+  width: 100%;
+  /*高度向下一点*/
+  height: 100%;
+
+  /*margin-top: 0;*/
+  background-color: #ffffff;
+
+}
+
+body {
+
+  background-color: #235626;
+  /*font-family: Helvetica Neueu, HelveticaNeueu, Helvetica, Arial, sans-serif;*/
+  /*font-family:'HappyZcool-2016d28e016b21a600';*/
+
+  overflow: hidden;
+
+}
+
+/*主文字样式*/
+body .anim-wrap span{
+
+  /*改变原有字体为在线连接字体，原有字体不支持中文特效*/
+  font-family:'HappyZcool-2016d28e016b21a600';
+
+}
+body .anim-wrap1 span{
+  font-family: 'woziku-mmxysmd29e6fe781a600';
+}
+
+body .anim-wrap2 span{
+  font-family:'HappyZcool-2016d3090af681a600';
+}
+
+/*主文字div外层样式*/
+.anim-wrap, .anim-wrap1, .anim-wrap2{
+
+  position: absolute;
+
+  overflow: hidden;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
+/*span标签换行后会导致出现间隙。所以所有主文字左浮，*/
+.anim-wrap, .anim-wrap1, .anim-wrap2 span{
+  float: left;
+}
+
+.anim-text {
+  /*position: absolute;*/
+
+  font: 4em "Baloo Chettan", Helvetica Neueu, HelveticaNeueu, Helvetica, Arial;
+
+  white-space: nowrap;
+
+  min-width: 1em;
+
+  min-height: 1.2em;
+
+  border-bottom: 1px solid transparent;
+
+  caret-color: #f20dcc;
+
+}
+.anim-text1 {
+  /*position: absolute;*/
+
+  font: 2.5em "Baloo Chettan", Helvetica Neueu, HelveticaNeueu, Helvetica, Arial;
+
+  white-space: nowrap;
+
+  min-width: 1em;
+
+  min-height: 1.2em;
+
+  border-bottom: 1px solid transparent;
+
+  caret-color: #f20dcc;
+
+}
+.anim-text2 {
+  /*position: absolute;*/
+
+  font: 5em "Baloo Chettan", Helvetica Neueu, HelveticaNeueu, Helvetica, Arial;
+
+  white-space: nowrap;
+
+  min-width: 1em;
+
+  min-height: 1.2em;
+
+  line-height: 150px;
+
+  border-bottom: 1px solid transparent;
+
+  caret-color: #f20dcc;
+
+}
+
+
+.anim-text:empty, .anim-text:focus {
+
+  border-bottom-color: #f20dcc;
+
+  outline: none;
+
+}
+
+
+.char {
+
+  position: relative;
+
+  margin: 0 .05em;
+
+}
+
+
+
+.char,.letter-inner {
+
+  display: inline-block;
+
+}
+
+
+
+.anim[data-effect=slide] > .letter {
+
+  animation: slide 1s backwards;
+
+  transform-origin: bottom left;
+
+}
+
+@keyframes slide {
+
+  0% {
+
+    transform: translateX(90vw) skew(-17deg) scaleX(0);
+
+    animation-timing-function: ease-in;
+
+  }
+
+  80% {
+
+    transform: translateX(0) skew(-17deg) scaleX(3);
+
+    animation-timing-function: ease-out;
+
+  }
+
+  88% {
+
+    transform: translateX(0) skew(12deg) scaleX(0.8);
+
+    animation-timing-function: ease-in-out;
+
+  }
+
+  95% {
+
+    transform: translateX(0) skew(-5deg) scaleX(1);
+
+    animation-timing-function: ease-in-out;
+
+  }
+
+  100% {
+
+    transform: translateX(0) skew(0deg) scaleX(1);
+
+    animation-timing-function: ease-in-out;
+
+  }
+
+}
+
+@keyframes slideIn {
+
+  from {
+    /*屏幕外侧起始位置，可被其他所有特效调用*/
+    transform: translateX(70vw);
+
+  }
+
+}
+
+
+
+.anim[data-effect=hop] > .letter {
+
+  /*从屏幕外飞入的速度*/
+  animation: slideIn 2s linear backwards;
+
+}
+
+.anim[data-effect=hop] > .letter > .letter-inner {
+
+/*跳跃频率和跳跃总次数*/
+  animation: hop .1s 140 alternate;
+
+}
+
+@keyframes hop {
+
+  to {
+    
+    transform: translateY(-0.6em);
+
+  }
+
+}
+
+/*螺旋效果*/
+.anim[data-effect=spiral] > .letter {
+
+  animation: spiral 3s ease-in both;
+
+}
+
+@keyframes spiral {
+
+  from {
+
+    transform: rotate(720deg) translateY(-60vmax);
+
+
+  }
+
+}
+
+
+/*缓慢上浮效果*/
+.anim[data-effect=float] > .letter {
+
+  animation: float 18s ease-in-out backwards;
+
+}
+
+.anim[data-effect=float] > .letter > .letter-inner {
+
+  animation: float-perpetual ease-in-out 10s 18s infinite alternate;
+
+}
+
+@keyframes float {
+
+  0% {
+
+    transform: translateY(60vh);
+
+  }
+
+  33% {
+
+    transform: translateY(-8vh);
+
+  }
+
+  51% {
+
+    transform: translateY(6vh);
+
+  }
+
+  66% {
+
+    transform: translateY(-4vh);
+
+  }
+
+  80% {
+
+    transform: translateY(3vh);
+
+  }
+
+  91% {
+
+    transform: translateY(-1.3vh);
+
+  }
+
+  100% {
+
+    transform: none;
+
+  }
+
+}
+/*保持上浮效果一直动*/
+@keyframes float-perpetual {
+
+  0% {
+
+    transform: translateY(0);
+
+  }
+
+  37% {
+
+    transform: translateY(-1.5vh);
+
+  }
+
+  58% {
+
+    transform: translateY(1.3vh);
+
+  }
+
+  81% {
+
+    transform: translateY(-1vh);
+
+  }
+
+  100% {
+
+    transform: translateY(0.8vh);
+
+  }
+
+}
+
+.anim[data-effect=swivel] > .letter:not(.space)::before {
+
+  background: currentColor;
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 0;
+
+  opacity: .2;
+
+}
+
+.anim[data-effect=swivel] {
+
+  perspective: 100vmax;
+
+  perspective-origin: top;
+
+}
+
+.anim[data-effect=swivel] > .letter {
+
+  padding: 0 .1em;
+
+  animation: swivel 5s backwards;
+
+  transform-origin: top;
+
+}
+
+@keyframes swivel {
+
+  0% {
+
+    transform: rotateX(-90deg);
+
+  }
+
+  10% {
+
+    transform: rotateX(82deg);
+
+  }
+
+  20% {
+
+    transform: rotateX(-74deg);
+
+  }
+
+  30% {
+
+    transform: rotateX(66deg);
+
+  }
+
+  39% {
+
+    transform: rotateX(-58deg);
+
+  }
+
+  48% {
+
+    transform: rotateX(50deg);
+
+  }
+
+  56% {
+
+    transform: rotateX(-42deg);
+
+  }
+
+  63% {
+
+    transform: rotateX(35deg);
+
+  }
+
+  70% {
+
+    transform: rotateX(-28deg);
+
+  }
+
+  77% {
+
+    transform: rotateX(21deg);
+
+  }
+
+  83% {
+
+    transform: rotateX(-15deg);
+
+  }
+
+  89% {
+
+    transform: rotateX(9deg);
+
+  }
+
+  95% {
+
+    transform: rotateX(-4deg);
+
+  }
+
+  100% {
+
+    transform: none;
+
+  }
+
+}
+
+/*最下面字样式*/
+.alert {
+
+  position: absolute;
+
+  bottom: -1.6em;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  padding: .4em 1em 2em;
+
+  background: #f20dcc;
+
+  color: #fff0fc;
+
+  animation: 2s 40s peep-in both ease-in-out;
+
+  border-radius: 5px;
+
+  box-shadow: 0 -1px 6px 1px rgba(242, 13, 204, 0.3);
+
+}
+
+
+
+/*底部文字显示*/
+.dismiss {
+
+  border: none;
+
+  background: #ff70e7;
+
+  color: white;
+
+  padding: .2em .5em;
+
+  cursor: pointer;
+
+  margin-left: .2em;
+
+}
+
+
+/*粉色字样式*/
+.tip {
+  /*向上移动文字*/
+  margin-top: -100px;
+
+  position: absolute;
+
+  top:100px;
+
+  color: #f20dcc;
+
+  animation: show-tip .5s 15s ease-in both;
+
+  font-size: 1.8rem;
+
+  /*font-family: "Gloria Hallelujah", cursive;*/
+  /*改变原有字体，现在使用外链方式*/
+  font-family:'NaiYoud28d51e781a600';
+
+}
+/*粉字体先隐藏*/
+@keyframes show-tip {
+
+  from {
+
+    visibility: hidden;
+
+    opacity: 0;
+
+  }
+
+}
+
+.tip .text {
+
+  text-shadow: -1px 2px 4px rgba(51, 0, 43, 0.2);
+
+}
+
+.tip strong {
+
+  font-weight: normal;
+
+}
+
+.tip svg {
+
+  width: 110px;
+
+  height: auto;
+
+  -webkit-filter: drop-shadow(-1px 3px 5px rgba(51, 0, 43, 0.3));
+
+  filter: drop-shadow(-1px 3px 5px rgba(51, 0, 43, 0.3));
+
+  animation: show-tip .5s 15.1s ease-in both;
+
+}
+
+.tip svg path {
+
+  fill: #f20dcc;
+
+}
+
+@keyframes show-tip-arrow {
+
+  0% {
+
+    visibility: hidden;
+
+    opacity: 0;
+
+    transform: scale(0);
+
+  }
+
+  85% {
+
+    visibility: visible;
+
+    opacity: 1;
+
+    transform: scale(1.2);
+
+  }
+
+  100% {
+
+    visibility: visible;
+
+    opacity: 1;
+
+    transform: none;
+
+  }
+
+}
+/*垃圾信息20秒后出现*/
+.tip-effect {
+  /*我自己关闭了他的出现*/
+  display: none;
+  left: -120px;
+
+  top: .5em;
+
+  animation-delay: 20s;
+
+}
+
+.tip-effect .text {
+
+  width: 110px;
+
+  display: flex;
+
+  justify-content: center;
+
+  white-space: nowrap;
+
+  margin-left: -40px;
+
+}
+
+.tip-effect svg {
+  
+  animation-delay: 20.1s;
+
+}
+
+
+
+.tip-type {
+
+  display: flex;
+
+  left: 50%;
+
+  top: calc(50% - 6rem);
+
+  transform: translateX(-50%);
+  /*粉色字出生时间*/
+  animation-delay: 2s;
+
+}
+
+.tip-type svg {
+  /*粉色箭头出生时间，为了效果要稍晚于粉色字*/
+  animation-delay: 2.4s;
+
+  width: 40px;
+
+  height: 40px;
+
+  margin-top: .8em;
+
+  margin-left: 20px;
+
+  transform: rotate(-9deg);
+
+  -webkit-filter: drop-shadow(0px 1px 3px rgba(51, 0, 43, 0.3));
+
+  filter: drop-shadow(0px 1px 3px rgba(51, 0, 43, 0.3));
+
+}

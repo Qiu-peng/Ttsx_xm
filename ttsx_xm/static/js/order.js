@@ -69,10 +69,10 @@ $(function () {
     // console.log(total_pay);
 
     // 拼接总金额，加‘元’
-    var total = total_money + '元';
+    var total = total_money.toFixed(2) + '元';
 
     // 拼接实付款，加‘元’
-    var pay = total_pay + '元';
+    var pay = total_pay.toFixed(2) + '元';
 
     // 修改商品数量
     $('.total_goods_count em').html(num);

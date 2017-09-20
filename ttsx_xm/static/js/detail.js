@@ -39,13 +39,20 @@ $(function () {
                         $('.goods_count').text(data.count);
                 });
             }
+
 // {#            购物车点击事件#}
             $(".add_cart").click(function () {
 // {#            get请求向/Cart/add传商品id和数量，获取购物车商品数量#}
                 var counts=$('.num_show').val();
                 var goods_id=$('.operate_btn').attr('id');
                 $.get('/Cart/add/',{'count':counts,'goodsid':goods_id},function (data) {
-                    move(data);
+
+                    if(data.ok==1){
+                        move(data);
+                    }else {
+                        location.href='/User/login'
+                    }
+
                 });
             });
 
