@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'Cart/base.html' %}
 
     {% block title %}
 	    <title>天天生鲜-购物车</title>
@@ -131,14 +131,8 @@
         </script>
     {% endblock head %}
 {% block body %}
-	<div class="search_bar clearfix">
-		<a href="/Goods/" class="logo fl"><img src="/static/images/logo.png"></a>
-		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
-		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>		
-	</div>
+    {{block.super}}
+
 
 	<div class="total_count ">全部商品<em class="totals"></em>件</div>
 	<ul class="cart_list_th clearfix">
