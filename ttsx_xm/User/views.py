@@ -91,6 +91,7 @@ def regist(request):
     # return HttpResponse('激活邮件已发送,请移步邮箱激活!<br/><br/><a href="https://mail.qq.com/">点击登录qq邮箱</a>')
     return render(request, 'User/font-demo.html')
 
+
 # 判断注册用户的用户名是否存在,存在就不存入不注册
 def ishere(request):
     uname = request.GET.get('name')
@@ -125,8 +126,8 @@ def remember(request):
 # 清空session
 def clearSession(request):
     llen = request.session.get('repwd')
-    if llen!= None:
-        request.session.flush()
+    if llen != None:
+        del request.session['repwd']
         flag = 0
     else:
         flag = 1
