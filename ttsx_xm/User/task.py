@@ -14,3 +14,6 @@ def send_reset(uid, uemail):
     # 密码重置邮件
     msg = '<br/><a href="http://127.0.0.1:8000/User/reset_show%s/">点击重置密码</a>' % uid
     send_mail('天天生鲜用户重置密码', '', settings.EMAIL_FROM, [uemail], html_message=msg)
+
+
+
