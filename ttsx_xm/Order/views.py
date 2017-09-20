@@ -103,7 +103,7 @@ def handle_order(request):
         gcount = int(gcount)
         if goods.gkucun >= gcount:
             # 保存总金额
-            order.ototal = gcount * goods.gprice
+            order.ototal = gcount * goods.gprice+10
             order.save()
             # 减少库存量
             goods.gkucun -= gcount
@@ -157,6 +157,8 @@ def handle_order(request):
                 isOK = False
                 break
         if isOK:
+            orders.ototal= orders.ototal+ 10
+            orders.save()
             # 提交事务
             transaction.savepoint_commit(trans_id)
             total = orders.ototal
